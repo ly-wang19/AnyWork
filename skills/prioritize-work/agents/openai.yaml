@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prioritize Work"
+  short_description: "Rank work by value, effort, risk, and dependencies"
+  default_prompt: "Use $prioritize-work to rank these requests and explain what should wait."

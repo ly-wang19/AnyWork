@@ -1,0 +1,751 @@
+{
+  "schema_version": 1,
+  "id": "anywork-official",
+  "version": "0.1.0",
+  "languages": [
+    "en",
+    "zh-CN",
+    "ja"
+  ],
+  "agents": [
+    "codex",
+    "claude-code"
+  ],
+  "skills": [
+    {
+      "id": "clarify-outcome",
+      "path": "skills/clarify-outcome",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "frame",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "plan-work",
+      "path": "skills/plan-work",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "frame",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "gather-sources",
+      "path": "skills/gather-sources",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "evidence",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "medium",
+      "side_effects": [
+        "read",
+        "network",
+        "local-write"
+      ]
+    },
+    {
+      "id": "verify-claims",
+      "path": "skills/verify-claims",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "evidence",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "medium",
+      "side_effects": [
+        "read",
+        "network",
+        "local-write"
+      ]
+    },
+    {
+      "id": "synthesize-sources",
+      "path": "skills/synthesize-sources",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "evidence",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "extract-structured-info",
+      "path": "skills/extract-structured-info",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "evidence",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "analyze-data",
+      "path": "skills/analyze-data",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "analyze",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "diagnose-root-cause",
+      "path": "skills/diagnose-root-cause",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "analyze",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "model-scenarios",
+      "path": "skills/model-scenarios",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "analyze",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "compare-options",
+      "path": "skills/compare-options",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "decide",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "make-decision",
+      "path": "skills/make-decision",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "decide",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "prioritize-work",
+      "path": "skills/prioritize-work",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "decide",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "write-brief",
+      "path": "skills/write-brief",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "produce",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "draft-document",
+      "path": "skills/draft-document",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "produce",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "build-spreadsheet",
+      "path": "skills/build-spreadsheet",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "produce",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "design-presentation",
+      "path": "skills/design-presentation",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "produce",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "write-message",
+      "path": "skills/write-message",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "produce",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "medium",
+      "side_effects": [
+        "read",
+        "local-write",
+        "external-write-with-approval"
+      ]
+    },
+    {
+      "id": "localize-content",
+      "path": "skills/localize-content",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "produce",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "prepare-meeting",
+      "path": "skills/prepare-meeting",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "coordinate",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "capture-decisions-actions",
+      "path": "skills/capture-decisions-actions",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "coordinate",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "create-sop",
+      "path": "skills/create-sop",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "systemize",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "automate-routine",
+      "path": "skills/automate-routine",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "systemize",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "high",
+      "side_effects": [
+        "read",
+        "local-write",
+        "commands-with-approval",
+        "external-write-with-approval"
+      ]
+    },
+    {
+      "id": "review-deliverable",
+      "path": "skills/review-deliverable",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "improve",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    },
+    {
+      "id": "run-retrospective",
+      "path": "skills/run-retrospective",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "improve",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "low",
+      "side_effects": [
+        "read",
+        "local-write"
+      ]
+    }
+  ],
+  "packs": [
+    {
+      "id": "essential",
+      "display_name": {
+        "en": "Essential Work",
+        "zh-CN": "通用工作核心包",
+        "ja": "必須ワーク"
+      },
+      "description": {
+        "en": "Core skills for defining, researching, writing, coordinating, and reviewing work.",
+        "zh-CN": "覆盖目标澄清、调研、写作、协同和审查的通用核心能力。",
+        "ja": "目的整理、調査、文章作成、協働、レビューの基本能力。"
+      },
+      "extends": [],
+      "skills": [
+        "clarify-outcome",
+        "plan-work",
+        "gather-sources",
+        "verify-claims",
+        "synthesize-sources",
+        "write-brief",
+        "write-message",
+        "capture-decisions-actions",
+        "review-deliverable"
+      ]
+    },
+    {
+      "id": "manager-leadership",
+      "display_name": {
+        "en": "Manager & Leadership",
+        "zh-CN": "管理者与领导力",
+        "ja": "マネジメント"
+      },
+      "description": {
+        "en": "Decision, prioritization, scenario, meeting, and retrospective capabilities.",
+        "zh-CN": "面向管理决策、排序、情景、会议和复盘。",
+        "ja": "意思決定、優先順位、シナリオ、会議、振り返り向け。"
+      },
+      "extends": [
+        "essential"
+      ],
+      "skills": [
+        "analyze-data",
+        "diagnose-root-cause",
+        "model-scenarios",
+        "compare-options",
+        "make-decision",
+        "prioritize-work",
+        "prepare-meeting",
+        "run-retrospective"
+      ]
+    },
+    {
+      "id": "product-operations",
+      "display_name": {
+        "en": "Product & Operations",
+        "zh-CN": "产品与运营",
+        "ja": "プロダクト・オペレーション"
+      },
+      "description": {
+        "en": "From ambiguous needs through prioritization, delivery systems, and improvement.",
+        "zh-CN": "从模糊需求到优先级、交付系统和持续改进。",
+        "ja": "曖昧なニーズから優先順位、運用設計、改善まで。"
+      },
+      "extends": [
+        "essential"
+      ],
+      "skills": [
+        "analyze-data",
+        "diagnose-root-cause",
+        "model-scenarios",
+        "compare-options",
+        "prioritize-work",
+        "draft-document",
+        "create-sop",
+        "automate-routine",
+        "run-retrospective"
+      ]
+    },
+    {
+      "id": "research-consulting",
+      "display_name": {
+        "en": "Research & Consulting",
+        "zh-CN": "研究与咨询",
+        "ja": "リサーチ・コンサルティング"
+      },
+      "description": {
+        "en": "Evidence-intensive research, analysis, recommendation, documents, and presentations.",
+        "zh-CN": "证据密集型调研、分析、建议、文档和汇报。",
+        "ja": "根拠重視の調査、分析、提案、文書、プレゼン。"
+      },
+      "extends": [
+        "essential"
+      ],
+      "skills": [
+        "extract-structured-info",
+        "analyze-data",
+        "compare-options",
+        "make-decision",
+        "draft-document",
+        "design-presentation",
+        "localize-content"
+      ]
+    },
+    {
+      "id": "go-to-market",
+      "display_name": {
+        "en": "Go to Market",
+        "zh-CN": "市场、销售与增长",
+        "ja": "市場投入・営業"
+      },
+      "description": {
+        "en": "Market evidence, customer decisions, content, communication, and execution systems.",
+        "zh-CN": "覆盖市场证据、客户决策、内容沟通和执行体系。",
+        "ja": "市場根拠、顧客判断、コンテンツ、コミュニケーション、実行体制。"
+      },
+      "extends": [
+        "essential"
+      ],
+      "skills": [
+        "analyze-data",
+        "model-scenarios",
+        "compare-options",
+        "make-decision",
+        "draft-document",
+        "design-presentation",
+        "localize-content",
+        "prepare-meeting",
+        "create-sop",
+        "automate-routine",
+        "run-retrospective"
+      ]
+    },
+    {
+      "id": "people-recruiting",
+      "display_name": {
+        "en": "People & Recruiting",
+        "zh-CN": "人力与招聘",
+        "ja": "人事・採用"
+      },
+      "description": {
+        "en": "Structured, fair, and auditable people and recruiting workflows.",
+        "zh-CN": "结构化、公平、可审计的人力与招聘工作能力。",
+        "ja": "構造化され、公平で監査可能な人事・採用ワークフロー。"
+      },
+      "extends": [
+        "essential"
+      ],
+      "skills": [
+        "extract-structured-info",
+        "analyze-data",
+        "diagnose-root-cause",
+        "compare-options",
+        "make-decision",
+        "draft-document",
+        "localize-content",
+        "prepare-meeting",
+        "create-sop",
+        "run-retrospective"
+      ]
+    },
+    {
+      "id": "complete",
+      "display_name": {
+        "en": "Complete AnyWork",
+        "zh-CN": "AnyWork 全能力包",
+        "ja": "AnyWork 完全版"
+      },
+      "description": {
+        "en": "Every official atomic work skill in this release.",
+        "zh-CN": "安装当前版本全部官方原子工作能力。",
+        "ja": "このリリースの公式アトミックワークスキルをすべて導入。"
+      },
+      "extends": [],
+      "skills": [
+        "clarify-outcome",
+        "plan-work",
+        "gather-sources",
+        "verify-claims",
+        "synthesize-sources",
+        "extract-structured-info",
+        "analyze-data",
+        "diagnose-root-cause",
+        "model-scenarios",
+        "compare-options",
+        "make-decision",
+        "prioritize-work",
+        "write-brief",
+        "draft-document",
+        "build-spreadsheet",
+        "design-presentation",
+        "write-message",
+        "localize-content",
+        "prepare-meeting",
+        "capture-decisions-actions",
+        "create-sop",
+        "automate-routine",
+        "review-deliverable",
+        "run-retrospective"
+      ]
+    }
+  ]
+}

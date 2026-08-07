@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "run_id": "2026-08-07-forward-smoke",
+  "purpose": "Independent forward smoke test of three representative atomic skills",
+  "environment": {
+    "host": "codex-subagent",
+    "cross_agent_claim": false,
+    "native_language_review_claim": false
+  },
+  "results": [
+    {
+      "skill": "clarify-outcome",
+      "language": "zh-CN",
+      "status": "pass",
+      "observations": [
+        "Recovered brand and sales outcomes into a reviewable task contract",
+        "Marked the assumed event format as reversible",
+        "Requested only three materially blocking inputs"
+      ]
+    },
+    {
+      "skill": "capture-decisions-actions",
+      "language": "zh-CN",
+      "status": "pass",
+      "observations": [
+        "Separated decisions from a rejected proposal",
+        "Did not infer an owner for sales training",
+        "Preserved source wording for decisions and actions"
+      ]
+    },
+    {
+      "skill": "compare-options",
+      "language": "ja",
+      "status": "pass",
+      "observations": [
+        "Applied security and deadline as mandatory gates",
+        "Represented the missing audit report as evidence uncertainty rather than proven failure",
+        "Explained why price did not overturn mandatory constraints"
+      ]
+    }
+  ],
+  "limitations": [
+    "This is a smoke test, not the stable-release 216-case multilingual benchmark.",
+    "Claude Code parity was not exercised in this run.",
+    "Native-language reviewers have not signed off this run."
+  ]
+}

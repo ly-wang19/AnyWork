@@ -1,0 +1,4 @@
+interface:
+  display_name: "Extract Structured Info"
+  short_description: "Extract facts into a validated schema"
+  default_prompt: "Use $extract-structured-info to extract cited facts into the requested schema."

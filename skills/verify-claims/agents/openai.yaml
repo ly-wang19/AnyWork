@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify Claims"
+  short_description: "Fact-check claims and grade their evidence"
+  default_prompt: "Use $verify-claims to check these claims and grade the supporting evidence."

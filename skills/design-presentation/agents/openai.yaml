@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Presentation"
+  short_description: "Turn evidence into a clear decision narrative"
+  default_prompt: "Use $design-presentation to create an executive-ready presentation."

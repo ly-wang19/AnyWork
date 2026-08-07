@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan Work"
+  short_description: "Build milestones, dependencies, and next actions"
+  default_prompt: "Use $plan-work to create an executable plan with dependencies and acceptance checks."

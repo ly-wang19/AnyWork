@@ -1,0 +1,4 @@
+interface:
+  display_name: "Synthesize Sources"
+  short_description: "Find consensus, conflicts, and unknowns"
+  default_prompt: "Use $synthesize-sources to combine these materials into traceable findings."

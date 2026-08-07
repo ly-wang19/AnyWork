@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anywork.dev/schemas/catalog.schema.json",
+  "title": "AnyWork catalog",
+  "type": "object",
+  "required": ["schema_version", "id", "version", "languages", "agents", "skills", "packs"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+    "version": {"type": "string"},
+    "languages": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"enum": ["en", "zh-CN", "ja"]},
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "agents": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"enum": ["codex", "claude-code"]}
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "path", "version", "maturity", "class", "languages", "license", "source", "risk", "side_effects"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 64},
+          "path": {"type": "string", "pattern": "^skills/[a-z0-9-]+$"},
+          "version": {"type": "string"},
+          "maturity": {"enum": ["experimental", "beta", "stable", "deprecated"]},
+          "class": {"enum": ["frame", "evidence", "analyze", "decide", "produce", "coordinate", "systemize", "improve"]},
+          "languages": {"type": "array", "items": {"enum": ["en", "zh-CN", "ja"]}, "minItems": 3, "maxItems": 3, "uniqueItems": true},
+          "license": {"type": "string"},
+          "source": {"type": "object"},
+          "risk": {"enum": ["low", "medium", "high"]},
+          "side_effects": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+        },
+        "additionalProperties": false
+      }
+    },
+    "packs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "display_name", "description", "extends", "skills"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+          "display_name": {"$ref": "#/$defs/localizedText"},
+          "description": {"$ref": "#/$defs/localizedText"},
+          "extends": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "skills": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$defs": {
+    "localizedText": {
+      "type": "object",
+      "required": ["en", "zh-CN", "ja"],
+      "properties": {
+        "en": {"type": "string", "minLength": 1},
+        "zh-CN": {"type": "string", "minLength": 1},
+        "ja": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

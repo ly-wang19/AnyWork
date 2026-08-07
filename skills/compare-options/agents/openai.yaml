@@ -1,0 +1,4 @@
+interface:
+  display_name: "Compare Options"
+  short_description: "Compare choices with consistent evidence"
+  default_prompt: "Use $compare-options to evaluate these options with transparent criteria."

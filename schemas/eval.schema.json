@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anywork.dev/schemas/eval.schema.json",
+  "title": "AnyWork multilingual evaluation suite",
+  "type": "object",
+  "required": ["schema_version", "languages", "cases"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "languages": {"const": ["en", "zh-CN", "ja"]},
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "skill", "difficulty", "prompts", "assertions", "rubric"],
+        "properties": {
+          "id": {"type": "string"},
+          "skill": {"type": "string"},
+          "difficulty": {"enum": ["basic", "ambiguous", "conflicting"]},
+          "prompts": {"$ref": "#/$defs/localizedText"},
+          "assertions": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "rubric": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "$defs": {
+    "localizedText": {
+      "type": "object",
+      "required": ["en", "zh-CN", "ja"],
+      "properties": {
+        "en": {"type": "string", "minLength": 1},
+        "zh-CN": {"type": "string", "minLength": 1},
+        "ja": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

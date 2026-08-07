@@ -1,0 +1,13 @@
+{
+  "id": "codex",
+  "version": 1,
+  "official_documentation": "https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills",
+  "targets": {
+    "user": "~/.agents/skills",
+    "project": ".agents/skills"
+  },
+  "skill_file": "SKILL.md",
+  "ui_metadata": "agents/openai.yaml",
+  "copy_mode": "directory",
+  "install_executes_skill_code": false
+}

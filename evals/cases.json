@@ -1,0 +1,538 @@
+{
+  "schema_version": 1,
+  "languages": [
+    "en",
+    "zh-CN",
+    "ja"
+  ],
+  "cases": [
+    {
+      "id": "clarify-outcome-basic-001",
+      "skill": "clarify-outcome",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Turn this vague request into an agreed deliverable with acceptance criteria.",
+        "zh-CN": "把这个模糊需求整理成可确认的交付目标和验收标准。",
+        "ja": "この曖昧な依頼を、確認可能な成果物と受入基準に整理して。"
+      },
+      "assertions": [
+        "acceptance-criteria",
+        "assumptions-separated",
+        "no-fabrication"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "plan-work-basic-001",
+      "skill": "plan-work",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Break this work into milestones, dependencies, and next actions.",
+        "zh-CN": "把这项工作拆成里程碑、依赖和下一步。",
+        "ja": "この仕事をマイルストーン、依存関係、次の行動に分解して。"
+      },
+      "assertions": [
+        "milestones",
+        "dependencies",
+        "verification"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "gather-sources-basic-001",
+      "skill": "gather-sources",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Research this question and build a reliable source set.",
+        "zh-CN": "围绕这个问题找可靠资料并建立来源清单。",
+        "ja": "この問いについて信頼できる資料を集め、情報源一覧を作って。"
+      },
+      "assertions": [
+        "primary-sources",
+        "source-ledger",
+        "gaps"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "verify-claims-basic-001",
+      "skill": "verify-claims",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Fact-check these claims and grade the evidence.",
+        "zh-CN": "核验这些说法并标出证据强弱。",
+        "ja": "これらの主張を検証し、根拠の強さを評価して。"
+      },
+      "assertions": [
+        "atomic-claims",
+        "verdicts",
+        "evidence"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "synthesize-sources-basic-001",
+      "skill": "synthesize-sources",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Synthesize these sources into consensus, conflicts, and unknowns.",
+        "zh-CN": "综合这些材料，指出共识、分歧和未知。",
+        "ja": "これらの資料を統合し、合意点、相違点、不明点を整理して。"
+      },
+      "assertions": [
+        "consensus",
+        "conflicts",
+        "traceability"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "extract-structured-info-basic-001",
+      "skill": "extract-structured-info",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Extract parties, amounts, dates, and obligations with citations.",
+        "zh-CN": "提取主体、金额、日期和义务，并保留出处。",
+        "ja": "当事者、金額、日付、義務を出典付きで抽出して。"
+      },
+      "assertions": [
+        "schema",
+        "field-provenance",
+        "nulls"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "analyze-data-basic-001",
+      "skill": "analyze-data",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Analyze this table, checking data quality before insights.",
+        "zh-CN": "先检查数据质量，再分析这张表。",
+        "ja": "洞察を出す前にデータ品質を確認し、この表を分析して。"
+      },
+      "assertions": [
+        "data-quality",
+        "reproducible-calculation",
+        "limitations"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "diagnose-root-cause-basic-001",
+      "skill": "diagnose-root-cause",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Diagnose the root cause before proposing fixes.",
+        "zh-CN": "不要急着给方案，先定位根因。",
+        "ja": "解決策を出す前に、まず根本原因を特定して。"
+      },
+      "assertions": [
+        "competing-hypotheses",
+        "tests",
+        "containment-separated"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "model-scenarios-basic-001",
+      "skill": "model-scenarios",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Build base, upside, and downside scenarios with sensitivity analysis.",
+        "zh-CN": "建立基准、乐观、悲观情景并做敏感性分析。",
+        "ja": "基準、上振れ、下振れのシナリオと感度分析を作って。"
+      },
+      "assertions": [
+        "assumptions",
+        "scenarios",
+        "sensitivity"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "compare-options-basic-001",
+      "skill": "compare-options",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Compare these vendors using consistent criteria.",
+        "zh-CN": "用一致标准比较这些供应商。",
+        "ja": "同じ基準でこれらのベンダーを比較して。"
+      },
+      "assertions": [
+        "consistent-criteria",
+        "evidence-matrix",
+        "sensitivity"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "make-decision-basic-001",
+      "skill": "make-decision",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Recommend a decision with trade-offs and decision conditions.",
+        "zh-CN": "给出建议、取舍和决策条件。",
+        "ja": "トレードオフと判断条件を含む意思決定案を出して。"
+      },
+      "assertions": [
+        "recommendation",
+        "tradeoffs",
+        "triggers"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "prioritize-work-basic-001",
+      "skill": "prioritize-work",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Prioritize these requests by value, effort, risk, and dependencies.",
+        "zh-CN": "按价值、成本、风险和依赖给这些需求排序。",
+        "ja": "価値、工数、リスク、依存関係で要望を優先順位付けして。"
+      },
+      "assertions": [
+        "transparent-method",
+        "dependencies",
+        "not-now"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "write-brief-basic-001",
+      "skill": "write-brief",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Turn the goal and evidence into a one-page brief.",
+        "zh-CN": "把目标和证据写成一页简报。",
+        "ja": "目的と根拠を1ページのブリーフにまとめて。"
+      },
+      "assertions": [
+        "audience",
+        "evidence",
+        "next-action"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "draft-document-basic-001",
+      "skill": "draft-document",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Draft the full proposal from this approved brief.",
+        "zh-CN": "根据这份已确认简报起草完整方案。",
+        "ja": "この承認済みブリーフから提案書全文を作成して。"
+      },
+      "assertions": [
+        "brief-coverage",
+        "coherence",
+        "traceability"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "build-spreadsheet-basic-001",
+      "skill": "build-spreadsheet",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Build a recalculable budget with clear inputs, formulas, and outputs.",
+        "zh-CN": "建立一个输入、公式和输出清晰的可复算预算表。",
+        "ja": "入力、数式、出力が明確な再計算可能な予算表を作って。"
+      },
+      "assertions": [
+        "input-calc-output",
+        "formula-integrity",
+        "recalculation"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "design-presentation-basic-001",
+      "skill": "design-presentation",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Turn this report into a ten-slide executive presentation.",
+        "zh-CN": "把这份报告变成十页高管汇报。",
+        "ja": "このレポートを経営層向け10枚のプレゼンにして。"
+      },
+      "assertions": [
+        "narrative-arc",
+        "one-message-per-slide",
+        "render-check"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "write-message-basic-001",
+      "skill": "write-message",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Write a client email explaining the delay and proposing a new plan.",
+        "zh-CN": "给客户写一封说明延期并提出新方案的邮件。",
+        "ja": "遅延を説明し、新しい案を提示する顧客向けメールを書いて。"
+      },
+      "assertions": [
+        "facts",
+        "clear-action",
+        "appropriate-register"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "localize-content-basic-001",
+      "skill": "localize-content",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Localize this launch copy for Chinese; do not translate literally.",
+        "zh-CN": "把这份发布稿本地化成中文，不要直译。",
+        "ja": "この告知文を中国語向けにローカライズし、直訳は避けて。"
+      },
+      "assertions": [
+        "meaning-preserved",
+        "terminology",
+        "native-register"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "prepare-meeting-basic-001",
+      "skill": "prepare-meeting",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Prepare the agenda, pre-read, and decisions for the pricing meeting.",
+        "zh-CN": "为定价会议准备议程、预读和待决问题。",
+        "ja": "価格会議の議題、事前資料、決定事項を準備して。"
+      },
+      "assertions": [
+        "meeting-outcome",
+        "timeboxed-agenda",
+        "decisions"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "capture-decisions-actions-basic-001",
+      "skill": "capture-decisions-actions",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Extract decisions, owners, due dates, and open questions from these notes.",
+        "zh-CN": "从会议记录提取决策、负责人、截止日期和未决项。",
+        "ja": "会議記録から決定事項、担当者、期限、未解決事項を抽出して。"
+      },
+      "assertions": [
+        "decisions-separated",
+        "no-inferred-owner",
+        "provenance"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "create-sop-basic-001",
+      "skill": "create-sop",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Turn this process into an SOP a new teammate can follow.",
+        "zh-CN": "把这个流程写成新人也能执行的 SOP。",
+        "ja": "この業務を新人でも実行できるSOPにして。"
+      },
+      "assertions": [
+        "prerequisites",
+        "branches",
+        "quality-controls"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "automate-routine-basic-001",
+      "skill": "automate-routine",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Automate this weekly reporting routine with dry-run and rollback.",
+        "zh-CN": "把每周报告流程自动化，并提供预演和回滚。",
+        "ja": "毎週のレポート業務をドライランとロールバック付きで自動化して。"
+      },
+      "assertions": [
+        "idempotency",
+        "permissions",
+        "recovery"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "review-deliverable-basic-001",
+      "skill": "review-deliverable",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Review this proposal for goal fit, evidence, logic, and clarity.",
+        "zh-CN": "按目标、证据、逻辑和表达审查这份方案。",
+        "ja": "提案書を目的適合性、根拠、論理、明瞭さでレビューして。"
+      },
+      "assertions": [
+        "criteria-coverage",
+        "evidence-backed-findings",
+        "severity"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    },
+    {
+      "id": "run-retrospective-basic-001",
+      "skill": "run-retrospective",
+      "difficulty": "basic",
+      "prompts": {
+        "en": "Retrospect on the project: facts, causes, lessons, and actions.",
+        "zh-CN": "复盘这个项目，区分事实、原因、经验和行动。",
+        "ja": "プロジェクトを事実、原因、学び、行動に分けて振り返って。"
+      },
+      "assertions": [
+        "facts-separated",
+        "system-causes",
+        "owned-actions"
+      ],
+      "rubric": [
+        "task-correctness",
+        "traceability",
+        "direct-usability",
+        "native-register",
+        "safety"
+      ]
+    }
+  ]
+}

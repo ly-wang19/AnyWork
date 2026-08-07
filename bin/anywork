@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+set -eu
+ANYWORK_REPO=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+PYTHONPATH="$ANYWORK_REPO/src${PYTHONPATH:+:$PYTHONPATH}" exec python3 -m anywork "$@"

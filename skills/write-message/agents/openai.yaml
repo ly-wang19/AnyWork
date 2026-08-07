@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write Message"
+  short_description: "Write clear messages matched to audience and channel"
+  default_prompt: "Use $write-message to draft a ready-to-send message for this audience."

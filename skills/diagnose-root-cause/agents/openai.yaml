@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diagnose Root Cause"
+  short_description: "Test competing causes before proposing fixes"
+  default_prompt: "Use $diagnose-root-cause to distinguish symptoms from root causes."

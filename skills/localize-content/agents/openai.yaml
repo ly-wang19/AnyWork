@@ -1,0 +1,4 @@
+interface:
+  display_name: "Localize Content"
+  short_description: "Adapt meaning, terminology, and tone across locales"
+  default_prompt: "Use $localize-content to adapt this content for the target locale without literal translation."

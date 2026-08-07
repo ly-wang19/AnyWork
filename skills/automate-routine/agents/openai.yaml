@@ -1,0 +1,4 @@
+interface:
+  display_name: "Automate Routine"
+  short_description: "Design safe, idempotent work automation"
+  default_prompt: "Use $automate-routine to automate this recurring process with dry-run and rollback."

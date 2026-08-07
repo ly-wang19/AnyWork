@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clarify Outcome"
+  short_description: "Turn vague requests into testable outcomes"
+  default_prompt: "Use $clarify-outcome to turn this request into a testable task contract."

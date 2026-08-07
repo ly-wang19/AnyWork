@@ -1,0 +1,18 @@
+{
+  "id": "claude-code",
+  "version": 1,
+  "official_documentation": "https://code.claude.com/docs/en/skills",
+  "targets": {
+    "user": "~/.claude/skills",
+    "project": ".claude/skills"
+  },
+  "skill_file": "SKILL.md",
+  "copy_mode": "directory",
+  "install_executes_skill_code": false,
+  "unsupported_canonical_fields": [
+    "allowed-tools",
+    "context",
+    "agent",
+    "hooks"
+  ]
+}
