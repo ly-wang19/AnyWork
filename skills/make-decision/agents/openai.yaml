@@ -1,4 +1,4 @@
 interface:
   display_name: "Make Decision"
   short_description: "Recommend a choice with trade-offs and triggers"
-  default_prompt: "Use $make-decision to recommend an option with trade-offs and decision conditions."
+  default_prompt: "Use $make-decision to recommend an option with trade-offs and decision conditions, following my requested language or otherwise the language of my request."

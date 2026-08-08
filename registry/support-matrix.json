@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-08-07",
+  "canonical_format": "https://agentskills.io/specification",
+  "portable_frontmatter_allowlist": [
+    "name",
+    "description",
+    "license",
+    "compatibility",
+    "metadata"
+  ],
+  "permission_policy": "Never translate AnyWork risk or side-effect metadata into host pre-approval fields such as allowed-tools.",
+  "agents": [
+    {
+      "id": "codex",
+      "status": "stable",
+      "target_family": "agent-skills",
+      "project_target": ".agents/skills",
+      "user_target": "~/.agents/skills",
+      "ui_metadata": "agents/openai.yaml",
+      "official_documentation": "https://learn.chatgpt.com/docs/build-skills"
+    },
+    {
+      "id": "claude-code",
+      "status": "stable",
+      "target_family": "claude-code",
+      "project_target": ".claude/skills",
+      "user_target": "~/.claude/skills",
+      "strip_paths": ["agents"],
+      "official_documentation": "https://code.claude.com/docs/en/skills"
+    },
+    {
+      "id": "gemini-cli",
+      "status": "stable",
+      "target_family": "agent-skills",
+      "project_target": ".agents/skills",
+      "user_target": "~/.agents/skills",
+      "strip_paths": ["agents"],
+      "official_documentation": "https://geminicli.com/docs/cli/using-agent-skills/"
+    },
+    {
+      "id": "github-copilot",
+      "status": "stable",
+      "target_family": "agent-skills",
+      "project_target": ".agents/skills",
+      "user_target": "~/.agents/skills",
+      "strip_paths": ["agents"],
+      "official_documentation": "https://docs.github.com/en/copilot/concepts/agents/about-agent-skills"
+    },
+    {
+      "id": "opencode",
+      "status": "stable",
+      "target_family": "agent-skills",
+      "project_target": ".agents/skills",
+      "user_target": "~/.agents/skills",
+      "strip_paths": ["agents"],
+      "official_documentation": "https://opencode.ai/docs/skills/"
+    },
+    {
+      "id": "cursor",
+      "status": "experimental",
+      "default_install": false,
+      "target_family": "cursor",
+      "project_target": ".cursor/skills",
+      "user_target": "~/.cursor/skills",
+      "strip_paths": ["agents"],
+      "path_evidence": "requires-host-smoke",
+      "official_documentation": "https://cursor.com/docs/skills"
+    }
+  ]
+}

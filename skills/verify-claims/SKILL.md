@@ -1,6 +1,6 @@
 ---
 name: verify-claims
-description: "Fact-check atomic claims and grade supporting or contradicting evidence. Use for reports, proposals, public copy, or disputed statements. 中文：逐条核验事实主张并标注证据强弱。日本語：主張を個別に検証し、支持・反証する根拠の強さを評価する。"
+description: "Fact-check defined atomic claims and grade supporting and contradicting evidence. Use for reports, proposals, public copy, or disputed statements; do not use for open-ended source discovery or broad synthesis without fixed claims. 中文：逐条核验明确的事实主张，并评定支持与反驳证据；适用于报告、提案、公开文案或争议表述，不用于开放式资料搜集或没有既定主张的综合研究。日本語：定義済みの個別主張をファクトチェックし、支持・反証する根拠を評価する。報告書、提案、公開文、争点となる記述に使い、検証対象の主張がない探索的な情報収集や広範な統合には使わない。"
 ---
 
 # Verify Claims

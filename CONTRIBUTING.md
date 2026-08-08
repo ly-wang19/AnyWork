@@ -8,14 +8,17 @@ Contribute task-focused, attributable, safe, and testable work capabilities. Do 
 
 1. Choose one atomic work outcome and a lowercase kebab-case Skill name.
 2. Keep workflow logic in one `SKILL.md`; cover English, Simplified Chinese, and Japanese in its trigger description and evaluations.
-3. Add source, license, version, risk, and side-effect metadata to `registry/catalog.json`.
+3. Add source, license, version, capabilities, risk, side effects, and honest language-review status to `registry/catalog.json`.
 4. For adapted work, record the immutable upstream revision, authors, license, attribution, and modifications in `THIRD_PARTY.yml`.
 5. Add multilingual evaluation cases and deterministic tests where applicable.
 6. Run:
 
    ```bash
+   go test ./...
+   go run . doctor --lang en
    python3 anywork-cli.py doctor
    PYTHONPATH=src python3 -m unittest discover -s tests -v
+   python3 scripts/check_docs.py
    ```
 
 7. Sign every commit with `Signed-off-by: Name <email>` to certify the Developer Certificate of Origin 1.1 in [DCO](DCO).

@@ -1,4 +1,4 @@
 interface:
   display_name: "Run Retrospective"
   short_description: "Convert outcomes into systemic improvements"
-  default_prompt: "Use $run-retrospective to separate facts, causes, lessons, and follow-up actions."
+  default_prompt: "Use $run-retrospective to separate facts, causes, lessons, and follow-up actions, following my requested language or otherwise the language of my request."

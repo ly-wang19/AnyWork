@@ -1,4 +1,4 @@
 interface:
   display_name: "Gather Sources"
   short_description: "Build a reliable and traceable source set"
-  default_prompt: "Use $gather-sources to research this question and create a source ledger."
+  default_prompt: "Use $gather-sources to research this question and create a source ledger, following my requested language or otherwise the language of my request."

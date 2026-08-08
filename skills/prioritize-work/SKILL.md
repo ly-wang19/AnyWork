@@ -1,6 +1,6 @@
 ---
 name: prioritize-work
-description: "Prioritize requests by value, effort, risk, urgency, and dependencies. Use for backlogs, roadmaps, portfolios, or constrained capacity. 中文：结合价值、成本、风险、紧迫度和依赖排序工作。日本語：価値、工数、リスク、緊急度、依存関係で仕事を優先順位付けする。"
+description: "Rank and sequence many work items by value, effort, risk, urgency, dependencies, and capacity. Use for backlogs, roadmaps, portfolios, or constrained resources; do not use to compare a few alternatives for one decision or choose the final option. 中文：按价值、成本、风险、紧迫度、依赖和产能排列大量工作项；适用于积压、路线图、组合或资源受限场景，不用于比较单个决策的少量方案或做最终选择。日本語：価値、工数、リスク、緊急度、依存関係、キャパシティで多数の作業項目を順位付け・順序化する。バックログ、ロードマップ、ポートフォリオ、資源制約に使い、単一の意思決定で少数案を比較したり最終案を選んだりする場合には使わない。"
 ---
 
 # Prioritize Work

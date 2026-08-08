@@ -1,6 +1,6 @@
 ---
 name: gather-sources
-description: "Build a reliable, current, and traceable source set for a research question. Use for research, due diligence, market scans, or evidence gathering. 中文：围绕问题搜集可靠、时效、可追溯的资料。日本語：調査課題について信頼性・最新性・追跡可能性のある情報源を集める。"
+description: "Find and log a reliable, current, traceable source set for a defined question. Use for research discovery, due diligence, market scans, or evidence collection; do not use to fact-check a fixed claim or combine already-collected sources into conclusions. 中文：围绕明确问题查找并登记可靠、最新、可追溯的来源；适用于研究发现、尽调、市场扫描或证据搜集，不用于核验既定主张或综合已有材料得出结论。日本語：明確な問いに対し、信頼性、最新性、追跡可能性のある情報源を探して記録する。調査の情報源探索、デューデリジェンス、市場調査、証拠収集に使い、既定の主張の検証や収集済み資料から結論を導く作業には使わない。"
 ---
 
 # Gather Sources

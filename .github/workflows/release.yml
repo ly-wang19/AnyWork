@@ -1,0 +1,139 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+env:
+  GH_REPO: ${{ github.repository }}
+
+jobs:
+  build:
+    name: Build draft release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Set up Go
+        uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5.0.2
+        with:
+          go-version: "1.22.x"
+          cache: false
+      - name: Build six release archives and checksums
+        env:
+          VERSION: ${{ github.ref_name }}
+        run: bash scripts/build-release.sh dist
+      - name: Attest release artifacts
+        uses: actions/attest-build-provenance@96278af6caaf10aea03fd8d33a09a777ca52d62f # v3.2.0
+        with:
+          subject-path: dist/*
+      - name: Create or refresh draft GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
+            gh release upload "${GITHUB_REF_NAME}" dist/* --clobber
+          else
+            gh release create "${GITHUB_REF_NAME}" dist/* --draft --generate-notes --verify-tag
+          fi
+
+  native-smoke:
+    name: ${{ matrix.runner }} release smoke
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            asset: anywork_*_linux_amd64.tar.gz
+            archive: tar
+          - runner: ubuntu-24.04-arm
+            asset: anywork_*_linux_arm64.tar.gz
+            archive: tar
+          - runner: macos-15-intel
+            asset: anywork_*_darwin_amd64.tar.gz
+            archive: tar
+          - runner: macos-15
+            asset: anywork_*_darwin_arm64.tar.gz
+            archive: tar
+          - runner: windows-2025
+            asset: anywork_*_windows_amd64.zip
+            archive: zip
+          - runner: windows-11-arm
+            asset: anywork_*_windows_arm64.zip
+            archive: zip
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Download and exercise Unix release artifact
+        if: matrix.archive == 'tar'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ASSET_PATTERN: ${{ matrix.asset }}
+        run: |
+          set -euo pipefail
+          smoke_root=$(mktemp -d)
+          gh release download "${GITHUB_REF_NAME}" --pattern "$ASSET_PATTERN" --dir "$smoke_root"
+          tar -xzf "$smoke_root"/*.tar.gz -C "$smoke_root"
+          "$smoke_root/anywork" --version
+          "$smoke_root/anywork" doctor --lang en
+          "$smoke_root/anywork" doctor --lang zh-CN
+          "$smoke_root/anywork" doctor --lang ja
+          project="$smoke_root/Project 空間"
+          mkdir -p "$project"
+          "$smoke_root/anywork" install complete --scope project --project-dir "$project" --dry-run --lang en
+          "$smoke_root/anywork" install complete --scope project --project-dir "$project" --lang en
+          "$smoke_root/anywork" update complete --scope project --project-dir "$project" --lang en
+          "$smoke_root/anywork" uninstall complete --scope project --project-dir "$project" --lang en
+          isolated_home="$smoke_root/home"
+          mkdir -p "$isolated_home"
+          HOME="$isolated_home" "$smoke_root/anywork" install essential --scope user --lang en
+          HOME="$isolated_home" "$smoke_root/anywork" update essential --scope user --lang en
+          HOME="$isolated_home" "$smoke_root/anywork" uninstall essential --scope user --lang en
+      - name: Download and exercise Windows release artifact
+        if: matrix.archive == 'zip'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ASSET_PATTERN: ${{ matrix.asset }}
+        run: |
+          $ErrorActionPreference = "Stop"
+          $smokeRoot = Join-Path $env:RUNNER_TEMP "anywork-smoke"
+          New-Item -ItemType Directory -Force -Path $smokeRoot | Out-Null
+          gh release download $env:GITHUB_REF_NAME --pattern $env:ASSET_PATTERN --dir $smokeRoot
+          $archive = Get-ChildItem -Path $smokeRoot -Filter *.zip | Select-Object -First 1
+          Expand-Archive -Path $archive.FullName -DestinationPath $smokeRoot -Force
+          $binary = Join-Path $smokeRoot "anywork.exe"
+          & $binary --version
+          & $binary doctor --lang en
+          & $binary doctor --lang zh-CN
+          & $binary doctor --lang ja
+          $project = Join-Path $smokeRoot "Project 空間"
+          New-Item -ItemType Directory -Force -Path $project | Out-Null
+          & $binary install complete --scope project --project-dir $project --dry-run --lang en
+          & $binary install complete --scope project --project-dir $project --lang en
+          & $binary update complete --scope project --project-dir $project --lang en
+          & $binary uninstall complete --scope project --project-dir $project --lang en
+          $isolatedHome = Join-Path $smokeRoot "home"
+          New-Item -ItemType Directory -Force -Path $isolatedHome | Out-Null
+          $env:USERPROFILE = $isolatedHome
+          $env:HOME = $isolatedHome
+          & $binary install essential --scope user --lang en
+          & $binary update essential --scope user --lang en
+          & $binary uninstall essential --scope user --lang en
+
+  publish:
+    name: Publish verified release
+    needs: native-smoke
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish draft after all six native smokes pass
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release edit "${GITHUB_REF_NAME}" --draft=false

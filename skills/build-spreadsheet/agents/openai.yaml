@@ -1,4 +1,4 @@
 interface:
   display_name: "Build Spreadsheet"
   short_description: "Create recalculable and auditable workbooks"
-  default_prompt: "Use $build-spreadsheet to build a model with clear inputs, formulas, and outputs."
+  default_prompt: "Use $build-spreadsheet to build a model with clear inputs, formulas, and outputs, following my requested language or otherwise the language of my request."

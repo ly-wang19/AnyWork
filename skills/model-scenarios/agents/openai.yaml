@@ -1,4 +1,4 @@
 interface:
   display_name: "Model Scenarios"
   short_description: "Build transparent scenarios and sensitivities"
-  default_prompt: "Use $model-scenarios to create base, upside, and downside cases."
+  default_prompt: "Use $model-scenarios to create base, upside, and downside cases, following my requested language or otherwise the language of my request."

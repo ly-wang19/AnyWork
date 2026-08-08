@@ -1,6 +1,6 @@
 ---
 name: compare-options
-description: "Compare alternatives with consistent criteria, weights, evidence, uncertainty, and sensitivity. Use for vendors, tools, strategies, or proposals. 中文：用一致标准、权重和证据比较多个选项。日本語：同一基準、重み、根拠、不確実性で選択肢を比較する。"
+description: "Compare a bounded set of alternatives using consistent criteria, evidence, uncertainty, and sensitivity. Use for vendors, tools, strategies, or proposals; do not use to make the final choice or rank a backlog of work. 中文：用一致标准、证据、不确定性和敏感性比较一组明确选项；适用于供应商、工具、策略或方案比较，不用于做最终决策或排列工作积压。日本語：限定された選択肢を共通の基準、根拠、不確実性、感度で比較する。ベンダー、ツール、戦略、提案の比較に使い、最終決定や作業バックログの順位付けには使わない。"
 ---
 
 # Compare Options

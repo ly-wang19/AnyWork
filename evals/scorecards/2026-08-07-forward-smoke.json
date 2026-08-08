@@ -1,17 +1,18 @@
 {
   "schema_version": 1,
   "run_id": "2026-08-07-forward-smoke",
-  "purpose": "Independent forward smoke test of three representative atomic skills",
+  "purpose": "Non-scored diagnostic observation of three representative atomic skills",
   "environment": {
     "host": "codex-subagent",
     "cross_agent_claim": false,
-    "native_language_review_claim": false
+    "native_language_review_claim": false,
+    "scored_benchmark_claim": false
   },
   "results": [
     {
       "skill": "clarify-outcome",
       "language": "zh-CN",
-      "status": "pass",
+      "status": "diagnostic-observation",
       "observations": [
         "Recovered brand and sales outcomes into a reviewable task contract",
         "Marked the assumed event format as reversible",
@@ -21,7 +22,7 @@
     {
       "skill": "capture-decisions-actions",
       "language": "zh-CN",
-      "status": "pass",
+      "status": "diagnostic-observation",
       "observations": [
         "Separated decisions from a rejected proposal",
         "Did not infer an owner for sales training",
@@ -31,7 +32,7 @@
     {
       "skill": "compare-options",
       "language": "ja",
-      "status": "pass",
+      "status": "diagnostic-observation",
       "observations": [
         "Applied security and deadline as mandatory gates",
         "Represented the missing audit report as evidence uncertainty rather than proven failure",
@@ -40,7 +41,8 @@
     }
   ],
   "limitations": [
-    "This is a smoke test, not the stable-release 216-case multilingual benchmark.",
+    "This observation has no denominator, raw model transcript, reproducible model identifier, or numeric score and therefore cannot establish a pass.",
+    "The 216 prompt variants are a static suite and have not yet been executed as a stable-release benchmark.",
     "Claude Code parity was not exercised in this run.",
     "Native-language reviewers have not signed off this run."
   ]

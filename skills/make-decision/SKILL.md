@@ -1,6 +1,6 @@
 ---
 name: make-decision
-description: "Recommend a decision with trade-offs, reversibility, conditions, dissent, and follow-up signals. Use when evidence and options are ready for a choice. 中文：给出带取舍、可逆性、条件和异议的决策建议。日本語：トレードオフ、可逆性、条件、異論を含む意思決定案を作る。"
+description: "Recommend a final choice with trade-offs, reversibility, conditions, dissent, and follow-up signals. Use when options and evidence are ready for a decision; do not use merely to compare alternatives or rank many work items. 中文：给出包含取舍、可逆性、条件、异议和跟踪信号的最终选择建议；适用于选项和证据已齐备的决策，不用于仅比较方案或排序大量工作项。日本語：トレードオフ、可逆性、条件、異論、追跡指標を含む最終選択を提案する。選択肢と根拠が揃った意思決定に使い、単なる選択肢比較や多数の作業項目の順位付けには使わない。"
 ---
 
 # Make Decision

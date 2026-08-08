@@ -1,6 +1,6 @@
 ---
 name: prepare-meeting
-description: "Prepare a purposeful meeting with decisions, agenda, pre-read, roles, and contingency paths. Use for decision, planning, review, or stakeholder meetings. 中文：准备会议目标、议程、预读、待决事项和角色。日本語：会議目的、議題、事前資料、決定事項、役割を準備する。"
+description: "Design an upcoming meeting with purpose, decisions, agenda, pre-read, roles, and contingencies. Use before decision, planning, review, or stakeholder meetings; do not use to extract actions from a meeting that already happened. 中文：为即将召开的决策、规划、评审或利益相关方会议设计目标、待决事项、议程、预读、角色和预案；不用于从已结束会议中提取行动。日本語：これから行う意思決定、計画、レビュー、関係者会議の目的、決定事項、議題、事前資料、役割、代替策を設計する。終了した会議からアクションを抽出する場合には使わない。"
 ---
 
 # Prepare Meeting

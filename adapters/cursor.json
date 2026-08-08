@@ -1,0 +1,18 @@
+{
+  "id": "cursor",
+  "version": 1,
+  "status": "experimental",
+  "default_install": false,
+  "target_family": "cursor",
+  "official_documentation": "https://cursor.com/docs/skills",
+  "targets": {
+    "user": "~/.cursor/skills",
+    "project": ".cursor/skills"
+  },
+  "path_evidence": "requires-host-smoke",
+  "skill_file": "SKILL.md",
+  "portable_frontmatter_allowlist": ["name", "description", "license", "compatibility", "metadata"],
+  "strip_paths": ["agents"],
+  "copy_mode": "directory",
+  "install_executes_skill_code": false
+}

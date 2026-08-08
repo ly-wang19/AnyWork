@@ -35,6 +35,15 @@ def _extract_language(argv: list[str]) -> tuple[str, list[str]]:
     return normalized, cleaned
 
 
+def _configure_utf8_stdio() -> None:
+    """Keep trilingual CLI output lossless when Windows redirects the console."""
+
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if callable(reconfigure):
+            reconfigure(encoding="utf-8")
+
+
 def _add_help(parser: argparse.ArgumentParser, language: str) -> None:
     parser.add_argument("-h", "--help", action="help", help=help_text(language, "help"))
 
@@ -46,7 +55,7 @@ def build_parser(language: str) -> argparse.ArgumentParser:
         add_help=False,
     )
     _add_help(parser, language)
-    parser.add_argument("--version", action="version", version="anywork 0.1.0")
+    parser.add_argument("--version", action="version", version="anywork 0.2.0-alpha.1")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     list_parser = subparsers.add_parser("list", help=help_text(language, "list"), add_help=False)
@@ -85,6 +94,7 @@ def _selected_agents(values: list[str]) -> list[str]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    _configure_utf8_stdio()
     language, cleaned = _extract_language(list(argv if argv is not None else sys.argv[1:]))
     args = build_parser(language).parse_args(cleaned)
     catalog = load_catalog()
@@ -94,6 +104,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "list":
         print(message(language, "catalog_title"))
+        print(message(language, "quality_notice"))
         for pack in catalog.raw.get("packs", []):
             print(message(
                 language,

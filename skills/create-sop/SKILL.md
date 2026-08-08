@@ -1,6 +1,6 @@
 ---
 name: create-sop
-description: "Turn a repeatable process into an executable SOP with branches, controls, exceptions, and escalation. 中文：把重复工作沉淀成包含分支、质检和异常处理的 SOP。日本語：反復業務を分岐、品質管理、例外、エスカレーションを含むSOPにする。"
+description: "Turn a repeatable process into an executable SOP with roles, branches, controls, exceptions, and escalation. Use to document how people should perform work; do not use to implement tool- or code-driven automation. 中文：把可重复流程写成包含角色、分支、质检、异常和升级路径的可执行 SOP；适用于规范人工执行，不用于实现由工具或代码驱动的自动化。日本語：反復可能な業務を、役割、分岐、品質管理、例外、エスカレーションを含む実行可能なSOPにする。人が行う手順の文書化に使い、ツールやコードによる自動化の実装には使わない。"
 ---
 
 # Create SOP

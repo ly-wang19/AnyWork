@@ -1,6 +1,6 @@
 ---
 name: capture-decisions-actions
-description: "Turn meeting notes or transcripts into decisions, actions, owners, due dates, and open questions with provenance. 中文：从会议材料提取决策、行动、负责人、期限和未决项。日本語：会議記録から決定、行動、担当者、期限、未解決事項を抽出する。"
+description: "Turn completed-meeting notes or transcripts into traceable decisions, actions, owners, due dates, and open questions. Use after a meeting or discussion; do not use to design an upcoming meeting. 中文：把已结束会议的笔记或转录整理为可追溯的决策、行动、负责人、期限和未决项；适用于会后整理，不用于筹备尚未召开的会议。日本語：終了した会議のメモや文字起こしから、追跡可能な決定、アクション、担当者、期限、未解決事項を整理する。会議後に使い、これから行う会議の設計には使わない。"
 ---
 
 # Capture Decisions and Actions

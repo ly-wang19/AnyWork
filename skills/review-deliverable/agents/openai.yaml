@@ -1,4 +1,4 @@
 interface:
   display_name: "Review Deliverable"
   short_description: "Find evidence-backed defects against acceptance criteria"
-  default_prompt: "Use $review-deliverable to review this output against its acceptance criteria."
+  default_prompt: "Use $review-deliverable to review this output against its acceptance criteria, following my requested language or otherwise the language of my request."

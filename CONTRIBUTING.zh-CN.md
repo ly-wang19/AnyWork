@@ -8,14 +8,17 @@
 
 1. 选择一个原子工作结果，并使用小写连字符 Skill 名称。
 2. 只维护一份 `SKILL.md` 工作流逻辑；在触发描述和评测中覆盖英文、简体中文、日文。
-3. 在 `registry/catalog.json` 声明来源、许可证、版本、风险和副作用。
+3. 在 `registry/catalog.json` 声明来源、许可证、版本、能力、风险、副作用和真实的语言审校状态。
 4. 改编第三方内容时，在 `THIRD_PARTY.yml` 记录不可变上游版本、作者、许可证、署名和修改说明。
 5. 添加三语评测；存在确定性行为时添加自动化测试。
 6. 运行：
 
    ```bash
+   go test ./...
+   go run . doctor --lang zh-CN
    python3 anywork-cli.py doctor --lang zh-CN
    PYTHONPATH=src python3 -m unittest discover -s tests -v
+   python3 scripts/check_docs.py
    ```
 
 7. 每个提交都加入 `Signed-off-by: 姓名 <邮箱>`，确认遵守 [DCO](DCO) 中的 Developer Certificate of Origin 1.1。

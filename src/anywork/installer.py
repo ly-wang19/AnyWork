@@ -12,7 +12,14 @@ from typing import Callable
 from .catalog import Catalog
 
 
-SUPPORTED_AGENTS = ("codex", "claude-code")
+SUPPORTED_AGENTS = ("codex", "claude-code", "gemini-cli", "github-copilot", "opencode")
+AGENT_FAMILIES = {
+    "codex": "agent-skills",
+    "gemini-cli": "agent-skills",
+    "github-copilot": "agent-skills",
+    "opencode": "agent-skills",
+    "claude-code": "claude-code",
+}
 
 
 class InstallError(RuntimeError):
@@ -20,7 +27,13 @@ class InstallError(RuntimeError):
 
 
 def normalize_agent(agent: str) -> str:
-    aliases = {"claude": "claude-code", "claude_code": "claude-code"}
+    aliases = {
+        "claude": "claude-code",
+        "claude_code": "claude-code",
+        "gemini": "gemini-cli",
+        "copilot": "github-copilot",
+        "github_copilot": "github-copilot",
+    }
     return aliases.get(agent, agent)
 
 
@@ -30,10 +43,10 @@ def target_root(agent: str, scope: str, project_dir: Path | None = None) -> Path
         raise InstallError(f"unsupported agent: {agent}")
     if scope == "project":
         base = (project_dir or Path.cwd()).resolve()
-        return base / (".agents/skills" if agent == "codex" else ".claude/skills")
+        return base / (".agents/skills" if AGENT_FAMILIES[agent] == "agent-skills" else ".claude/skills")
     if scope != "user":
         raise InstallError(f"unsupported scope: {scope}")
-    if agent == "codex":
+    if AGENT_FAMILIES[agent] == "agent-skills":
         return Path.home() / ".agents" / "skills"
     else:
         config_root = Path(os.environ.get("CLAUDE_CONFIG_DIR", str(Path.home() / ".claude"))).expanduser()
@@ -47,13 +60,13 @@ def state_path(scope: str, project_dir: Path | None = None) -> Path:
     return (Path(configured).expanduser() if configured else Path.home() / ".anywork") / "state.json"
 
 
-def hash_tree(path: Path, agent: str | None = None) -> str:
+def hash_tree(path: Path, target_family: str | None = None) -> str:
     digest = hashlib.sha256()
     for child in sorted(item for item in path.rglob("*") if item.is_file()):
         relative = child.relative_to(path).as_posix()
         if "__pycache__" in child.parts or relative.endswith((".pyc", ".pyo")):
             continue
-        if agent == "claude-code" and relative.startswith("agents/"):
+        if target_family == "claude-code" and relative.startswith("agents/"):
             continue
         digest.update(relative.encode("utf-8"))
         digest.update(b"\0")
@@ -94,14 +107,14 @@ def _backup_path(state_file: Path, agent: str, skill_id: str) -> Path:
     return candidate
 
 
-def _installation_key(agent: str, target: Path) -> str:
-    return f"{agent}:{target.resolve()}"
+def _installation_key(target: Path) -> str:
+    return str(target.resolve())
 
 
-def _materialize(source: Path, target: Path, agent: str) -> None:
+def _materialize(source: Path, target: Path, target_family: str) -> None:
     """Copy a canonical Skill and remove host-specific files for other agents."""
     shutil.copytree(source, target)
-    if agent == "claude-code":
+    if target_family == "claude-code":
         codex_metadata = target / "agents"
         if codex_metadata.exists():
             shutil.rmtree(codex_metadata)
@@ -121,20 +134,23 @@ def install_skills(
     state = _load_state(state_file)
     for raw_agent in agents:
         agent = normalize_agent(raw_agent)
+        target_family = AGENT_FAMILIES[agent]
         root = target_root(agent, scope, project_dir)
         for skill_id in skill_ids:
             source = catalog.skill_path(skill_id)
             target = root / skill_id
-            source_hash = hash_tree(source, agent=agent)
-            key = _installation_key(agent, target)
+            source_hash = hash_tree(source, target_family=target_family)
+            key = _installation_key(target)
             record = state["installations"].get(key)
             if target.exists():
                 current_hash = hash_tree(target)
                 if current_hash == source_hash:
                     emit("unchanged", {"skill": skill_id, "agent": agent, "target": target})
-                    if not dry_run and not record:
+                    if not dry_run and (not record or agent not in record.get("consumers", [])):
+                        consumers = sorted(set((record or {}).get("consumers", [])) | {agent})
                         state["installations"][key] = {
-                            "agent": agent,
+                            "target_family": target_family,
+                            "consumers": consumers,
                             "skill": skill_id,
                             "target": str(target),
                             "hash": source_hash,
@@ -157,7 +173,7 @@ def install_skills(
             backup: Path | None = None
             try:
                 shutil.rmtree(temporary)
-                _materialize(source, temporary, agent)
+                _materialize(source, temporary, target_family)
                 if target.exists():
                     backup = _backup_path(state_file, agent, skill_id)
                     backup.parent.mkdir(parents=True, exist_ok=True)
@@ -171,7 +187,8 @@ def install_skills(
                     shutil.move(str(backup), str(target))
                 raise
             state["installations"][key] = {
-                "agent": agent,
+                "target_family": target_family,
+                "consumers": sorted(set((record or {}).get("consumers", [])) | {agent}),
                 "skill": skill_id,
                 "target": str(target),
                 "hash": source_hash,
@@ -194,15 +211,23 @@ def uninstall_skills(
     state = _load_state(state_file)
     for raw_agent in agents:
         agent = normalize_agent(raw_agent)
+        target_family = AGENT_FAMILIES[agent]
         root = target_root(agent, scope, project_dir)
         for skill_id in skill_ids:
             target = root / skill_id
-            key = _installation_key(agent, target)
+            key = _installation_key(target)
             record = state["installations"].get(key)
-            if not record or not target.exists():
+            if not record or agent not in record.get("consumers", []) or not target.exists():
+                emit("detached", {"skill": skill_id, "agent": agent, "target": target})
+                continue
+            remaining_consumers = sorted(set(record.get("consumers", [])) - {agent})
+            if remaining_consumers:
+                if not dry_run:
+                    record["consumers"] = remaining_consumers
+                    _write_state(state_file, state)
                 emit("nothing_installed", {"skill": skill_id, "agent": agent, "target": target})
                 continue
-            current_hash = hash_tree(target)
+            current_hash = hash_tree(target, target_family=target_family)
             if current_hash != record.get("hash") and not force:
                 raise InstallError(f"not_owned:{target}")
             backup = _backup_path(state_file, agent, skill_id)

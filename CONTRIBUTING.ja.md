@@ -6,16 +6,19 @@
 
 ## Pull Request の前に
 
-1. 一つのアトミックな仕事成果を選び、小文字 kebab-case の Skill 名を使用する。
+1. 一つの明確な仕事成果を選び、小文字 kebab-case の Skill 名を使用する。
 2. ワークフローのロジックは一つの `SKILL.md` に保ち、トリガー説明と評価で英語、簡体字中国語、日本語をカバーする。
-3. `registry/catalog.json` に出典、ライセンス、バージョン、リスク、副作用を記録する。
+3. `registry/catalog.json` に出典、ライセンス、バージョン、能力、リスク、副作用、正確な言語レビュー状況を記録する。
 4. 改変した第三者コンテンツは、固定された上流 revision、作者、ライセンス、帰属表示、変更点を `THIRD_PARTY.yml` に記録する。
-5. 3言語の評価ケースを追加し、決定的処理には自動テストを追加する。
+5. 3言語の評価ケースを追加し、再現可能な処理には自動テストを追加する。
 6. 次を実行する：
 
    ```bash
+   go test ./...
+   go run . doctor --lang ja
    python3 anywork-cli.py doctor --lang ja
    PYTHONPATH=src python3 -m unittest discover -s tests -v
+   python3 scripts/check_docs.py
    ```
 
 7. 各 commit に `Signed-off-by: Name <email>` を付け、[DCO](DCO) の Developer Certificate of Origin 1.1 を証明する。

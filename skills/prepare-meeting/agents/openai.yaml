@@ -1,4 +1,4 @@
 interface:
   display_name: "Prepare Meeting"
   short_description: "Design agendas, pre-reads, and decision points"
-  default_prompt: "Use $prepare-meeting to prepare the agenda, pre-read, and decisions needed."
+  default_prompt: "Use $prepare-meeting to prepare the agenda, pre-read, and decisions needed, following my requested language or otherwise the language of my request."

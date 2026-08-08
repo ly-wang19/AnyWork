@@ -1,6 +1,6 @@
 ---
 name: automate-routine
-description: "Design safe and idempotent automation for recurring work with permissions, dry-run, logs, recovery, and human gates. 中文：安全自动化重复工作，包含权限、预演、日志、恢复和人工闸门。日本語：反復業務を権限、ドライラン、ログ、復旧、人の承認付きで安全に自動化する。"
+description: "Design or implement safe, idempotent automation with permissions, dry-run, logs, recovery, and human gates. Use when recurring work should execute through tools or code; do not use merely to document a manual procedure. 中文：设计或实现带权限、预演、日志、恢复和人工审批关卡的幂等自动化；适用于让重复工作通过工具或代码执行，不用于仅记录人工流程。日本語：権限、ドライラン、ログ、復旧、人の承認を備えた安全で冪等な自動化を設計・実装する。反復業務をツールやコードで実行する場合に使い、手作業の手順書を作るだけの場合には使わない。"
 ---
 
 # Automate Routine

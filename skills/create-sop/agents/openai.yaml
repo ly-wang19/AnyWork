@@ -1,4 +1,4 @@
 interface:
   display_name: "Create SOP"
   short_description: "Turn repeatable work into an executable SOP"
-  default_prompt: "Use $create-sop to document this process so a new teammate can run it."
+  default_prompt: "Use $create-sop to document this process so a new teammate can run it, following my requested language or otherwise the language of my request."

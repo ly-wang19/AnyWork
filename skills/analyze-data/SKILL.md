@@ -1,6 +1,6 @@
 ---
 name: analyze-data
-description: "Inspect data quality and produce reproducible analysis, calculations, and bounded insights. Use for tables, metrics, experiments, or operational data. 中文：先检查数据质量，再做可复算分析和洞察。日本語：データ品質を確認してから、再現可能な分析と洞察を作る。"
+description: "Inspect existing data and produce reproducible findings after quality checks. Use for datasets, metrics, experiments, and operational analysis; do not use to build a forecasting scenario or a spreadsheet deliverable. 中文：检查已有数据质量并产出可复算结论；适用于数据集、指标、实验和运营分析，不用于建立预测情景或交付电子表格。日本語：既存データの品質を確認し、再現可能な知見を出す。データセット、指標、実験、業務分析に使い、予測シナリオやスプレッドシート成果物の作成には使わない。"
 ---
 
 # Analyze Data

@@ -1,6 +1,6 @@
 ---
 name: diagnose-root-cause
-description: "Distinguish symptoms, contributing factors, and root causes using competing hypotheses and tests. Use before proposing fixes to recurring problems. 中文：在给方案前区分症状、近因、根因并设计验证。日本語：対策の前に症状・要因・根本原因を分け、検証方法を設計する。"
+description: "Distinguish symptoms, contributing factors, and probable root causes through competing hypotheses and tests. Use for recurring failures, incidents, or unexplained outcomes before fixes; do not use for a general project retrospective without a causal question. 中文：用竞争假设和验证区分症状、影响因素与可能根因；适用于反复故障、事故或异常结果的修复前诊断，不用于没有因果问题的一般项目复盘。日本語：競合仮説と検証により、症状、寄与要因、推定根本原因を分ける。反復障害、インシデント、原因不明の結果を対策前に診断する場合に使い、因果関係を問わない一般的な振り返りには使わない。"
 ---
 
 # Diagnose Root Cause

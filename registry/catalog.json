@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "anywork-official",
-  "version": "0.1.0",
+  "version": "0.2.0-alpha.1",
   "languages": [
     "en",
     "zh-CN",
@@ -9,7 +9,10 @@
   ],
   "agents": [
     "codex",
-    "claude-code"
+    "claude-code",
+    "gemini-cli",
+    "github-copilot",
+    "opencode"
   ],
   "skills": [
     {
@@ -32,6 +35,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -54,6 +75,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -77,6 +116,25 @@
         "read",
         "network",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "network-research",
+        "workflow-guidance"
       ]
     },
     {
@@ -100,6 +158,25 @@
         "read",
         "network",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "network-research",
+        "workflow-guidance"
       ]
     },
     {
@@ -122,6 +199,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -144,6 +239,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -166,6 +279,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -188,6 +319,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -210,6 +359,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -232,6 +399,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -254,6 +439,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -276,6 +479,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -298,6 +519,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -320,6 +559,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -342,6 +599,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -364,6 +639,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -387,6 +680,24 @@
         "read",
         "local-write",
         "external-write-with-approval"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -409,6 +720,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -431,6 +760,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -453,6 +800,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -475,6 +840,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -499,6 +882,24 @@
         "local-write",
         "commands-with-approval",
         "external-write-with-approval"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -521,6 +922,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     },
     {
@@ -543,6 +962,24 @@
       "side_effects": [
         "read",
         "local-write"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
       ]
     }
   ],
@@ -552,12 +989,12 @@
       "display_name": {
         "en": "Essential Work",
         "zh-CN": "通用工作核心包",
-        "ja": "必須ワーク"
+        "ja": "業務の基本"
       },
       "description": {
         "en": "Core skills for defining, researching, writing, coordinating, and reviewing work.",
         "zh-CN": "覆盖目标澄清、调研、写作、协同和审查的通用核心能力。",
-        "ja": "目的整理、調査、文章作成、協働、レビューの基本能力。"
+        "ja": "目的の明確化、調査、文書作成、連携、レビューに必要な基本スキル。"
       },
       "extends": [],
       "skills": [
@@ -655,12 +1092,12 @@
       "display_name": {
         "en": "Go to Market",
         "zh-CN": "市场、销售与增长",
-        "ja": "市場投入・営業"
+        "ja": "GTM・営業"
       },
       "description": {
         "en": "Market evidence, customer decisions, content, communication, and execution systems.",
         "zh-CN": "覆盖市场证据、客户决策、内容沟通和执行体系。",
-        "ja": "市場根拠、顧客判断、コンテンツ、コミュニケーション、実行体制。"
+        "ja": "市場調査、顧客の意思決定、コンテンツ、コミュニケーション、実行体制を支援。"
       },
       "extends": [
         "essential"
@@ -712,12 +1149,12 @@
       "display_name": {
         "en": "Complete AnyWork",
         "zh-CN": "AnyWork 全能力包",
-        "ja": "AnyWork 完全版"
+        "ja": "AnyWork 全スキル"
       },
       "description": {
         "en": "Every official atomic work skill in this release.",
         "zh-CN": "安装当前版本全部官方原子工作能力。",
-        "ja": "このリリースの公式アトミックワークスキルをすべて導入。"
+        "ja": "このリリースに含まれる公式の個別業務スキルをすべて導入。"
       },
       "extends": [],
       "skills": [

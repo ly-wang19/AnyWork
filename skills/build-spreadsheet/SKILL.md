@@ -1,6 +1,6 @@
 ---
 name: build-spreadsheet
-description: "Create recalculable, auditable spreadsheets with clear inputs, formulas, outputs, and checks. Use for budgets, models, trackers, or analyses. 中文：构建输入、公式、输出和校验清晰的可复算表格。日本語：入力、数式、出力、検証が明確な再計算可能スプレッドシートを作る。"
+description: "Create a recalculable, auditable spreadsheet with explicit inputs, formulas, outputs, and checks. Use when the deliverable is a workbook, budget, model, or tracker; do not use only to interpret an existing dataset or reason about scenarios without building the file. 中文：创建输入、公式、输出和校验清晰的可复算电子表格；适用于交付工作簿、预算、模型或跟踪表，不用于仅解读已有数据或只做情景推演。日本語：入力、数式、出力、検証が明確な再計算可能スプレッドシートを作る。成果物がワークブック、予算、モデル、管理表の場合に使い、既存データの解釈だけ、またはファイルを作らないシナリオ検討には使わない。"
 ---
 
 # Build Spreadsheet
