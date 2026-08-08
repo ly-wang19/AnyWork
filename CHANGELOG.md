@@ -4,6 +4,8 @@
 
 ### English
 
+- Added a prominent capability overview to every README and a complete trilingual map of all 24 Skills, 7 work packs, outputs, and composable workflows.
+- Added CI coverage that prevents Skills or packs from disappearing from any language's capability map.
 - Added an evidence-gated roadmap in English, Simplified Chinese, and Japanese, linked from every README.
 - Added dependency-free Markdown structure and local-link validation to CI.
 - Added a dependency-free native Go CLI with crash-consistent journals, automatic rollback, explicit recovery, shared-target ownership, and safe Windows state replacement.
@@ -15,6 +17,8 @@
 
 ### 简体中文
 
+- 在每份 README 首屏加入能力总览，并补充完整三语能力地图，展示 24 个 Skill、7 个工作包、具体产物和组合工作流。
+- 加入 CI 校验，防止任何 Skill 或工作包从某个语言版本的能力地图中遗漏。
 - 加入中、英、日三语证据门槛路线图，并从每份 README 提供入口。
 - 在 CI 中加入无第三方依赖的 Markdown 结构与本地链接检查。
 - 加入无第三方依赖的 Go 原生 CLI，支持崩溃一致事务日志、自动回滚、显式恢复、共享目标所有权和 Windows 安全状态替换。
@@ -26,6 +30,8 @@
 
 ### 日本語
 
+- 各 README の前半に能力概要を追加し、24 Skill、7 業務パック、成果物、組み合わせ可能なワークフローを示す完全な 3 言語能力マップを追加。
+- いずれかの言語の能力マップから Skill やパックが欠落することを防ぐ CI 検査を追加。
 - 英語・簡体字中国語・日本語の証拠ゲート付きロードマップを追加し、各 README から参照可能にした。
 - 第三者依存のない Markdown 構造・ローカルリンク検査を CI に追加。
 - 第三者依存のない Go ネイティブ CLI に、クラッシュ整合性のあるジャーナル、自動ロールバック、明示的な復旧、共有ターゲットの所有権管理、Windows の安全な状態置換を追加。

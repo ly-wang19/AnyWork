@@ -4,11 +4,24 @@
 
 [简体中文](README.zh-CN.md) · **English** · [日本語](README.ja.md)
 
-[Roadmap](ROADMAP.md) · [Quality](docs/QUALITY.md) · [Support](docs/SUPPORT.md) · [Contributing](CONTRIBUTING.md)
+[Capabilities](CAPABILITIES.md) · [Roadmap](ROADMAP.md) · [Quality](docs/QUALITY.md) · [Support](docs/SUPPORT.md) · [Contributing](CONTRIBUTING.md)
 
 AnyWork is an Apache-2.0 work-capability layer for AI agents: 24 atomic skills spanning research, analysis, decisions, writing, data, meetings, operations, and continuous improvement, plus a native cross-platform installer.
 
 This repository is an **experimental alpha**, not a finished “world’s best” claim. AnyWork makes that ambition testable: every capability, language, host, and machine claim must point to reproducible evidence.
+
+## What AnyWork can do
+
+| Work area | Available outcomes | Skills |
+|---|---|---:|
+| Define and plan | Clarify an outcome, build a plan, prioritize a backlog | 3 |
+| Research and evidence | Gather sources, extract information, verify claims, synthesize evidence | 4 |
+| Analyze and decide | Analyze data, diagnose causes, model scenarios, compare options, recommend a decision | 5 |
+| Create and communicate | Produce briefs, documents, spreadsheets, presentations, messages, and localized content | 6 |
+| Meetings and operations | Prepare meetings, capture decisions, create SOPs, automate routines | 4 |
+| Quality and improvement | Review deliverables and run evidence-based retrospectives | 2 |
+
+Install one of **7 work packs**—Essential, Manager & Leadership, Product & Operations, Research & Consulting, Go-to-Market, People & Recruiting, or Complete—or compose the 24 atomic Skills yourself. See the [complete capability map, every Skill, and example workflows](CAPABILITIES.md).
 
 ## North-star contract
 
@@ -49,6 +62,7 @@ src/          Python reference implementation
 schemas/      machine-readable contracts
 scripts/      reproducible release builds
 tests/        registry, evidence, i18n, and installer regression tests
+CAPABILITIES*.md  24 Skills, 7 work packs, and example workflows
 ROADMAP*.md   evidence-gated plan from alpha to stable ecosystem
 ```
 
