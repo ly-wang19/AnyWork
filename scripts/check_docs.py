@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -10,6 +11,16 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
+CAPABILITY_DOCS = (
+    Path("CAPABILITIES.md"),
+    Path("CAPABILITIES.zh-CN.md"),
+    Path("CAPABILITIES.ja.md"),
+)
+README_CAPABILITY_LINKS = {
+    Path("README.md"): "(CAPABILITIES.md)",
+    Path("README.zh-CN.md"): "(CAPABILITIES.zh-CN.md)",
+    Path("README.ja.md"): "(CAPABILITIES.ja.md)",
+}
 LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
 HEADING_RE = re.compile(r"^(#{1,6})\s+\S")
 FENCE_RE = re.compile(r"^\s*(```+|~~~+)")
@@ -88,15 +99,49 @@ def check_file(path: Path) -> list[str]:
     return errors
 
 
+def check_capability_inventory() -> list[str]:
+    catalog = json.loads((ROOT / "registry/catalog.json").read_text(encoding="utf-8"))
+    skill_ids = [entry["id"] for entry in catalog["skills"]]
+    pack_ids = [entry["id"] for entry in catalog["packs"]]
+    errors: list[str] = []
+
+    for relative in CAPABILITY_DOCS:
+        text = (ROOT / relative).read_text(encoding="utf-8")
+        for skill_id in skill_ids:
+            marker = f"(skills/{skill_id}/SKILL.md)"
+            count = text.count(marker)
+            if count != 1:
+                errors.append(
+                    f"{relative}: expected one linked entry for Skill {skill_id}, found {count}"
+                )
+        for pack_id in pack_ids:
+            marker = f"| `{pack_id}` |"
+            count = text.count(marker)
+            if count != 1:
+                errors.append(
+                    f"{relative}: expected one table row for pack {pack_id}, found {count}"
+                )
+
+    for relative, marker in README_CAPABILITY_LINKS.items():
+        text = (ROOT / relative).read_text(encoding="utf-8")
+        if marker not in text:
+            errors.append(f"{relative}: missing capability-map link {marker}")
+    return errors
+
+
 def main() -> int:
     files = markdown_files()
     errors = [error for path in files for error in check_file(path)]
+    errors.extend(check_capability_inventory())
     if errors:
         print("Documentation validation failed:", file=sys.stderr)
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
-    print(f"Validated {len(files)} Markdown files: formatting and local links passed.")
+    print(
+        f"Validated {len(files)} Markdown files: formatting, local links, "
+        "and trilingual capability inventory passed."
+    )
     return 0
 
 
