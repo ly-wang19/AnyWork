@@ -48,5 +48,6 @@ for target in "${targets[@]}"; do
   fi
 done
 
+(cp "$repository_root/install.sh" "$repository_root/install.ps1" "$output_directory/")
 (cd "$output_directory" && shasum -a 256 ./* > SHA256SUMS)
-echo "Built six release archives in $output_directory"
+echo "Built six release archives and verified installers in $output_directory"

@@ -15,7 +15,7 @@ AnyWork is aiming for the most trusted portable work-capability layer for AI age
 | Milestone | Outcome | Exit criteria | Status |
 |---|---|---|---|
 | `v0.2` Portable alpha | A safe, trilingual core that can move between agents and machines | 24 atomic Skills, 7 packs, 5 default host adapters, recoverable native installer, three-OS CI, six-target builds, public claims ledger | ✅ Complete |
-| `v0.3` Evidence alpha | Replace structural coverage with measured behavioral evidence | Signed native-speaker review for all Skills; model-executed trilingual evaluations; native artifact runs on all six OS/architecture targets; published raw results | 🚧 In progress |
+| `v0.3` Evidence alpha | Make the layer usable in one step, then replace structural coverage with measured behavioral evidence | One-command setup, end-to-end orchestration and demos, exact-prompt A/B runner; signed native-speaker review; model-executed trilingual evaluations; native artifact runs on all six targets; published raw results | 🚧 In progress |
 | `v0.5` Work beta | Cover complete work systems, not isolated prompts | Role packs, office artifacts, research, communication, meetings, operations, people, sales, customer, finance, and compliance workflows; connector boundaries and permission tests | ⏳ Planned |
 | `v0.8` Ecosystem beta | Make installation, contribution, and trust scalable | Homebrew/WinGet/Scoop or equivalent distribution, signed registry metadata, community-pack review path, compatibility dashboard, migration guarantees | ⏳ Planned |
 | `v1.0` Stable | A dependable default for new machines and professional work | Stable Skills meet every quality threshold; signed releases, SBOM and provenance; supported upgrade policy; no critical safety regressions; published support SLA | ⏳ Planned |
@@ -24,11 +24,11 @@ AnyWork is aiming for the most trusted portable work-capability layer for AI age
 ## Current priorities
 
 1. Complete qualified human review for English, Simplified Chinese, and Japanese against the same Skill revisions.
-2. Execute the 216 prompt variants on the supported agent matrix and publish raw, reproducible results without answer leakage.
+2. Execute the 225 prompt variants with the exact-prompt A/B runner on the supported agent matrix and publish raw, reproducible results without answer leakage.
 3. Run release artifacts natively on macOS, Linux, and Windows across amd64 and arm64, including installation, update, rollback, recovery, and uninstall.
 4. Publish the first signed pre-release with checksums, SBOM, provenance attestation, and verified archive contents.
-5. Add one-command installation and upgrade paths suitable for a clean computer.
-6. Expand from atomic Skills into end-to-end role and work-system packs while keeping external writes permission-gated.
+5. Validate the one-command installers on clean machines and add managed upgrade channels.
+6. Expand the orchestrator from reusable recipes into end-to-end role and work-system packs while keeping external writes permission-gated.
 
 ## Stable-release scorecard
 

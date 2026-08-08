@@ -6,7 +6,7 @@ An official Skill is a releaseable work capability, not an interesting prompt.
 
 ## Current alpha evidence
 
-The 24 catalog skills currently pass structural, provenance, packaging, and local installer checks. Their English, Simplified Chinese, and Japanese content is machine-drafted. No skill may become `stable` until all three entries in `language_reviews` are signed as `human-reviewed` for the exact skill revision. The current smoke scorecard is diagnostic only; it does not prove native-language quality or cross-agent parity.
+The 24 atomic Skills and one orchestrator currently pass structural, provenance, packaging, and local installer checks. Their English, Simplified Chinese, and Japanese content is machine-drafted. No capability may become `stable` until all three entries in `language_reviews` are signed as `human-reviewed` for the exact revision. The current smoke scorecard is diagnostic only; it does not prove native-language quality or cross-agent parity.
 
 ## Required gates
 

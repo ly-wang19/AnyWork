@@ -1,0 +1,4 @@
+interface:
+  display_name: "Orchestrate Work"
+  short_description: "Run complex work end to end across multiple Skills"
+  default_prompt: "Use $orchestrate-work to take this outcome from an ambiguous request to a checked final deliverable."

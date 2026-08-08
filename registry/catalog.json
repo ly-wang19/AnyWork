@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "anywork-official",
-  "version": "0.2.0-alpha.1",
+  "version": "0.3.0-alpha.1",
   "languages": [
     "en",
     "zh-CN",
@@ -981,6 +981,48 @@
         "local-artifact-authoring",
         "workflow-guidance"
       ]
+    },
+    {
+      "id": "orchestrate-work",
+      "path": "skills/orchestrate-work",
+      "version": "0.1.0",
+      "maturity": "experimental",
+      "class": "coordinate",
+      "languages": [
+        "en",
+        "zh-CN",
+        "ja"
+      ],
+      "license": "Apache-2.0",
+      "source": {
+        "type": "original",
+        "repository": "self"
+      },
+      "risk": "medium",
+      "side_effects": [
+        "read",
+        "local-write",
+        "commands-with-approval",
+        "external-write-with-approval"
+      ],
+      "language_reviews": {
+        "en": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "zh-CN": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        },
+        "ja": {
+          "status": "machine-drafted",
+          "revision": "0.1.0"
+        }
+      },
+      "capabilities": [
+        "local-artifact-authoring",
+        "workflow-guidance"
+      ]
     }
   ],
   "packs": [
@@ -998,6 +1040,7 @@
       },
       "extends": [],
       "skills": [
+        "orchestrate-work",
         "clarify-outcome",
         "plan-work",
         "gather-sources",
@@ -1158,6 +1201,7 @@
       },
       "extends": [],
       "skills": [
+        "orchestrate-work",
         "clarify-outcome",
         "plan-work",
         "gather-sources",

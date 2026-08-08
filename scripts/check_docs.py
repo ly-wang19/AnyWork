@@ -105,6 +105,17 @@ def check_capability_inventory() -> list[str]:
     pack_ids = [entry["id"] for entry in catalog["packs"]]
     errors: list[str] = []
 
+    pack_by_id = {entry["id"]: entry for entry in catalog["packs"]}
+
+    def resolve_pack(pack_id: str, trail: tuple[str, ...] = ()) -> set[str]:
+        if pack_id in trail:
+            return set()
+        pack = pack_by_id[pack_id]
+        resolved = set(pack["skills"])
+        for parent in pack.get("extends", []):
+            resolved.update(resolve_pack(parent, trail + (pack_id,)))
+        return resolved
+
     for relative in CAPABILITY_DOCS:
         text = (ROOT / relative).read_text(encoding="utf-8")
         for skill_id in skill_ids:
@@ -116,10 +127,24 @@ def check_capability_inventory() -> list[str]:
                 )
         for pack_id in pack_ids:
             marker = f"| `{pack_id}` |"
-            count = text.count(marker)
-            if count != 1:
+            row_count = text.count(marker)
+            if row_count != 1:
                 errors.append(
-                    f"{relative}: expected one table row for pack {pack_id}, found {count}"
+                    f"{relative}: expected one table row for pack {pack_id}, found {row_count}"
+                )
+                continue
+            row = next(line for line in text.splitlines() if line.startswith(marker))
+            cells = [cell.strip() for cell in row.strip().strip("|").split("|")]
+            expected_count = len(resolve_pack(pack_id))
+            try:
+                documented_count = int(cells[2])
+            except (IndexError, ValueError):
+                errors.append(f"{relative}: invalid Skill count for pack {pack_id}")
+                continue
+            if documented_count != expected_count:
+                errors.append(
+                    f"{relative}: pack {pack_id} documents {documented_count} Skills, "
+                    f"but resolves to {expected_count}"
                 )
 
     for relative, marker in README_CAPABILITY_LINKS.items():

@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 from .catalog import load_catalog, validate_catalog
+from .experience import DEMOS, render_demo
 from .i18n import help_text, localized, message, normalize_language
 from .installer import InstallError, SUPPORTED_AGENTS, install_skills, normalize_agent, uninstall_skills
 
@@ -55,13 +56,25 @@ def build_parser(language: str) -> argparse.ArgumentParser:
         add_help=False,
     )
     _add_help(parser, language)
-    parser.add_argument("--version", action="version", version="anywork 0.2.0-alpha.1")
+    parser.add_argument("--version", action="version", version="anywork 0.3.0-alpha.1")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     list_parser = subparsers.add_parser("list", help=help_text(language, "list"), add_help=False)
     _add_help(list_parser, language)
     doctor_parser = subparsers.add_parser("doctor", help=help_text(language, "doctor"), add_help=False)
     _add_help(doctor_parser, language)
+
+    demo_parser = subparsers.add_parser("demo", help=help_text(language, "demo"), add_help=False)
+    _add_help(demo_parser, language)
+    demo_parser.add_argument("demo_id", nargs="?", choices=tuple(demo.id for demo in DEMOS))
+
+    setup_parser = subparsers.add_parser("setup", help=help_text(language, "setup"), add_help=False)
+    _add_help(setup_parser, language)
+    setup_parser.add_argument("--agent", action="append", default=[], help=help_text(language, "agent"))
+    setup_parser.add_argument("--scope", choices=("user", "project"), default="user", help=help_text(language, "scope"))
+    setup_parser.add_argument("--project-dir", type=Path, default=Path.cwd(), help=help_text(language, "project_dir"))
+    setup_parser.add_argument("--dry-run", action="store_true", help=help_text(language, "dry_run"))
+    setup_parser.add_argument("--force", action="store_true", help=help_text(language, "force"))
 
     for command in ("install", "update", "uninstall"):
         subparser = subparsers.add_parser(command, help=help_text(language, command), add_help=False)
@@ -131,13 +144,21 @@ def main(argv: list[str] | None = None) -> int:
         ))
         return 0
 
-    if args.pack not in catalog.packs:
-        print(message(language, "pack_unknown", pack=args.pack), file=sys.stderr)
+    if args.command == "demo":
+        print(render_demo(language, args.demo_id))
+        return 0
+
+    pack_id = "complete" if args.command == "setup" else args.pack
+    if pack_id not in catalog.packs:
+        print(message(language, "pack_unknown", pack=pack_id), file=sys.stderr)
         return 2
-    skill_ids = catalog.resolve_pack(args.pack)
+    skill_ids = catalog.resolve_pack(pack_id)
     try:
         agents = _selected_agents(args.agent)
-        if args.command in {"install", "update"}:
+        if args.command in {"setup", "install", "update"}:
+            operation_emit = emit
+            if args.command == "setup" and not args.dry_run:
+                operation_emit = lambda key, values: emit(key, values) if key == "backup_note" else None
             install_skills(
                 catalog=catalog,
                 skill_ids=skill_ids,
@@ -146,8 +167,11 @@ def main(argv: list[str] | None = None) -> int:
                 project_dir=args.project_dir,
                 dry_run=args.dry_run,
                 force=args.force,
-                emit=emit,
+                emit=operation_emit,
             )
+            if args.command == "setup" and not args.dry_run:
+                print(message(language, "setup_complete", skills=len(skill_ids), agents=len(agents)))
+                print(message(language, "setup_next"))
         else:
             uninstall_skills(
                 skill_ids=skill_ids,

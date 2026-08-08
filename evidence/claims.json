@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "as_of": "2026-08-07",
+  "as_of": "2026-08-08",
   "claims": [
     {
       "id": "catalog-structure",
       "status": "verified",
-      "scope": "24 experimental skills and 7 composable packs",
+      "scope": "24 experimental atomic skills, 1 experimental orchestrator, and 7 composable packs",
       "evidence": [
         "tests/test_catalog.py",
         "native_test.go"
@@ -43,7 +43,8 @@
       "status": "partial",
       "scope": "Release binaries executed on every supported OS and architecture",
       "evidence": [
-        ".github/workflows/ci.yml"
+        ".github/workflows/ci.yml",
+        ".github/workflows/release.yml"
       ]
     },
     {
@@ -56,9 +57,12 @@
     },
     {
       "id": "public-github-repository",
-      "status": "not-verified",
-      "scope": "Public GitHub origin and release artifacts",
-      "evidence": []
+      "status": "verified",
+      "scope": "Public GitHub origin; release artifacts remain separately evidence-gated",
+      "evidence": [
+        "README.md",
+        ".github/workflows/ci.yml"
+      ]
     },
     {
       "id": "stable-release",

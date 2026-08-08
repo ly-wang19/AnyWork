@@ -27,10 +27,10 @@ class EvalSuiteTests(unittest.TestCase):
     def validate(self, suite: dict) -> list[str]:
         return validate_evals.validate_suite(suite, self.catalog)
 
-    def test_complete_suite_has_72_cases_and_216_prompt_variants(self) -> None:
+    def test_complete_suite_has_75_cases_and_225_prompt_variants(self) -> None:
         self.assertEqual(self.validate(self.suite), [])
-        self.assertEqual(len(self.suite["cases"]), 72)
-        self.assertEqual(len(self.suite["cases"]) * len(self.suite["languages"]), 216)
+        self.assertEqual(len(self.suite["cases"]), 75)
+        self.assertEqual(len(self.suite["cases"]) * len(self.suite["languages"]), 225)
 
     def test_each_skill_has_all_three_difficulties(self) -> None:
         expected = {"basic", "ambiguous", "conflicting"}
@@ -44,7 +44,7 @@ class EvalSuiteTests(unittest.TestCase):
         actual = json.loads((ROOT / "evals" / "manifest.json").read_text(encoding="utf-8"))
         expected = validate_evals.build_manifest(ROOT, self.suite)
         self.assertEqual(actual, expected)
-        self.assertEqual(actual["counts"], {"skills": 24, "cases": 72, "prompt_variants": 216})
+        self.assertEqual(actual["counts"], {"skills": 25, "cases": 75, "prompt_variants": 225})
         self.assertFalse(actual["claims"]["model_runs_included"])
         self.assertFalse(actual["claims"]["native_human_review_included"])
 

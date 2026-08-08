@@ -40,7 +40,11 @@ jobs:
           if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
             gh release upload "${GITHUB_REF_NAME}" dist/* --clobber
           else
-            gh release create "${GITHUB_REF_NAME}" dist/* --draft --generate-notes --verify-tag
+            release_flags=(--draft --generate-notes --verify-tag)
+            if [[ "${GITHUB_REF_NAME}" == *-* ]]; then
+              release_flags+=(--prerelease)
+            fi
+            gh release create "${GITHUB_REF_NAME}" dist/* "${release_flags[@]}"
           fi
 
   native-smoke:
@@ -80,13 +84,19 @@ jobs:
           set -euo pipefail
           smoke_root=$(mktemp -d)
           gh release download "${GITHUB_REF_NAME}" --pattern "$ASSET_PATTERN" --dir "$smoke_root"
+          gh release download "${GITHUB_REF_NAME}" --pattern SHA256SUMS --pattern install.sh --dir "$smoke_root"
+          ANYWORK_DOWNLOAD_BASE="file://$smoke_root" sh "$smoke_root/install.sh" \
+            --version "$GITHUB_REF_NAME" --install-dir "$smoke_root/installed"
+          "$smoke_root/installed/anywork" doctor --lang en
           tar -xzf "$smoke_root"/*.tar.gz -C "$smoke_root"
           "$smoke_root/anywork" --version
           "$smoke_root/anywork" doctor --lang en
           "$smoke_root/anywork" doctor --lang zh-CN
           "$smoke_root/anywork" doctor --lang ja
+          "$smoke_root/anywork" demo research --lang en
           project="$smoke_root/Project 空間"
           mkdir -p "$project"
+          "$smoke_root/anywork" setup --scope project --project-dir "$project" --agent codex --dry-run --lang en
           "$smoke_root/anywork" install complete --scope project --project-dir "$project" --dry-run --lang en
           "$smoke_root/anywork" install complete --scope project --project-dir "$project" --lang en
           "$smoke_root/anywork" update complete --scope project --project-dir "$project" --lang en
@@ -107,6 +117,9 @@ jobs:
           $smokeRoot = Join-Path $env:RUNNER_TEMP "anywork-smoke"
           New-Item -ItemType Directory -Force -Path $smokeRoot | Out-Null
           gh release download $env:GITHUB_REF_NAME --pattern $env:ASSET_PATTERN --dir $smokeRoot
+          gh release download $env:GITHUB_REF_NAME --pattern SHA256SUMS --pattern install.ps1 --dir $smokeRoot
+          & (Join-Path $smokeRoot "install.ps1") -Version $env:GITHUB_REF_NAME -InstallDir (Join-Path $smokeRoot "installed") -DownloadBase $smokeRoot
+          & (Join-Path $smokeRoot "installed\anywork.exe") doctor --lang en
           $archive = Get-ChildItem -Path $smokeRoot -Filter *.zip | Select-Object -First 1
           Expand-Archive -Path $archive.FullName -DestinationPath $smokeRoot -Force
           $binary = Join-Path $smokeRoot "anywork.exe"
@@ -114,8 +127,10 @@ jobs:
           & $binary doctor --lang en
           & $binary doctor --lang zh-CN
           & $binary doctor --lang ja
+          & $binary demo research --lang en
           $project = Join-Path $smokeRoot "Project 空間"
           New-Item -ItemType Directory -Force -Path $project | Out-Null
+          & $binary setup --scope project --project-dir $project --agent codex --dry-run --lang en
           & $binary install complete --scope project --project-dir $project --dry-run --lang en
           & $binary install complete --scope project --project-dir $project --lang en
           & $binary update complete --scope project --project-dir $project --lang en

@@ -56,6 +56,14 @@ jobs:
           python anywork-cli.py doctor --lang en
           python anywork-cli.py doctor --lang zh-CN
           python anywork-cli.py doctor --lang ja
+      - name: Smoke-test Unix one-command installer
+        if: runner.os != 'Windows'
+        shell: bash
+        run: sh scripts/test-installers.sh
+      - name: Smoke-test Windows one-command installer
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./scripts/test-installers.ps1
 
   distribution:
     name: Six native release targets

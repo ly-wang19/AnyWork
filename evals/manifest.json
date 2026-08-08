@@ -3,21 +3,21 @@
   "suite_id": "anywork-routing-v2",
   "digest_algorithm": "sha256",
   "artifact_text_normalization": "crlf-to-lf",
-  "suite_digest": "390ceea12a321eadf7ae937f5420fc4a63cb9b53c0a1298e802917406640fc0a",
+  "suite_digest": "0a25a73e2946ab51ea01d2c87630e4ec96c863f202bf9ced889bb7d41e3ab798",
   "artifacts": {
     "cases": {
       "path": "evals/cases.json",
-      "sha256": "742c365dbe55862a0dfd0ebab8ff43ba3d4c4b4f1a9e7d0b7aced713224ab404"
+      "sha256": "47b1beb2bf27780c2e2666424b530050d1450ff700c415de6b49839e3522529e"
     },
     "schema": {
       "path": "schemas/eval.schema.json",
-      "sha256": "22cd68560791d2edd9a760ef217f401e98508c4b5cd16652b0a4c74f4abd6f5a"
+      "sha256": "00d358f8be5da56a0b34d3a37a5e2240caa59c84cab3f6b22de8cfae6e991750"
     }
   },
   "counts": {
-    "skills": 24,
-    "cases": 72,
-    "prompt_variants": 216
+    "skills": 25,
+    "cases": 75,
+    "prompt_variants": 225
   },
   "languages": [
     "en",

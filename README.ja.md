@@ -4,9 +4,9 @@
 
 [简体中文](README.zh-CN.md) · [English](README.md) · **日本語**
 
-[能力マップ](CAPABILITIES.ja.md) · [ロードマップ](ROADMAP.ja.md) · [品質基準](docs/QUALITY.ja.md) · [対応状況](docs/SUPPORT.ja.md) · [貢献ガイド](CONTRIBUTING.ja.md)
+[能力マップ](CAPABILITIES.ja.md) · [比較評価](docs/BENCHMARK.ja.md) · [ロードマップ](ROADMAP.ja.md) · [品質基準](docs/QUALITY.ja.md) · [対応状況](docs/SUPPORT.ja.md) · [貢献ガイド](CONTRIBUTING.ja.md)
 
-AnyWork は Apache-2.0 で提供する AI エージェント向け業務スキル基盤です。調査、分析、意思決定、文書作成、データ、会議、業務設計、継続的改善を扱う 24 の個別スキルと、ネイティブなクロスプラットフォーム・インストーラーを収録しています。
+AnyWork は Apache-2.0 で提供する AI エージェント向け業務能力レイヤーです。調査、分析、意思決定、文書、データ、会議、運用、継続的改善を扱う 24 の個別 Skill に加え、複雑な依頼を正しく検査された能力チェーンに変える 1 つのオーケストレーターを収録しています。
 
 現在のリポジトリは**実験的な Alpha 版**であり、「世界最高」を達成済みと宣伝するものではありません。その目標を検証可能にするため、能力、言語、ホスト、マシンに関する主張には再現可能な証拠を求めます。
 
@@ -20,8 +20,9 @@ AnyWork は Apache-2.0 で提供する AI エージェント向け業務スキ�
 | 成果物とコミュニケーション | ブリーフ、文書、表計算、プレゼン、メッセージ、ローカライズ成果物を作る | 6 |
 | 会議と運用 | 会議準備、決定事項整理、SOP 作成、反復業務の自動化 | 4 |
 | 品質と改善 | 成果物をレビューし、根拠ベースの振り返りを行う | 2 |
+| エンドツーエンド編成 | 必要最小限の複数 Skill を選択、実行、検査して引き継ぐ | 1 |
 
-**7 つの業務パック**（基本、管理・リーダーシップ、製品・運用、調査・コンサルティング、Go-to-Market、人事・採用、完全版）から選んで導入するか、24 の個別 Skill を自由に組み合わせられます。[全能力、各 Skill、エンドツーエンドの例](CAPABILITIES.ja.md)を参照してください。
+**7 つの業務パック**（基本、管理・リーダーシップ、製品・運用、調査・コンサルティング、Go-to-Market、人事・採用、完全版）から選んで導入するか、24 の個別 Skill を自由に組み合わせられます。[25 の能力、各 Skill、エンドツーエンドの例](CAPABILITIES.ja.md)を参照してください。
 
 ## ノーススター契約
 
@@ -31,23 +32,33 @@ AnyWork は Apache-2.0 で提供する AI エージェント向け業務スキ�
 - **3 言語に同じ基準：**英語、簡体字中国語、日本語に同一の構造契約と正式版基準を適用します。
 - **信頼性を既定にする：**出典、ライセンス、権限、リスク情報を必須にします。
 
-Alpha 版の現状：24 スキルはすべて `experimental` です。3 言語の内容は機械生成の初稿で、署名付きの人手レビューは未完了です。エージェント間の動作同等性と全マシン構成でのネイティブ検証も未完了です。[主張と証拠の台帳](evidence/claims.json)と[品質基準](docs/QUALITY.ja.md)を参照してください。
+Alpha 版の現状：24 の個別 Skill と 1 つのオーケストレーターはすべて `experimental` です。3 言語の内容は機械生成の初稿で、署名付きの人手レビューは未完了です。エージェント間の動作同等性と全マシン構成でのネイティブ検証も未完了です。[主張と証拠の台帳](evidence/claims.json)と[品質基準](docs/QUALITY.ja.md)を参照してください。
 
-既定の文書化済みアダプターは Codex、Claude Code、Gemini CLI、GitHub Copilot、OpenCode に対応します。Cursor は実験扱いで `all` には含めません。静的評価契約には 72 ケース、3 言語の 216 プロンプトがありますが、各モデルで実行済みとは主張しません。
+既定の文書化済みアダプターは Codex、Claude Code、Gemini CLI、GitHub Copilot、OpenCode に対応します。Cursor は実験扱いで `all` には含めません。静的評価契約には 75 ケース、3 言語の 225 プロンプトがありますが、各モデルで実行済みとは主張しません。
 
-## クイックスタート
+## 1 コマンドで開始
 
-第三者ランタイムに依存しないネイティブ CLI をソースからビルドします。
+macOS または Linux：
 
 ```bash
-go build -trimpath -o anywork .
-./anywork list --lang ja
-./anywork install essential --scope project --dry-run --lang ja
-./anywork install essential --scope project --lang ja
-./anywork doctor --lang ja
+curl -fsSL https://raw.githubusercontent.com/ly-wang19/AnyWork/v0.3.0-alpha.1/install.sh | sh -s -- --setup --agent all --lang ja
 ```
 
-CLI は `--lang en` と `--lang zh-CN` にも対応し、未指定時は OS のロケールに従います。Windows では `anywork.exe` をビルドしてください。タグ付きリリースでは macOS、Linux、Windows の amd64/arm64 向けに、チェックサム付きアーカイブを生成します。`anywork-cli.py` は Python 標準ライブラリのみを使う参照実装兼テスト基準です。
+Windows PowerShell：
+
+```powershell
+& ([scriptblock]::Create((irm https://raw.githubusercontent.com/ly-wang19/AnyWork/v0.3.0-alpha.1/install.ps1))) -Setup -Agent all -Language ja
+```
+
+バージョン固定スクリプトはマシンを検出し、対応するネイティブアーカイブを取得し、公開 SHA-256 を検証してから CLI を導入し、`anywork setup` を実行します。リモートスクリプトの直接実行を禁止するポリシーでは、[install.sh](install.sh) または [install.ps1](install.ps1) を先に確認してください。シェル設定の書き換えやツール権限の暗黙付与は行いません。
+
+次に、実際のエンドツーエンド作業を確認します。
+
+```bash
+anywork demo research --lang ja
+```
+
+表示された依頼を Codex、Claude Code、または導入済みのホストに貼り付けます。CLI は `--lang en` と `--lang zh-CN` にも対応し、未指定時は OS のロケールに従います。小さなパックだけが必要なら `anywork install essential` を実行します。`anywork-cli.py` は Python 標準ライブラリのみを使う参照実装兼テスト基準です。
 
 ## リポジトリ構成
 
@@ -62,13 +73,13 @@ src/          Python 参照実装
 schemas/      機械可読な契約
 scripts/      再現可能なリリースビルド
 tests/        レジストリ、証拠、多言語、インストーラーの回帰テスト
-CAPABILITIES*.md  24 Skill、7 業務パック、組み合わせ例
+CAPABILITIES*.md  24 個別 Skill、1 オーケストレーター、7 業務パック、ワークフロー
 ROADMAP*.md   Alpha から安定版エコシステムまでの証拠ゲート付き計画
 ```
 
 ## ロードマップ
 
-次の証拠マイルストーンは `v0.3` です。母語レビューの署名、3 言語でのモデル実行評価、全リリース対象でのネイティブ実行、最初の署名付きプレリリースを目標とします。[証拠ゲート付きロードマップの全文](ROADMAP.ja.md)を参照してください。
+`v0.3` のラストマイル体験に、1 コマンド設定、自動複数 Skill 編成、実行可能な Demo、同一プロンプトの[導入前後比較評価](docs/BENCHMARK.ja.md)を追加しました。残る証拠ゲートは、3 言語の人手レビュー、モデル実行結果、署名付きリリースです。[証拠ゲート付きロードマップの全文](ROADMAP.ja.md)を参照してください。
 
 ## 現在の状態
 
