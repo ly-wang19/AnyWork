@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import importlib.util
 import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -53,6 +54,19 @@ class EvalSuiteTests(unittest.TestCase):
             validate_evals.suite_digest(self.suite),
             validate_evals.suite_digest(reordered),
         )
+
+    def test_manifest_artifact_hashes_are_independent_of_checkout_newlines(self) -> None:
+        expected = validate_evals.build_manifest(ROOT, self.suite)
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "evals").mkdir()
+            (root / "schemas").mkdir()
+            for relative in (Path("evals/cases.json"), Path("schemas/eval.schema.json")):
+                source = ROOT / relative
+                destination = root / relative
+                destination.write_bytes(source.read_bytes().replace(b"\n", b"\r\n"))
+            actual = validate_evals.build_manifest(root, self.suite)
+        self.assertEqual(actual["artifacts"], expected["artifacts"])
 
     def test_duplicate_id_is_rejected(self) -> None:
         candidate = copy.deepcopy(self.suite)

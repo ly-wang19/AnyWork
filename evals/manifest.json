@@ -2,6 +2,7 @@
   "schema_version": 1,
   "suite_id": "anywork-routing-v2",
   "digest_algorithm": "sha256",
+  "artifact_text_normalization": "crlf-to-lf",
   "suite_digest": "390ceea12a321eadf7ae937f5420fc4a63cb9b53c0a1298e802917406640fc0a",
   "artifacts": {
     "cases": {

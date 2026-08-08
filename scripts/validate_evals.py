@@ -51,6 +51,12 @@ def sha256_bytes(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def normalized_text_bytes(path: Path) -> bytes:
+    """Return canonical text bytes independent of Git checkout newline mode."""
+
+    return path.read_bytes().replace(b"\r\n", b"\n")
+
+
 def unique_strings(value: Any) -> bool:
     return (
         isinstance(value, list)
@@ -259,15 +265,16 @@ def build_manifest(root: Path, suite: dict[str, Any]) -> dict[str, Any]:
         "schema_version": 1,
         "suite_id": suite["suite_id"],
         "digest_algorithm": "sha256",
+        "artifact_text_normalization": "crlf-to-lf",
         "suite_digest": suite_digest(suite),
         "artifacts": {
             "cases": {
                 "path": "evals/cases.json",
-                "sha256": sha256_bytes(cases_path.read_bytes()),
+                "sha256": sha256_bytes(normalized_text_bytes(cases_path)),
             },
             "schema": {
                 "path": "schemas/eval.schema.json",
-                "sha256": sha256_bytes(schema_path.read_bytes()),
+                "sha256": sha256_bytes(normalized_text_bytes(schema_path)),
             },
         },
         "counts": {
