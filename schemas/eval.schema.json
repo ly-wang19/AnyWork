@@ -34,8 +34,8 @@
     },
     "cases": {
       "type": "array",
-      "minItems": 72,
-      "maxItems": 72,
+      "minItems": 75,
+      "maxItems": 75,
       "items": {"$ref": "#/$defs/case"}
     }
   },

@@ -2,7 +2,7 @@
 
 [简体中文](CAPABILITIES.zh-CN.md) · **English** · [日本語](CAPABILITIES.ja.md)
 
-AnyWork gives an AI agent repeatable methods for turning ambiguous work into checked, usable deliverables. The current alpha contains **24 atomic Skills** and **7 installable work packs**. Skills can be used alone or composed into an end-to-end workflow.
+AnyWork gives an AI agent repeatable methods for turning ambiguous work into checked, usable deliverables. The current alpha contains **24 atomic Skills, 1 end-to-end orchestrator, and 7 installable work packs**. Atomic Skills can be used alone; the orchestrator selects and executes the smallest useful chain for a complex outcome.
 
 ## Capability map
 
@@ -14,6 +14,7 @@ AnyWork gives an AI agent repeatable methods for turning ambiguous work into che
 | Create and communicate | A decision brief, long-form document, auditable workbook, presentation, ready-to-send message, or localized asset | [Write a brief](skills/write-brief/SKILL.md), [draft a document](skills/draft-document/SKILL.md), [build a spreadsheet](skills/build-spreadsheet/SKILL.md), [design a presentation](skills/design-presentation/SKILL.md), [write a message](skills/write-message/SKILL.md), [localize content](skills/localize-content/SKILL.md) |
 | Meetings and operations | A meeting design, decision/action log, executable SOP, or safe automation plan | [Prepare a meeting](skills/prepare-meeting/SKILL.md), [capture decisions and actions](skills/capture-decisions-actions/SKILL.md), [create an SOP](skills/create-sop/SKILL.md), [automate a routine](skills/automate-routine/SKILL.md) |
 | Quality and improvement | A deliverable review or evidence-based retrospective with owned experiments | [Review a deliverable](skills/review-deliverable/SKILL.md), [run a retrospective](skills/run-retrospective/SKILL.md) |
+| End-to-end orchestration | A checked multi-stage outcome with explicit handoffs, evidence, uncertainty, and permission gates | [Orchestrate work](skills/orchestrate-work/SKILL.md) |
 
 ## Work packs
 
@@ -21,48 +22,50 @@ Packs are curated starting points. Their Skills intentionally overlap because th
 
 | Pack ID | Designed for | Skills | Install example |
 |---|---|---:|---|
-| `essential` | Everyday research, writing, coordination, and review | 9 | `anywork install essential` |
-| `manager-leadership` | Decisions, priorities, scenarios, meetings, and retrospectives | 8 | `anywork install manager-leadership` |
-| `product-operations` | Product discovery, prioritization, delivery systems, and improvement | 9 | `anywork install product-operations` |
-| `research-consulting` | Evidence-heavy research, analysis, recommendations, reports, and decks | 7 | `anywork install research-consulting` |
-| `go-to-market` | Market evidence, customer decisions, content, communication, and execution | 11 | `anywork install go-to-market` |
-| `people-recruiting` | Structured, fair, and auditable people and recruiting work | 10 | `anywork install people-recruiting` |
-| `complete` | Every official atomic Skill in this release | 24 | `anywork install complete` |
+| `essential` | Everyday research, writing, coordination, review, and orchestration | 10 | `anywork install essential` |
+| `manager-leadership` | Essential plus decisions, priorities, scenarios, meetings, and retrospectives | 18 | `anywork install manager-leadership` |
+| `product-operations` | Essential plus product discovery, prioritization, delivery systems, and improvement | 19 | `anywork install product-operations` |
+| `research-consulting` | Essential plus evidence-heavy analysis, recommendations, reports, and decks | 17 | `anywork install research-consulting` |
+| `go-to-market` | Essential plus market evidence, customer decisions, content, communication, and execution | 21 | `anywork install go-to-market` |
+| `people-recruiting` | Essential plus structured, fair, and auditable people and recruiting work | 20 | `anywork install people-recruiting` |
+| `complete` | Every official atomic Skill and the orchestrator in this release | 25 | `anywork install complete` |
 
 Add `--agent codex`, `--agent claude-code`, `--agent gemini-cli`, `--agent github-copilot`, or `--agent opencode` to target one documented host. Use `--scope project` or `--scope user` to choose the installation boundary, and use `--dry-run` before writing.
+
+`anywork setup` installs `complete` for all documented hosts in one step. `anywork demo research`, `anywork demo meeting`, and `anywork demo automation` print ready-to-paste trilingual jobs that exercise the orchestrator.
 
 ## Example end-to-end workflows
 
 ### Research to recommendation
 
-`clarify-outcome` → `gather-sources` → `verify-claims` → `synthesize-sources` → `compare-options` → `make-decision` → `write-brief`
+`orchestrate-work` → `clarify-outcome` when needed → `gather-sources` → `verify-claims` → `synthesize-sources` → `compare-options` → `make-decision` → `write-brief` → `review-deliverable`
 
 Result: a decision-ready recommendation whose sources, uncertainty, alternatives, and rationale remain traceable.
 
 ### Data to executive presentation
 
-`extract-structured-info` → `analyze-data` → `model-scenarios` → `build-spreadsheet` → `design-presentation` → `review-deliverable`
+`orchestrate-work` → `extract-structured-info` → `analyze-data` → `model-scenarios` → `build-spreadsheet` → `design-presentation` → `review-deliverable`
 
 Result: a recalculable model and an audience-ready narrative, with the evidence and assumptions kept separate.
 
 ### Meeting to accountable execution
 
-`prepare-meeting` → `capture-decisions-actions` → `plan-work` → `prioritize-work` → `review-deliverable`
+`orchestrate-work` → `prepare-meeting` → meeting occurs → `capture-decisions-actions` → `plan-work` → `prioritize-work` → `review-deliverable`
 
 Result: a focused meeting followed by explicit decisions, owners, deadlines, dependencies, and acceptance checks.
 
 ### Recurring operation to safe automation
 
-`diagnose-root-cause` → `create-sop` → `automate-routine` → `run-retrospective`
+`orchestrate-work` → `diagnose-root-cause` → `create-sop` → `automate-routine` → controlled run → `run-retrospective`
 
 Result: a controlled operating process with exceptions, human gates, recovery, and measured improvement.
 
 ### Global content delivery
 
-`write-brief` → `draft-document` → `localize-content` → `write-message` → `review-deliverable`
+`orchestrate-work` → `write-brief` → `draft-document` → `localize-content` → `write-message` → `review-deliverable`
 
 Result: channel-ready English, Simplified Chinese, and Japanese content that preserves the approved meaning and terminology.
 
 ## Capability boundary
 
-AnyWork installs work methods, not credentials or silent integrations. A Skill can use only the tools and access already available to its host agent. External writes, messages, purchases, deletions, and other consequential actions still require explicit authorization and a verifiable target. All 24 Skills remain `experimental` until the [quality gates](docs/QUALITY.md) and [roadmap](ROADMAP.md) evidence are complete.
+AnyWork installs work methods, not credentials or silent integrations. A Skill can use only the tools and access already available to its host agent. External writes, messages, purchases, deletions, and other consequential actions still require explicit authorization and a verifiable target. All 24 atomic Skills and the orchestrator remain `experimental` until the [quality gates](docs/QUALITY.md) and [roadmap](ROADMAP.md) evidence are complete.

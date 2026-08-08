@@ -4,9 +4,9 @@
 
 [简体中文](README.zh-CN.md) · **English** · [日本語](README.ja.md)
 
-[Capabilities](CAPABILITIES.md) · [Roadmap](ROADMAP.md) · [Quality](docs/QUALITY.md) · [Support](docs/SUPPORT.md) · [Contributing](CONTRIBUTING.md)
+[Capabilities](CAPABILITIES.md) · [Benchmark](docs/BENCHMARK.md) · [Roadmap](ROADMAP.md) · [Quality](docs/QUALITY.md) · [Support](docs/SUPPORT.md) · [Contributing](CONTRIBUTING.md)
 
-AnyWork is an Apache-2.0 work-capability layer for AI agents: 24 atomic skills spanning research, analysis, decisions, writing, data, meetings, operations, and continuous improvement, plus a native cross-platform installer.
+AnyWork is an Apache-2.0 work-capability layer for AI agents: 24 atomic Skills spanning research, analysis, decisions, writing, data, meetings, operations, and continuous improvement, plus one orchestrator that turns a complex request into the right checked capability chain.
 
 This repository is an **experimental alpha**, not a finished “world’s best” claim. AnyWork makes that ambition testable: every capability, language, host, and machine claim must point to reproducible evidence.
 
@@ -20,8 +20,9 @@ This repository is an **experimental alpha**, not a finished “world’s best�
 | Create and communicate | Produce briefs, documents, spreadsheets, presentations, messages, and localized content | 6 |
 | Meetings and operations | Prepare meetings, capture decisions, create SOPs, automate routines | 4 |
 | Quality and improvement | Review deliverables and run evidence-based retrospectives | 2 |
+| End-to-end orchestration | Select, execute, check, and hand off the smallest useful multi-Skill chain | 1 |
 
-Install one of **7 work packs**—Essential, Manager & Leadership, Product & Operations, Research & Consulting, Go-to-Market, People & Recruiting, or Complete—or compose the 24 atomic Skills yourself. See the [complete capability map, every Skill, and example workflows](CAPABILITIES.md).
+Install one of **7 work packs**—Essential, Manager & Leadership, Product & Operations, Research & Consulting, Go-to-Market, People & Recruiting, or Complete—or compose the 24 atomic Skills yourself. See the [complete capability map, all 25 capabilities, and example workflows](CAPABILITIES.md).
 
 ## North-star contract
 
@@ -31,23 +32,33 @@ Install one of **7 work packs**—Essential, Manager & Leadership, Product & Ope
 - **Three languages:** English, Simplified Chinese, and Japanese share the same structural contract and stable-release thresholds.
 - **Trust by default:** provenance, license, permissions, and risk metadata are required.
 
-Current alpha truth: all 24 skills are `experimental`; all three language versions are machine-drafted and await signed human review; cross-agent behavioral parity and the full native machine matrix are not yet verified. See the [claims ledger](evidence/claims.json) and [quality gates](docs/QUALITY.md).
+Current alpha truth: all 24 atomic Skills and the orchestrator are `experimental`; all three language versions are machine-drafted and await signed human review; cross-agent behavioral parity and the full native machine matrix are not yet verified. See the [claims ledger](evidence/claims.json) and [quality gates](docs/QUALITY.md).
 
-Documented default adapters cover Codex, Claude Code, Gemini CLI, GitHub Copilot, and OpenCode. Cursor is experimental and excluded from `all`. The static evaluation contract contains 72 cases and 216 trilingual prompt variants; it does not claim that those prompts have already been executed across models.
+Documented default adapters cover Codex, Claude Code, Gemini CLI, GitHub Copilot, and OpenCode. Cursor is experimental and excluded from `all`. The static evaluation contract contains 75 cases and 225 trilingual prompt variants; it does not claim that those prompts have already been executed across models.
 
-## Quick start
+## One-command start
 
-Build the dependency-free native CLI from source:
+macOS or Linux:
 
 ```bash
-go build -trimpath -o anywork .
-./anywork list
-./anywork install essential --scope project --dry-run
-./anywork install essential --scope project
-./anywork doctor
+curl -fsSL https://raw.githubusercontent.com/ly-wang19/AnyWork/v0.3.0-alpha.1/install.sh | sh -s -- --setup --agent all --lang en
 ```
 
-Use `--lang en`, `--lang zh-CN`, or `--lang ja`; the default follows the OS locale. On Windows, build `anywork.exe`. Tagged releases are configured to produce checksum-protected archives for macOS, Linux, and Windows on amd64 and arm64. `anywork-cli.py` remains a Python standard-library reference implementation and test oracle.
+Windows PowerShell:
+
+```powershell
+& ([scriptblock]::Create((irm https://raw.githubusercontent.com/ly-wang19/AnyWork/v0.3.0-alpha.1/install.ps1))) -Setup -Agent all -Language en
+```
+
+The version-pinned scripts detect the machine, download the matching native archive, verify its published SHA-256 checksum, install the CLI, and run `anywork setup`. Review [install.sh](install.sh) or [install.ps1](install.ps1) before execution if your policy forbids remote scripts. The scripts never edit shell profiles or silently grant tool permissions.
+
+Then see an actual end-to-end job:
+
+```bash
+anywork demo research --lang en
+```
+
+Paste the displayed request into Codex, Claude Code, or another installed host. Use `--lang en`, `--lang zh-CN`, or `--lang ja`; the default follows the OS locale. To install one smaller pack instead, run `anywork install essential`. `anywork-cli.py` remains a Python standard-library reference implementation and test oracle.
 
 ## Repository map
 
@@ -62,13 +73,13 @@ src/          Python reference implementation
 schemas/      machine-readable contracts
 scripts/      reproducible release builds
 tests/        registry, evidence, i18n, and installer regression tests
-CAPABILITIES*.md  24 Skills, 7 work packs, and example workflows
+CAPABILITIES*.md  24 atomic Skills, 1 orchestrator, 7 work packs, and workflows
 ROADMAP*.md   evidence-gated plan from alpha to stable ecosystem
 ```
 
 ## Roadmap
 
-The next evidence milestone is `v0.3`: signed native-language review, model-executed trilingual evaluations, native runs for every release target, and the first signed pre-release. See the [full evidence-gated roadmap](ROADMAP.md).
+The `v0.3` last-mile experience adds one-command setup, automatic multi-Skill orchestration, runnable demos, and an exact-prompt [before/after benchmark](docs/BENCHMARK.md). The remaining evidence gates are native-language review, model-executed trilingual results, and signed releases. See the [full evidence-gated roadmap](ROADMAP.md).
 
 ## Status
 

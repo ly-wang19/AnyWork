@@ -19,12 +19,12 @@ class ClaimsLedgerTests(unittest.TestCase):
             for relative in claim["evidence"]:
                 self.assertTrue((root / relative).exists(), f"missing evidence: {relative}")
 
-    def test_unverified_release_claims_cannot_be_presented_as_verified(self) -> None:
+    def test_unverified_quality_claims_cannot_be_presented_as_verified(self) -> None:
         root = repository_root()
         payload = json.loads((root / "evidence" / "claims.json").read_text(encoding="utf-8"))
         by_id = {claim["id"]: claim for claim in payload["claims"]}
         self.assertNotEqual(by_id["stable-release"]["status"], "verified")
-        self.assertNotEqual(by_id["public-github-repository"]["status"], "verified")
+        self.assertEqual(by_id["public-github-repository"]["status"], "verified")
         self.assertNotEqual(by_id["native-language-quality"]["status"], "verified")
         self.assertNotEqual(by_id["cross-agent-behavior-parity"]["status"], "verified")
 

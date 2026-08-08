@@ -12,7 +12,7 @@ class CatalogTests(unittest.TestCase):
 
     def test_catalog_is_valid_and_complete(self) -> None:
         self.assertEqual(validate_catalog(self.catalog), [])
-        self.assertEqual(len(self.catalog.skills), 24)
+        self.assertEqual(len(self.catalog.skills), 25)
         self.assertEqual(len(self.catalog.packs), 7)
 
     def test_complete_pack_has_every_skill_once(self) -> None:

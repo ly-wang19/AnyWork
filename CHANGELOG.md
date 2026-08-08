@@ -1,5 +1,28 @@
 # Changelog / 更新日志 / 変更履歴
 
+## 0.3.0-alpha.1 — 2026-08-08
+
+### English
+
+- Added version-pinned, checksum-verifying one-command installers for macOS, Linux, and Windows, plus `anywork setup` for the complete capability pack.
+- Added `orchestrate-work`, an end-to-end capability that selects, executes, checks, and hands off the smallest useful chain of atomic Skills.
+- Added three trilingual ready-to-paste demos and an exact-prompt before/after benchmark runner with an evidence-based human review sheet.
+- Expanded the static contract to 75 cases and 225 prompt variants, updated all three capability maps, and made documented pack counts match inherited installation results.
+
+### 简体中文
+
+- 加入适用于 macOS、Linux 和 Windows 的版本锁定、校验和验证一键安装器，以及安装完整能力包的 `anywork setup`。
+- 加入 `orchestrate-work`：为复杂成果选择、执行、检查并交接最小必要原子 Skill 链。
+- 加入 3 个三语可直接粘贴的 Demo，以及同提示安装前后评测器和证据化人工审阅表。
+- 把静态契约扩展到 75 个案例、225 个提示变体，更新三语能力地图，并使文档工作包数量与继承后真实安装结果一致。
+
+### 日本語
+
+- macOS、Linux、Windows 向けのバージョン固定・チェックサム検証付き 1 コマンドインストーラーと、完全能力パック用の `anywork setup` を追加。
+- 複雑な成果に必要最小限の個別 Skill チェーンを選択、実行、検査、引き継ぐ `orchestrate-work` を追加。
+- 3 つの貼り付け可能な 3 言語 Demo と、同一プロンプトの導入前後評価ランナー、根拠付き人手レビューシートを追加。
+- 静的契約を 75 ケース、225 プロンプトに拡張し、3 言語の能力マップを更新、パック数が継承後の実際の導入結果と一致するように修正。
+
 ## 0.2.0-alpha.1 — 2026-08-08
 
 ### English

@@ -18,7 +18,7 @@ func TestNativeCatalogAndPackCoverage(t *testing.T) {
 	if problems := validateCatalog(catalog); len(problems) != 0 {
 		t.Fatalf("catalog problems: %v", problems)
 	}
-	if len(catalog.Skills) != 24 || len(catalog.Packs) != 7 {
+	if len(catalog.Skills) != 25 || len(catalog.Packs) != 7 {
 		t.Fatalf("unexpected catalog size: %d skills, %d packs", len(catalog.Skills), len(catalog.Packs))
 	}
 	complete, err := catalog.resolvePack("complete")
@@ -27,6 +27,38 @@ func TestNativeCatalogAndPackCoverage(t *testing.T) {
 	}
 	if len(complete) != len(catalog.Skills) {
 		t.Fatalf("complete pack has %d skills, want %d", len(complete), len(catalog.Skills))
+	}
+}
+
+func TestNativeDemosAreTrilingualAndUseOrchestrator(t *testing.T) {
+	for _, language := range []string{"en", "zh-CN", "ja"} {
+		for _, demo := range nativeDemos {
+			output, err := renderDemo(language, demo.ID)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if demo.Chain[0] != "orchestrate-work" || !strings.Contains(output, "$orchestrate-work") {
+				t.Fatalf("demo %s / %s does not activate the orchestrator", demo.ID, language)
+			}
+		}
+	}
+}
+
+func TestNativeSetupOptionsResolveCompletePackForOneAgent(t *testing.T) {
+	catalog, err := loadCatalog()
+	if err != nil {
+		t.Fatal(err)
+	}
+	options, err := parseMutationOptions([]string{"complete", "--agent", "codex", "--scope", "project", "--project-dir", t.TempDir(), "--dry-run"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	skills, err := catalog.resolvePack(options.Pack)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(skills) != 25 || len(options.Agents) != 1 || options.Agents[0] != "codex" || !options.DryRun {
+		t.Fatalf("unexpected setup options: %+v, %d skills", options, len(skills))
 	}
 }
 

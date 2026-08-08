@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-var nativeVersion = "0.2.0-alpha.1"
+var nativeVersion = "0.3.0-alpha.1"
 
 type mutationOptions struct {
 	Pack             string
@@ -68,6 +68,22 @@ func runNative(arguments []string) int {
 			}
 		}
 		return 0
+	case "demo":
+		if len(cleaned) > 2 {
+			fmt.Fprintln(os.Stderr, demoUsage(language))
+			return 2
+		}
+		demoID := ""
+		if len(cleaned) == 2 {
+			demoID = cleaned[1]
+		}
+		output, err := renderDemo(language, demoID)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, msg(language, "unknown_demo", demoID))
+			return 2
+		}
+		fmt.Println(output)
+		return 0
 	case "doctor":
 		problems := validateCatalog(catalog)
 		if len(problems) > 0 {
@@ -95,14 +111,22 @@ func runNative(arguments []string) int {
 			return 2
 		}
 		return 0
-	case "install", "update", "uninstall":
-		options, err := parseMutationOptions(cleaned[1:])
+	case "setup", "install", "update", "uninstall":
+		optionArguments := cleaned[1:]
+		if cleaned[0] == "setup" {
+			optionArguments = append([]string{"complete"}, optionArguments...)
+		}
+		options, err := parseMutationOptions(optionArguments)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			return 2
 		}
 		if options.Help {
-			fmt.Printf("%s\n", mutationUsage(language, cleaned[0]))
+			if cleaned[0] == "setup" {
+				fmt.Printf("%s\n", setupUsage(language))
+			} else {
+				fmt.Printf("%s\n", mutationUsage(language, cleaned[0]))
+			}
 			return 0
 		}
 		skillIDs, err := catalog.resolvePack(options.Pack)
@@ -111,6 +135,13 @@ func runNative(arguments []string) int {
 			return 2
 		}
 		emit := func(key string, values ...any) { fmt.Println(msg(language, key, values...)) }
+		if cleaned[0] == "setup" && !options.DryRun {
+			emit = func(key string, values ...any) {
+				if key == "backup" {
+					fmt.Println(msg(language, key, values...))
+				}
+			}
+		}
 		if cleaned[0] == "uninstall" {
 			err = uninstallNative(skillIDs, options.Agents, options.Scope, options.ProjectDirectory, options.DryRun, options.Force, emit)
 		} else {
@@ -120,10 +151,37 @@ func runNative(arguments []string) int {
 			fmt.Fprintln(os.Stderr, err)
 			return 2
 		}
+		if cleaned[0] == "setup" && !options.DryRun {
+			fmt.Println(msg(language, "setup_complete", len(skillIDs), len(options.Agents)))
+			fmt.Println(msg(language, "setup_next"))
+		}
 		return 0
 	default:
 		fmt.Fprintln(os.Stderr, msg(language, "usage"))
 		return 2
+	}
+}
+
+func setupUsage(language string) string {
+	agentValues := "all|" + strings.Join(supportedAgents, "|")
+	switch language {
+	case "zh-CN":
+		return fmt.Sprintf("用法：anywork setup [--agent %s] [--scope user|project] [--project-dir 路径] [--dry-run] [--force]", agentValues)
+	case "ja":
+		return fmt.Sprintf("使い方：anywork setup [--agent %s] [--scope user|project] [--project-dir パス] [--dry-run] [--force]", agentValues)
+	default:
+		return fmt.Sprintf("Usage: anywork setup [--agent %s] [--scope user|project] [--project-dir path] [--dry-run] [--force]", agentValues)
+	}
+}
+
+func demoUsage(language string) string {
+	switch language {
+	case "zh-CN":
+		return "用法：anywork demo [research|meeting|automation]"
+	case "ja":
+		return "使い方：anywork demo [research|meeting|automation]"
+	default:
+		return "Usage: anywork demo [research|meeting|automation]"
 	}
 }
 
