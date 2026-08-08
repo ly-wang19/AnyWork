@@ -48,6 +48,9 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}/src
       - name: Verify reproducible multilingual evaluation manifest
         run: python scripts/validate_evals.py
+      - name: Validate documentation format and local links
+        if: runner.os == 'Linux'
+        run: python scripts/check_docs.py
       - name: Validate all three Python reference languages
         run: |
           python anywork-cli.py doctor --lang en

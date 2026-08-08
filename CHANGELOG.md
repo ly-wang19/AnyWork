@@ -4,6 +4,8 @@
 
 ### English
 
+- Added an evidence-gated roadmap in English, Simplified Chinese, and Japanese, linked from every README.
+- Added dependency-free Markdown structure and local-link validation to CI.
 - Added a dependency-free native Go CLI with crash-consistent journals, automatic rollback, explicit recovery, shared-target ownership, and safe Windows state replacement.
 - Added documented adapters for Codex, Claude Code, Gemini CLI, GitHub Copilot, and OpenCode; Cursor remains experimental and opt-in.
 - Expanded the static suite to 72 cases and 216 English, Simplified Chinese, and Japanese prompt variants across basic, ambiguous, and conflicting difficulty levels.
@@ -13,6 +15,8 @@
 
 ### 简体中文
 
+- 加入中、英、日三语证据门槛路线图，并从每份 README 提供入口。
+- 在 CI 中加入无第三方依赖的 Markdown 结构与本地链接检查。
 - 加入无第三方依赖的 Go 原生 CLI，支持崩溃一致事务日志、自动回滚、显式恢复、共享目标所有权和 Windows 安全状态替换。
 - 加入 Codex、Claude Code、Gemini CLI、GitHub Copilot、OpenCode 的文档化适配；Cursor 保持实验性并仅允许显式选择。
 - 静态评测扩充到 72 个案例、216 个中英日提示变体，覆盖基础、歧义和冲突三种难度。
@@ -22,6 +26,8 @@
 
 ### 日本語
 
+- 英語・簡体字中国語・日本語の証拠ゲート付きロードマップを追加し、各 README から参照可能にした。
+- 第三者依存のない Markdown 構造・ローカルリンク検査を CI に追加。
 - 第三者依存のない Go ネイティブ CLI に、クラッシュ整合性のあるジャーナル、自動ロールバック、明示的な復旧、共有ターゲットの所有権管理、Windows の安全な状態置換を追加。
 - Codex、Claude Code、Gemini CLI、GitHub Copilot、OpenCode の文書化済みアダプターを追加。Cursor は実験扱いの明示指定のみ。
 - 静的評価を 72 ケース、英語・簡体字中国語・日本語の 216 プロンプトに拡張し、基本・曖昧・競合の 3 難度を収録。

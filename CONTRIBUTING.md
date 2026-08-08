@@ -18,6 +18,7 @@ Contribute task-focused, attributable, safe, and testable work capabilities. Do 
    go run . doctor --lang en
    python3 anywork-cli.py doctor
    PYTHONPATH=src python3 -m unittest discover -s tests -v
+   python3 scripts/check_docs.py
    ```
 
 7. Sign every commit with `Signed-off-by: Name <email>` to certify the Developer Certificate of Origin 1.1 in [DCO](DCO).

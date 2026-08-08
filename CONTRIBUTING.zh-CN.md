@@ -18,6 +18,7 @@
    go run . doctor --lang zh-CN
    python3 anywork-cli.py doctor --lang zh-CN
    PYTHONPATH=src python3 -m unittest discover -s tests -v
+   python3 scripts/check_docs.py
    ```
 
 7. 每个提交都加入 `Signed-off-by: 姓名 <邮箱>`，确认遵守 [DCO](DCO) 中的 Developer Certificate of Origin 1.1。

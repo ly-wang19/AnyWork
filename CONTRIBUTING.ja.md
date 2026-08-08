@@ -18,6 +18,7 @@
    go run . doctor --lang ja
    python3 anywork-cli.py doctor --lang ja
    PYTHONPATH=src python3 -m unittest discover -s tests -v
+   python3 scripts/check_docs.py
    ```
 
 7. 各 commit に `Signed-off-by: Name <email>` を付け、[DCO](DCO) の Developer Certificate of Origin 1.1 を証明する。

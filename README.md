@@ -4,6 +4,8 @@
 
 [简体中文](README.zh-CN.md) · **English** · [日本語](README.ja.md)
 
+[Roadmap](ROADMAP.md) · [Quality](docs/QUALITY.md) · [Support](docs/SUPPORT.md) · [Contributing](CONTRIBUTING.md)
+
 AnyWork is an Apache-2.0 work-capability layer for AI agents: 24 atomic skills spanning research, analysis, decisions, writing, data, meetings, operations, and continuous improvement, plus a native cross-platform installer.
 
 This repository is an **experimental alpha**, not a finished “world’s best” claim. AnyWork makes that ambition testable: every capability, language, host, and machine claim must point to reproducible evidence.
@@ -47,11 +49,16 @@ src/          Python reference implementation
 schemas/      machine-readable contracts
 scripts/      reproducible release builds
 tests/        registry, evidence, i18n, and installer regression tests
+ROADMAP*.md   evidence-gated plan from alpha to stable ecosystem
 ```
+
+## Roadmap
+
+The next evidence milestone is `v0.3`: signed native-language review, model-executed trilingual evaluations, native runs for every release target, and the first signed pre-release. See the [full evidence-gated roadmap](ROADMAP.md).
 
 ## Status
 
-AnyWork is pre-release. Structural catalog checks, local lifecycle tests, and six-target cross-compilation pass. Native-speaker review, full model-executed evaluations, native execution on every OS/architecture, a public GitHub remote, and signed releases remain release gates—not implied accomplishments.
+AnyWork is pre-release. Structural catalog checks, local lifecycle tests, three-OS CI, six-target cross-compilation, and the public GitHub repository are verified. Native-speaker review, full model-executed evaluations, native execution on every OS/architecture, and signed releases remain release gates—not implied accomplishments.
 
 ## License
 
