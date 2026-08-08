@@ -174,7 +174,7 @@ func validateCatalog(c catalogIndex) []string {
 			problems = append(problems, fmt.Sprintf("skill %s lacks SKILL.md", id))
 			continue
 		}
-		text := string(data)
+		text := normalizeEmbeddedText(data)
 		if !strings.HasPrefix(text, "---\nname: "+id+"\ndescription:") {
 			problems = append(problems, fmt.Sprintf("skill %s has invalid frontmatter", id))
 		}
@@ -262,6 +262,10 @@ func validateCatalog(c catalogIndex) []string {
 	}
 	sort.Strings(problems)
 	return problems
+}
+
+func normalizeEmbeddedText(data []byte) string {
+	return strings.ReplaceAll(string(data), "\r\n", "\n")
 }
 
 func validateSupportMatrix(c catalogIndex) []string {

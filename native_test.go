@@ -30,6 +30,13 @@ func TestNativeCatalogAndPackCoverage(t *testing.T) {
 	}
 }
 
+func TestEmbeddedFrontmatterValidationNormalizesWindowsNewlines(t *testing.T) {
+	normalized := normalizeEmbeddedText([]byte("---\r\nname: clarify-outcome\r\ndescription: example\r\n---\r\n"))
+	if !strings.HasPrefix(normalized, "---\nname: clarify-outcome\ndescription:") {
+		t.Fatalf("CRLF frontmatter was not normalized: %q", normalized)
+	}
+}
+
 func TestNativeInstallIsIdempotentAndAgentAware(t *testing.T) {
 	catalog, err := loadCatalog()
 	if err != nil {
