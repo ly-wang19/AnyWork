@@ -1,0 +1,20 @@
+{
+  "id": "opencode",
+  "version": 1,
+  "status": "stable",
+  "target_family": "agent-skills",
+  "official_documentation": "https://opencode.ai/docs/skills/",
+  "targets": {
+    "user": "~/.agents/skills",
+    "project": ".agents/skills"
+  },
+  "native_alternatives": {
+    "user": "~/.config/opencode/skills",
+    "project": ".opencode/skills"
+  },
+  "skill_file": "SKILL.md",
+  "portable_frontmatter_allowlist": ["name", "description", "license", "compatibility", "metadata"],
+  "strip_paths": ["agents"],
+  "copy_mode": "directory",
+  "install_executes_skill_code": false
+}

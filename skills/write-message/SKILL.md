@@ -1,6 +1,6 @@
 ---
 name: write-message
-description: "Write clear, audience-aware messages for email, chat, announcements, follow-ups, or sensitive communication. 中文：为邮件、聊天、通知和跟进撰写可直接使用的消息。日本語：メール、チャット、告知、フォローアップ向けの明確なメッセージを書く。"
+description: "Draft a clear, audience- and channel-aware message for email, chat, announcements, follow-ups, or sensitive communication. Use when the deliverable is a ready-to-send message; do not use for a decision brief, long-form document, or slide presentation. 中文：为邮件、聊天、通知、跟进或敏感沟通起草符合受众和渠道的清晰消息；适用于交付可直接发送的消息，不用于决策简报、长文档或演示文稿。日本語：メール、チャット、告知、フォローアップ、配慮が必要な連絡向けに、対象者とチャネルに合う明確なメッセージを起草する。送信可能なメッセージが成果物の場合に使い、意思決定ブリーフ、長文書、スライド資料には使わない。"
 ---
 
 # Write Message

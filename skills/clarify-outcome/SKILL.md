@@ -1,6 +1,6 @@
 ---
 name: clarify-outcome
-description: "Turn vague intent into a testable task contract. Use for ambiguous requests, unclear deliverables, or missing acceptance criteria. 中文：澄清模糊需求、交付物和验收标准。日本語：曖昧な依頼、成果物、受入基準を明確にする。"
+description: "Turn vague intent into a testable task contract. Use when the outcome, audience, deliverable, constraints, or acceptance criteria are unclear; do not use when the request is already executable and only needs a work plan. 中文：把模糊意图转成可检验的任务约定；适用于目标、受众、交付物、约束或验收标准不清，不用于需求已明确且只需制定执行计划的情况。日本語：曖昧な意図を検証可能な作業定義にする。成果、対象者、成果物、制約、受入基準が不明な場合に使い、依頼が実行可能で作業計画だけが必要な場合には使わない。"
 ---
 
 # Clarify Outcome

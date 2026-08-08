@@ -4,46 +4,54 @@
 
 [简体中文](README.zh-CN.md) · **English** · [日本語](README.ja.md)
 
-AnyWork is an open-source work capability layer for AI agents. It packages tested workflows, references, scripts, templates, and evaluations so people can restore a high-quality AI workspace on a new machine in minutes.
+AnyWork is an Apache-2.0 work-capability layer for AI agents: 24 atomic skills spanning research, analysis, decisions, writing, data, meetings, operations, and continuous improvement, plus a native cross-platform installer.
 
-AnyWork is not a prompt dump. Official skills must be task-focused, multilingual, evaluated, attributable, and safe to install.
+This repository is an **experimental alpha**, not a finished “world’s best” claim. AnyWork makes that ambition testable: every capability, language, host, and machine claim must point to reproducible evidence.
 
-## Product contract
+## North-star contract
 
-- **Any work:** universal work skills plus composable role and industry packs.
-- **Any agent:** one canonical skill source with adapters for Codex and Claude Code first.
-- **Any machine:** deterministic install, update, doctor, rollback, and uninstall flows.
-- **Three languages:** English, Simplified Chinese, and Japanese are first-class across docs, triggers, examples, CLI messages, and evaluations.
+- **Any work:** universal atomic skills plus composable work and role packs.
+- **Any agent:** one conservative canonical skill source, with documented host adapters.
+- **Any machine:** native binaries, deterministic install/update, recovery, diagnostics, and recoverable uninstall.
+- **Three languages:** English, Simplified Chinese, and Japanese share the same structural contract and stable-release thresholds.
 - **Trust by default:** provenance, license, permissions, and risk metadata are required.
+
+Current alpha truth: all 24 skills are `experimental`; all three language versions are machine-drafted and await signed human review; cross-agent behavioral parity and the full native machine matrix are not yet verified. See the [claims ledger](evidence/claims.json) and [quality gates](docs/QUALITY.md).
+
+Documented default adapters cover Codex, Claude Code, Gemini CLI, GitHub Copilot, and OpenCode. Cursor is experimental and excluded from `all`. The static evaluation contract contains 72 cases and 216 trilingual prompt variants; it does not claim that those prompts have already been executed across models.
 
 ## Quick start
 
+Build the dependency-free native CLI from source:
+
 ```bash
-python3 anywork-cli.py list
-python3 anywork-cli.py install essential --agent all --dry-run
-python3 anywork-cli.py install essential --agent all
-python3 anywork-cli.py doctor
+go build -trimpath -o anywork .
+./anywork list
+./anywork install essential --scope project --dry-run
+./anywork install essential --scope project
+./anywork doctor
 ```
 
-Use `--lang en`, `--lang zh-CN`, or `--lang ja` to select CLI output. The default follows the operating-system locale.
-On Windows, use `py anywork-cli.py ...`. The repository CLI has no third-party runtime dependencies.
+Use `--lang en`, `--lang zh-CN`, or `--lang ja`; the default follows the OS locale. On Windows, build `anywork.exe`. Tagged releases are configured to produce checksum-protected archives for macOS, Linux, and Windows on amd64 and arm64. `anywork-cli.py` remains a Python standard-library reference implementation and test oracle.
 
 ## Repository map
 
 ```text
 skills/       canonical, task-focused skills
-packs/        composable work and role packs
-registry/     source, license, language, risk, and version metadata
+registry/     packs plus source, language-review, capability, risk, and version metadata
 adapters/     agent-specific installation rules
 evals/        multilingual behavioral and quality evaluations
-src/          cross-platform AnyWork CLI
+evidence/     machine-readable claim status and supporting artifacts
+*.go          dependency-free native AnyWork CLI
+src/          Python reference implementation
 schemas/      machine-readable contracts
-tests/        installer and registry regression tests
+scripts/      reproducible release builds
+tests/        registry, evidence, i18n, and installer regression tests
 ```
 
 ## Status
 
-AnyWork is in its foundation phase. Codex and Claude Code are the first supported adapters. The public quality bar and evaluation suite are part of the product, not post-launch documentation.
+AnyWork is pre-release. Structural catalog checks, local lifecycle tests, and six-target cross-compilation pass. Native-speaker review, full model-executed evaluations, native execution on every OS/architecture, a public GitHub remote, and signed releases remain release gates—not implied accomplishments.
 
 ## License
 

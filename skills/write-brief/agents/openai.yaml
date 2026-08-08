@@ -1,4 +1,4 @@
 interface:
   display_name: "Write Brief"
   short_description: "Compress goals and evidence into a useful brief"
-  default_prompt: "Use $write-brief to turn the approved goal and evidence into a one-page brief."
+  default_prompt: "Use $write-brief to turn the approved goal and evidence into a one-page brief, following my requested language or otherwise the language of my request."

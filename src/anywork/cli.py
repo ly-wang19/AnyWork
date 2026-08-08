@@ -46,7 +46,7 @@ def build_parser(language: str) -> argparse.ArgumentParser:
         add_help=False,
     )
     _add_help(parser, language)
-    parser.add_argument("--version", action="version", version="anywork 0.1.0")
+    parser.add_argument("--version", action="version", version="anywork 0.2.0-alpha.1")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     list_parser = subparsers.add_parser("list", help=help_text(language, "list"), add_help=False)
@@ -94,6 +94,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "list":
         print(message(language, "catalog_title"))
+        print(message(language, "quality_notice"))
         for pack in catalog.raw.get("packs", []):
             print(message(
                 language,

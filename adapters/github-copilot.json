@@ -1,0 +1,21 @@
+{
+  "id": "github-copilot",
+  "version": 1,
+  "status": "stable",
+  "target_family": "agent-skills",
+  "official_documentation": "https://docs.github.com/en/copilot/concepts/agents/about-agent-skills",
+  "targets": {
+    "user": "~/.agents/skills",
+    "project": ".agents/skills"
+  },
+  "native_alternatives": {
+    "user": "~/.copilot/skills",
+    "project": ".github/skills"
+  },
+  "skill_file": "SKILL.md",
+  "portable_frontmatter_allowlist": ["name", "description", "license", "compatibility", "metadata"],
+  "strip_paths": ["agents"],
+  "host_extension_fields": ["argument-hint", "allowed-tools", "user-invocable", "disable-model-invocation"],
+  "copy_mode": "directory",
+  "install_executes_skill_code": false
+}

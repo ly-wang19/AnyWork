@@ -1,4 +1,4 @@
 interface:
   display_name: "Analyze Data"
   short_description: "Check data quality before deriving insights"
-  default_prompt: "Use $analyze-data to inspect this dataset and produce reproducible insights."
+  default_prompt: "Use $analyze-data to inspect this dataset and produce reproducible insights, following my requested language or otherwise the language of my request."

@@ -1,6 +1,6 @@
 ---
 name: localize-content
-description: "Adapt content across English, Simplified Chinese, and Japanese while preserving meaning, terminology, compliance, and audience fit. 中文：在中英日之间本地化内容，避免直译和语义漂移。日本語：中英日間で意味・用語・規制・読者適合性を保ってローカライズする。"
+description: "Adapt content into a specified target language and locale—English, Simplified Chinese, or Japanese—while preserving meaning, terminology, compliance, and audience fit. Use for localization or transcreation; do not use for content that only needs drafting or proofreading in its existing locale. 中文：将内容适配到用户指定的目标语言和地区（英语、简体中文或日语），保留含义、术语、合规与受众适配；适用于本地化或创译，不用于只需在原语言中起草或校对。日本語：ユーザー指定の対象言語・ロケール（英語、簡体字中国語、日本語）へ、意味、用語、法令順守、読者適合性を保って適応する。ローカライズやトランスクリエーションに使い、元の言語での執筆や校正だけには使わない。"
 ---
 
 # Localize Content
@@ -30,7 +30,8 @@ Produce an evidence-aware, directly usable work result. Keep facts, assumptions,
 
 ## Language
 
-- Follow the user's latest explicit output-language instruction.
-- Otherwise answer in the dominant language of the request: English, Simplified Chinese, or Japanese.
+- Produce the localized artifact in the explicitly requested target language and locale, even when the request itself uses another language.
+- Use the user's requested output language for explanations and reviewer notes; otherwise use the dominant language of the request.
+- If the target language or locale is missing and would materially change the result, ask for it or state a reversible assumption before localizing.
 - Preserve quoted source text, code, identifiers, product names, and citations in their original language unless translation is requested.
 - Match the audience's register; distinguish formal and conversational Chinese, business and plain Japanese, and the requested English variety.

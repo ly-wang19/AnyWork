@@ -1,6 +1,6 @@
 ---
 name: plan-work
-description: "Build an executable plan with milestones, dependencies, owners, risks, and next actions. Use for projects, complex deliverables, or coordinated work. 中文：把复杂工作拆成里程碑、依赖、风险和下一步。日本語：複雑な仕事をマイルストーン、依存関係、リスク、次の行動に分解する。"
+description: "Build an executable work plan with milestones, dependencies, owners, risks, verification, and next actions. Use for an already-defined project or coordinated deliverable; do not use while the intended outcome or acceptance criteria remain unclear. 中文：为已明确的项目或协同交付制定包含里程碑、依赖、负责人、风险、验证和下一步的执行计划；目标或验收标准仍不清时不使用。日本語：定義済みのプロジェクトや複数人で進める成果物に対し、マイルストーン、依存関係、担当、リスク、検証、次の行動を含む実行計画を作る。成果や受入基準が不明な段階では使わない。"
 ---
 
 # Plan Work

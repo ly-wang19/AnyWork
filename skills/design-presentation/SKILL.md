@@ -1,6 +1,6 @@
 ---
 name: design-presentation
-description: "Turn evidence into a clear presentation narrative with one message per slide. Use for executive, client, teaching, or project decks. 中文：把证据组织成一页一结论、可读可讲的演示文稿。日本語：根拠を1スライド1メッセージの読みやすいプレゼンに構成する。"
+description: "Turn evidence into a slide-based narrative with one message per slide and verified visual layout. Use for executive, client, teaching, or project decks; do not use for a prose brief, long-form document, or standalone message. 中文：把证据组织成一页一结论且经过版式检查的演示文稿；适用于高管、客户、教学或项目汇报，不用于文字简报、长文档或单独消息。日本語：根拠を1スライド1メッセージの構成にし、レイアウトも検証する。経営層、顧客、教育、プロジェクト向け資料に使い、文章中心のブリーフ、長文書、単独メッセージには使わない。"
 ---
 
 # Design Presentation

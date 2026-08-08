@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-08-07",
+  "claims": [
+    {
+      "id": "catalog-structure",
+      "status": "verified",
+      "scope": "24 experimental skills and 7 composable packs",
+      "evidence": [
+        "tests/test_catalog.py",
+        "native_test.go"
+      ]
+    },
+    {
+      "id": "trilingual-structural-coverage",
+      "status": "verified",
+      "scope": "English, Simplified Chinese, and Japanese fields exist in the catalog, skill triggers, CLI messages, and evaluation prompts",
+      "evidence": [
+        "registry/catalog.json",
+        "evals/cases.json",
+        "tests/test_i18n.py"
+      ]
+    },
+    {
+      "id": "native-language-quality",
+      "status": "not-verified",
+      "scope": "Signed native-speaker review for every skill and language",
+      "evidence": [
+        "registry/catalog.json"
+      ]
+    },
+    {
+      "id": "native-cross-compilation",
+      "status": "verified",
+      "scope": "darwin, linux, and windows on amd64 and arm64",
+      "evidence": [
+        "scripts/build-release.sh",
+        ".github/workflows/ci.yml"
+      ]
+    },
+    {
+      "id": "native-platform-execution",
+      "status": "partial",
+      "scope": "Release binaries executed on every supported OS and architecture",
+      "evidence": [
+        ".github/workflows/ci.yml"
+      ]
+    },
+    {
+      "id": "cross-agent-behavior-parity",
+      "status": "not-verified",
+      "scope": "Equivalent task and trigger performance on every declared host agent",
+      "evidence": [
+        "evals/scorecards/2026-08-07-forward-smoke.json"
+      ]
+    },
+    {
+      "id": "public-github-repository",
+      "status": "not-verified",
+      "scope": "Public GitHub origin and release artifacts",
+      "evidence": []
+    },
+    {
+      "id": "stable-release",
+      "status": "not-verified",
+      "scope": "All stable thresholds in docs/QUALITY.md",
+      "evidence": [
+        "docs/QUALITY.md"
+      ]
+    }
+  ]
+}

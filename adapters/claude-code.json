@@ -1,18 +1,40 @@
 {
   "id": "claude-code",
   "version": 1,
+  "status": "stable",
+  "target_family": "claude-code",
   "official_documentation": "https://code.claude.com/docs/en/skills",
   "targets": {
     "user": "~/.claude/skills",
     "project": ".claude/skills"
   },
   "skill_file": "SKILL.md",
+  "portable_frontmatter_allowlist": [
+    "name",
+    "description",
+    "license",
+    "compatibility",
+    "metadata"
+  ],
+  "strip_paths": [
+    "agents"
+  ],
   "copy_mode": "directory",
   "install_executes_skill_code": false,
-  "unsupported_canonical_fields": [
+  "host_extension_fields": [
+    "argument-hint",
+    "arguments",
+    "disable-model-invocation",
+    "user-invocable",
     "allowed-tools",
+    "disallowed-tools",
+    "model",
+    "effort",
     "context",
     "agent",
-    "hooks"
+    "background",
+    "hooks",
+    "paths",
+    "shell"
   ]
 }

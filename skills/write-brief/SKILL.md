@@ -1,6 +1,6 @@
 ---
 name: write-brief
-description: "Turn an approved goal and evidence into a concise, decision-ready brief. Use for project, campaign, research, product, or executive briefs. 中文：把目标和证据压缩成可决策的一页简报。日本語：承認済みの目的と根拠を意思決定に使える簡潔なブリーフにする。"
+description: "Compress an approved goal and evidence into a concise, decision-ready brief. Use for one-page project, campaign, research, product, or executive briefs; do not use for a complete long-form document, slide deck, or ready-to-send message. 中文：把已确认目标和证据压缩成简洁、可决策的一页简报；适用于项目、营销、研究、产品或高管简报，不用于完整长文档、演示文稿或可直接发送的消息。日本語：承認済みの目的と根拠を、簡潔で意思決定に使えるブリーフに圧縮する。1ページのプロジェクト、キャンペーン、調査、製品、経営層向けブリーフに使い、完全な長文書、スライド資料、送信用メッセージには使わない。"
 ---
 
 # Write Brief

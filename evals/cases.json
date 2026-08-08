@@ -1,10 +1,11 @@
 {
-  "schema_version": 1,
-  "languages": [
-    "en",
-    "zh-CN",
-    "ja"
-  ],
+  "schema_version": 2,
+  "suite_id": "anywork-routing-v2",
+  "languages": ["en", "zh-CN", "ja"],
+  "difficulties": ["basic", "ambiguous", "conflicting"],
+  "rubrics": {
+    "standard-v1": ["task-correctness", "traceability", "direct-usability", "native-register", "safety"]
+  },
   "cases": [
     {
       "id": "clarify-outcome-basic-001",
@@ -15,524 +16,863 @@
         "zh-CN": "把这个模糊需求整理成可确认的交付目标和验收标准。",
         "ja": "この曖昧な依頼を、確認可能な成果物と受入基準に整理して。"
       },
-      "assertions": [
-        "acceptance-criteria",
-        "assumptions-separated",
-        "no-fabrication"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "routing": {"expected_skill": "clarify-outcome", "neighbor": "plan-work", "not_for": ["plan-work"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["acceptance-criteria", "assumptions-separated", "no-fabrication"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "clarify-outcome-ambiguous-001",
+      "skill": "clarify-outcome",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "The request only says 'make onboarding better,' but nobody agrees on the audience or measurable result. Define the outcome and acceptance criteria; do not create a project plan yet.",
+        "zh-CN": "需求只说“把入职体验做好”，但受众和可衡量结果都没对齐。请先定义目标和验收标准，暂时不要制定项目计划。",
+        "ja": "依頼は「オンボーディングをよくする」だけで、対象者も測定可能な成果も合意されていません。まず成果と受入基準を定義し、プロジェクト計画はまだ作らないで。"
+      },
+      "routing": {"expected_skill": "clarify-outcome", "neighbor": "plan-work", "not_for": ["plan-work"], "hard_negative": true, "negative_triggers": {"en": ["project plan"], "zh-CN": ["项目计划"], "ja": ["プロジェクト計画"]}},
+      "assertions": {"must": ["acceptance-criteria", "assumptions-separated", "blocking-questions"], "must_not": ["premature-project-plan"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "clarify-outcome-conflicting-001",
+      "skill": "clarify-outcome",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "Leadership wants a delivery plan today, while stakeholders disagree whether success means higher activation or fewer support tickets. Resolve the deliverable, success measure, and assumptions before building the delivery plan.",
+        "zh-CN": "领导要求今天给出交付计划，但相关方连成功应该指激活率提升还是客服工单减少都没有共识。请在制定交付计划前，先明确交付物、成功指标和假设。",
+        "ja": "経営陣は今日中の実行計画を求めていますが、関係者は成功を利用開始率の向上とするか、問い合わせ減少とするかで対立しています。実行計画を作る前に、成果物、成功指標、前提を明確にして。"
+      },
+      "routing": {"expected_skill": "clarify-outcome", "neighbor": "plan-work", "not_for": ["plan-work"], "hard_negative": true, "negative_triggers": {"en": ["delivery plan"], "zh-CN": ["交付计划"], "ja": ["実行計画"]}},
+      "assertions": {"must": ["contradiction-exposed", "success-measure", "assumptions-separated"], "must_not": ["plan-on-unresolved-goal"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "plan-work-basic-001",
       "skill": "plan-work",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Break this work into milestones, dependencies, and next actions.",
-        "zh-CN": "把这项工作拆成里程碑、依赖和下一步。",
-        "ja": "この仕事をマイルストーン、依存関係、次の行動に分解して。"
-      },
-      "assertions": [
-        "milestones",
-        "dependencies",
-        "verification"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Break this work into milestones, dependencies, and next actions.", "zh-CN": "把这项工作拆成里程碑、依赖和下一步。", "ja": "この仕事をマイルストーン、依存関係、次の行動に分解して。"},
+      "routing": {"expected_skill": "plan-work", "neighbor": "clarify-outcome", "not_for": ["clarify-outcome"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["milestones", "dependencies", "verification"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "plan-work-ambiguous-001",
+      "skill": "plan-work",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "The outcome and acceptance criteria are already approved. Turn them into milestones, dependencies, owners, and the first executable actions without trying to redefine the outcome.",
+        "zh-CN": "目标和验收标准已经批准。请把它们拆成里程碑、依赖、负责人和首批可执行动作，不要重新定义目标。",
+        "ja": "成果と受入基準は承認済みです。成果を定義し直さず、マイルストーン、依存関係、担当者、最初に実行できる行動に分解して。"
+      },
+      "routing": {"expected_skill": "plan-work", "neighbor": "clarify-outcome", "not_for": ["clarify-outcome"], "hard_negative": true, "negative_triggers": {"en": ["redefine the outcome"], "zh-CN": ["重新定义目标"], "ja": ["成果を定義し直さず"]}},
+      "assertions": {"must": ["milestones", "dependencies", "first-actions"], "must_not": ["reopen-approved-outcome"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "plan-work-conflicting-001",
+      "skill": "plan-work",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The sponsor casually asks to revisit the goal, but the signed task contract is final and Monday's kickoff needs a workable sequence. Build the plan and do not reopen the approved outcome.",
+        "zh-CN": "发起人口头提到想重新讨论目标，但已签署的任务契约是最终版，周一启动会需要可执行的顺序。请制定计划，不要重开已批准的目标。",
+        "ja": "スポンサーは目標の再検討に言及しましたが、署名済みのタスク契約は最終版で、月曜日のキックオフには実行順序が必要です。計画を作り、承認済みの成果を再検討しないで。"
+      },
+      "routing": {"expected_skill": "plan-work", "neighbor": "clarify-outcome", "not_for": ["clarify-outcome"], "hard_negative": true, "negative_triggers": {"en": ["reopen the approved outcome"], "zh-CN": ["重开已批准的目标"], "ja": ["承認済みの成果を再検討"]}},
+      "assertions": {"must": ["sequenced-milestones", "dependency-owners", "kickoff-actions"], "must_not": ["reframe-signed-contract"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "gather-sources-basic-001",
       "skill": "gather-sources",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Research this question and build a reliable source set.",
-        "zh-CN": "围绕这个问题找可靠资料并建立来源清单。",
-        "ja": "この問いについて信頼できる資料を集め、情報源一覧を作って。"
-      },
-      "assertions": [
-        "primary-sources",
-        "source-ledger",
-        "gaps"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Research this question and build a reliable source set.", "zh-CN": "围绕这个问题找可靠资料并建立来源清单。", "ja": "この問いについて信頼できる資料を集め、情報源一覧を作って。"},
+      "routing": {"expected_skill": "gather-sources", "neighbor": "verify-claims", "not_for": ["verify-claims"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["primary-sources", "source-ledger", "gaps"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "gather-sources-ambiguous-001",
+      "skill": "gather-sources",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "We need to understand current four-day-workweek evidence, but no claim list or evidence packet exists. Build a balanced source set first; do not fact-check a conclusion that has not been stated.",
+        "zh-CN": "我们需要了解当前四天工作制的证据，但还没有待核验的说法或资料包。请先建立均衡的来源集，不要对尚未提出的结论做事实核查。",
+        "ja": "週4日勤務制の現在のエビデンスを把握したいのですが、検証対象の主張も資料パックもありません。まず偏りのない情報源を揃え、まだ提示されていない結論のファクトチェックはしないで。"
+      },
+      "routing": {"expected_skill": "gather-sources", "neighbor": "verify-claims", "not_for": ["verify-claims"], "hard_negative": true, "negative_triggers": {"en": ["fact-check"], "zh-CN": ["事实核查"], "ja": ["ファクトチェック"]}},
+      "assertions": {"must": ["search-plan", "source-diversity", "coverage-gaps"], "must_not": ["invent-unstated-claim-verdict"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "gather-sources-conflicting-001",
+      "skill": "gather-sources",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The manager says to verify the claim that the market doubled, yet no source packet exists and the market definition is unclear. First locate authoritative time series and document their scope before attempting to verify the claim.",
+        "zh-CN": "经理要求核验“市场翻倍了”这个说法，但目前既没有来源包，市场定义也不清楚。请先找到权威时间序列并记录口径，再尝试核验该说法。",
+        "ja": "マネージャーは「市場が2倍になった」という主張の検証を求めていますが、資料パックはなく、市場の定義も不明です。主張を検証する前に、まず権威ある時系列を探し、対象範囲を記録して。"
+      },
+      "routing": {"expected_skill": "gather-sources", "neighbor": "verify-claims", "not_for": ["verify-claims"], "hard_negative": true, "negative_triggers": {"en": ["verify the claim"], "zh-CN": ["核验该说法"], "ja": ["主張を検証"]}},
+      "assertions": {"must": ["authoritative-sources", "scope-ledger", "definition-gap"], "must_not": ["premature-verdict"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "verify-claims-basic-001",
       "skill": "verify-claims",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Fact-check these claims and grade the evidence.",
-        "zh-CN": "核验这些说法并标出证据强弱。",
-        "ja": "これらの主張を検証し、根拠の強さを評価して。"
-      },
-      "assertions": [
-        "atomic-claims",
-        "verdicts",
-        "evidence"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Fact-check these claims and grade the evidence.", "zh-CN": "核验这些说法并标出证据强弱。", "ja": "これらの主張を検証し、根拠の強さを評価して。"},
+      "routing": {"expected_skill": "verify-claims", "neighbor": "gather-sources", "not_for": ["gather-sources"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["atomic-claims", "verdicts", "evidence"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "verify-claims-ambiguous-001",
+      "skill": "verify-claims",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "A source packet and three precise claims are attached. Test each claim against the supplied evidence and grade confidence; do not collect a broad source list unless a specific evidence gap requires it.",
+        "zh-CN": "附件里已有资料包和三条明确说法。请用现有证据逐条核验并评定置信度；除非出现具体证据缺口，不要另建大范围来源清单。",
+        "ja": "資料パックと3つの明確な主張が添付されています。既存の根拠と照合して主張ごとに確信度を評価し、特定の根拠不足がない限り幅広い情報源一覧は作らないで。"
+      },
+      "routing": {"expected_skill": "verify-claims", "neighbor": "gather-sources", "not_for": ["gather-sources"], "hard_negative": true, "negative_triggers": {"en": ["broad source list"], "zh-CN": ["大范围来源清单"], "ja": ["幅広い情報源一覧"]}},
+      "assertions": {"must": ["claim-by-claim-verdict", "confidence-grade", "evidence-link"], "must_not": ["replace-verification-with-search"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "verify-claims-conflicting-001",
+      "skill": "verify-claims",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The brief asks for more research and also states that churn fell 20% after launch. The underlying dashboard and cohort definition are attached. Verify that stated claim now; only gather more sources if the supplied evidence cannot resolve it.",
+        "zh-CN": "简报同时要求“再做些研究”，并声称上线后流失率下降了20%。底层看板和分组定义已附上。请现在就核验这条已声明的说法；只有现有证据无法判定时才补充来源。",
+        "ja": "ブリーフは追加調査を求める一方、リリース後に解約率が20%低下したと主張しています。元のダッシュボードとコホート定義は添付済みです。まずこの明示された主張を検証し、提示資料で判定できない場合だけ追加調査をして。"
+      },
+      "routing": {"expected_skill": "verify-claims", "neighbor": "gather-sources", "not_for": ["gather-sources"], "hard_negative": true, "negative_triggers": {"en": ["more research"], "zh-CN": ["再做些研究"], "ja": ["追加調査"]}},
+      "assertions": {"must": ["metric-definition-check", "cohort-evidence", "bounded-verdict"], "must_not": ["unbounded-research-detour"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "synthesize-sources-basic-001",
       "skill": "synthesize-sources",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Synthesize these sources into consensus, conflicts, and unknowns.",
-        "zh-CN": "综合这些材料，指出共识、分歧和未知。",
-        "ja": "これらの資料を統合し、合意点、相違点、不明点を整理して。"
-      },
-      "assertions": [
-        "consensus",
-        "conflicts",
-        "traceability"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Synthesize these sources into consensus, conflicts, and unknowns.", "zh-CN": "综合这些材料，指出共识、分歧和未知。", "ja": "これらの資料を統合し、合意点、相違点、不明点を整理して。"},
+      "routing": {"expected_skill": "synthesize-sources", "neighbor": "verify-claims", "not_for": ["verify-claims"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["consensus", "conflicts", "traceability"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "synthesize-sources-ambiguous-001",
+      "skill": "synthesize-sources",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "All six studies have already passed evidence review. Explain where their conclusions converge, where methods account for disagreement, and what remains unknown; do not fact-check every number again.",
+        "zh-CN": "六项研究都已通过证据审查。请说明它们的结论在哪里一致、方法差异如何解释分歧，以及还有哪些未知；不要重新核验每个数字。",
+        "ja": "6件の研究はすべて根拠レビュー済みです。結論が一致する点、手法の違いが不一致を説明する点、残る不明点を整理し、すべての数値を再検証しないで。"
+      },
+      "routing": {"expected_skill": "synthesize-sources", "neighbor": "verify-claims", "not_for": ["verify-claims"], "hard_negative": true, "negative_triggers": {"en": ["fact-check every number"], "zh-CN": ["核验每个数字"], "ja": ["すべての数値を再検証"]}},
+      "assertions": {"must": ["cross-source-themes", "method-linked-conflicts", "unknowns"], "must_not": ["redo-settled-verification"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "synthesize-sources-conflicting-001",
+      "skill": "synthesize-sources",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The editor asks to recheck the claims and produce a synthesis, but the claim ledger already records signed verdicts. Use those verdicts to build a traced account of consensus, conflict, and uncertainty rather than recheck the claims.",
+        "zh-CN": "编辑同时要求重新核验说法并做综述，但主张台账已有签署过的结论。请基于这些结论，形成可追溯的共识、冲突和不确定性说明，不要重新核验说法。",
+        "ja": "編集者は主張の再確認と統合を同時に求めていますが、主張台帳には承認済みの判定があります。主張を再確認せず、その判定を使って合意、対立、不確実性を追跡可能な形で統合して。"
+      },
+      "routing": {"expected_skill": "synthesize-sources", "neighbor": "verify-claims", "not_for": ["verify-claims"], "hard_negative": true, "negative_triggers": {"en": ["recheck the claims"], "zh-CN": ["重新核验说法"], "ja": ["主張を再確認"]}},
+      "assertions": {"must": ["verdict-led-synthesis", "source-traceability", "uncertainty-preserved"], "must_not": ["override-signed-verdicts"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "extract-structured-info-basic-001",
       "skill": "extract-structured-info",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Extract parties, amounts, dates, and obligations with citations.",
-        "zh-CN": "提取主体、金额、日期和义务，并保留出处。",
-        "ja": "当事者、金額、日付、義務を出典付きで抽出して。"
-      },
-      "assertions": [
-        "schema",
-        "field-provenance",
-        "nulls"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Extract parties, amounts, dates, and obligations with citations.", "zh-CN": "提取主体、金额、日期和义务，并保留出处。", "ja": "当事者、金額、日付、義務を出典付きで抽出して。"},
+      "routing": {"expected_skill": "extract-structured-info", "neighbor": "synthesize-sources", "not_for": ["synthesize-sources"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["schema", "field-provenance", "nulls"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "extract-structured-info-ambiguous-001",
+      "skill": "extract-structured-info",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "The team asks for a summary of this contract, but downstream import requires one row per obligation with party, date, amount, and clause reference. Produce the fields, not a narrative summary.",
+        "zh-CN": "团队说想要这份合同的摘要，但下游导入要求每项义务占一行，包含主体、日期、金额和条款引用。请提取字段，不要写叙事性摘要。",
+        "ja": "チームは契約の要約を求めていますが、後続インポートには義務ごとに当事者、日付、金額、条項参照が必要です。叙述式の要約ではなく、フィールドを抽出して。"
+      },
+      "routing": {"expected_skill": "extract-structured-info", "neighbor": "synthesize-sources", "not_for": ["synthesize-sources"], "hard_negative": true, "negative_triggers": {"en": ["narrative summary"], "zh-CN": ["叙事性摘要"], "ja": ["叙述式の要約"]}},
+      "assertions": {"must": ["one-row-per-obligation", "field-provenance", "explicit-null"], "must_not": ["replace-rows-with-narrative"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "extract-structured-info-conflicting-001",
+      "skill": "extract-structured-info",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "Legal asks to synthesize the three agreements, while operations needs a machine-readable register by noon. Extract each agreement's renewal date, notice window, owner, and source clause first; do not merge disagreements into a single synthesis.",
+        "zh-CN": "法务希望综合三份协议，但运营中午前需要可机读台账。请先分别提取每份协议的续约日期、通知期、负责人和原条款；不要把差异合并成单一综述。",
+        "ja": "法務は3件の契約の統合を求めていますが、運用チームは正午までに機械可読の台帳を必要としています。まず契約ごとに更新日、通知期間、担当者、根拠条項を抽出し、相違を一つの統合結果に溶かさないで。"
+      },
+      "routing": {"expected_skill": "extract-structured-info", "neighbor": "synthesize-sources", "not_for": ["synthesize-sources"], "hard_negative": true, "negative_triggers": {"en": ["single synthesis"], "zh-CN": ["单一综述"], "ja": ["一つの統合結果"]}},
+      "assertions": {"must": ["agreement-level-records", "required-fields", "source-clause"], "must_not": ["collapse-contract-differences"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "analyze-data-basic-001",
       "skill": "analyze-data",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Analyze this table, checking data quality before insights.",
-        "zh-CN": "先检查数据质量，再分析这张表。",
-        "ja": "洞察を出す前にデータ品質を確認し、この表を分析して。"
-      },
-      "assertions": [
-        "data-quality",
-        "reproducible-calculation",
-        "limitations"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Analyze this table, checking data quality before insights.", "zh-CN": "先检查数据质量，再分析这张表。", "ja": "洞察を出す前にデータ品質を確認し、この表を分析して。"},
+      "routing": {"expected_skill": "analyze-data", "neighbor": "model-scenarios", "not_for": ["model-scenarios"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["data-quality", "reproducible-calculation", "limitations"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "analyze-data-ambiguous-001",
+      "skill": "analyze-data",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "The sales table covers the last eight quarters and contains duplicate accounts. Clean the data and explain observed retention and seasonality; do not forecast next quarter yet.",
+        "zh-CN": "销售表覆盖过去八个季度，且存在重复客户。请清理数据并解释已观察到的留存和季节性，暂时不要预测下个季度。",
+        "ja": "売上表は過去8四半期分で、重複顧客が含まれています。データをクリーニングし、観測された継続率と季節性を説明し、次四半期の予測はまだ行わないで。"
+      },
+      "routing": {"expected_skill": "analyze-data", "neighbor": "model-scenarios", "not_for": ["model-scenarios"], "hard_negative": true, "negative_triggers": {"en": ["forecast next quarter"], "zh-CN": ["预测下个季度"], "ja": ["次四半期の予測"]}},
+      "assertions": {"must": ["deduplication-check", "observed-patterns", "reproducible-metrics"], "must_not": ["unsupported-forecast"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "analyze-data-conflicting-001",
+      "skill": "analyze-data",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "Finance wants a forecast and product wants an explanation of current conversion. Start with data quality, current funnel rates, and segment differences from the supplied table; leave scenario assumptions for a separate forecast.",
+        "zh-CN": "财务想要预测，产品团队想知道当前转化情况。请先基于所给表格检查数据质量、当前漏斗转化率和分群差异；情景假设留给单独的预测。",
+        "ja": "財務は予測を、プロダクトチームは現在のコンバージョンの説明を求めています。まず提示された表からデータ品質、現在のファネル率、セグメント差を分析し、シナリオ前提は別の予測に残して。"
+      },
+      "routing": {"expected_skill": "analyze-data", "neighbor": "model-scenarios", "not_for": ["model-scenarios"], "hard_negative": true, "negative_triggers": {"en": ["scenario assumptions"], "zh-CN": ["情景假设"], "ja": ["シナリオ前提"]}},
+      "assertions": {"must": ["quality-before-insight", "segment-analysis", "observed-only"], "must_not": ["blend-analysis-with-scenarios"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "diagnose-root-cause-basic-001",
       "skill": "diagnose-root-cause",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Diagnose the root cause before proposing fixes.",
-        "zh-CN": "不要急着给方案，先定位根因。",
-        "ja": "解決策を出す前に、まず根本原因を特定して。"
-      },
-      "assertions": [
-        "competing-hypotheses",
-        "tests",
-        "containment-separated"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Diagnose the root cause before proposing fixes.", "zh-CN": "不要急着给方案，先定位根因。", "ja": "解決策を出す前に、まず根本原因を特定して。"},
+      "routing": {"expected_skill": "diagnose-root-cause", "neighbor": "analyze-data", "not_for": ["analyze-data"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["competing-hypotheses", "tests", "containment-separated"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "diagnose-root-cause-ambiguous-001",
+      "skill": "diagnose-root-cause",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "The dashboard shows a sudden checkout drop after Tuesday's release. Do not merely summarize the dashboard; form competing causal hypotheses and specify the quickest discriminating checks.",
+        "zh-CN": "看板显示周二发布后结账率突降。不要只总结看板；请提出互相竞争的因果假设，并指定最快能区分它们的检查。",
+        "ja": "ダッシュボードでは火曜日のリリース後に決済率が急落しています。ダッシュボードの要約だけで済ませず、競合する因果仮説と、最短で切り分ける検査を示して。"
+      },
+      "routing": {"expected_skill": "diagnose-root-cause", "neighbor": "analyze-data", "not_for": ["analyze-data"], "hard_negative": true, "negative_triggers": {"en": ["summarize the dashboard"], "zh-CN": ["总结看板"], "ja": ["ダッシュボードの要約"]}},
+      "assertions": {"must": ["competing-hypotheses", "discriminating-tests", "timeline-link"], "must_not": ["descriptive-analysis-only"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "diagnose-root-cause-conflicting-001",
+      "skill": "diagnose-root-cause",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "Operations wants an immediate fix and analytics wants another report. Separate safe containment from diagnosis, test whether the release, payment provider, or traffic mix caused the failure, and do not treat correlation as root cause.",
+        "zh-CN": "运营要立即修复，数据团队又想要一份报告。请把安全止损与诊断分开，检验问题是由发布、支付服务商还是流量结构导致，不要把相关性当成根因。",
+        "ja": "運用チームは即時修正を、分析チームは別のレポートを求めています。安全な封じ込めと診断を分け、リリース、決済事業者、流入構成のどれが障害を起こしたかを検証し、相関を根本原因とみなさないで。"
+      },
+      "routing": {"expected_skill": "diagnose-root-cause", "neighbor": "analyze-data", "not_for": ["analyze-data"], "hard_negative": true, "negative_triggers": {"en": ["another report"], "zh-CN": ["一份报告"], "ja": ["別のレポート"]}},
+      "assertions": {"must": ["containment-separated", "causal-tests", "evidence-threshold"], "must_not": ["correlation-as-cause"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "model-scenarios-basic-001",
       "skill": "model-scenarios",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Build base, upside, and downside scenarios with sensitivity analysis.",
-        "zh-CN": "建立基准、乐观、悲观情景并做敏感性分析。",
-        "ja": "基準、上振れ、下振れのシナリオと感度分析を作って。"
-      },
-      "assertions": [
-        "assumptions",
-        "scenarios",
-        "sensitivity"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Build base, upside, and downside scenarios with sensitivity analysis.", "zh-CN": "建立基准、乐观、悲观情景并做敏感性分析。", "ja": "基準、上振れ、下振れのシナリオと感度分析を作って。"},
+      "routing": {"expected_skill": "model-scenarios", "neighbor": "analyze-data", "not_for": ["analyze-data"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["assumptions", "scenarios", "sensitivity"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "model-scenarios-ambiguous-001",
+      "skill": "model-scenarios",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "Historical averages are attached, but the decision is whether next year's capacity survives demand and price uncertainty. Model explicit base, upside, and downside assumptions instead of reporting only the historical average.",
+        "zh-CN": "附件有历史均值，但当前要判断的是明年产能能否承受需求和价格的不确定性。请显式建模基准、乐观和悲观假设，不要只报告历史均值。",
+        "ja": "過去の平均値は添付済みですが、判断したいのは来年の生産能力が需要と価格の不確実性に耐えられるかです。過去の平均値だけを報告せず、基準、上振れ、下振れの前提を明示してモデル化して。"
+      },
+      "routing": {"expected_skill": "model-scenarios", "neighbor": "analyze-data", "not_for": ["analyze-data"], "hard_negative": true, "negative_triggers": {"en": ["historical average"], "zh-CN": ["历史均值"], "ja": ["過去の平均値"]}},
+      "assertions": {"must": ["explicit-assumptions", "three-scenarios", "capacity-sensitivity"], "must_not": ["historical-summary-only"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "model-scenarios-conflicting-001",
+      "skill": "model-scenarios",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The CFO asks why revenue missed last year and what could happen next year. The signed postmortem already establishes last year's causes, so use them as inputs and do not reopen the root-cause investigation; model next year's scenario range.",
+        "zh-CN": "CFO 既问去年营收为什么未达标，又问明年可能发生什么。已签署复盘明确了去年原因，请将其作为输入，不要重开根因调查；对明年的情景范围建模。",
+        "ja": "CFOは昨年の売上未達の理由と来年起こり得ることの両方を尋ねています。署名済みの振り返りで昨年の原因は確定しているので、それを入力とし、根本原因調査を再開せず、来年のシナリオ範囲をモデル化して。"
+      },
+      "routing": {"expected_skill": "model-scenarios", "neighbor": "diagnose-root-cause", "not_for": ["diagnose-root-cause"], "hard_negative": true, "negative_triggers": {"en": ["root-cause investigation"], "zh-CN": ["根因调查"], "ja": ["根本原因調査"]}},
+      "assertions": {"must": ["accepted-causes-as-inputs", "scenario-range", "sensitivity-drivers"], "must_not": ["reopen-signed-postmortem"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "compare-options-basic-001",
       "skill": "compare-options",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Compare these vendors using consistent criteria.",
-        "zh-CN": "用一致标准比较这些供应商。",
-        "ja": "同じ基準でこれらのベンダーを比較して。"
-      },
-      "assertions": [
-        "consistent-criteria",
-        "evidence-matrix",
-        "sensitivity"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Compare these vendors using consistent criteria.", "zh-CN": "用一致标准比较这些供应商。", "ja": "同じ基準でこれらのベンダーを比較して。"},
+      "routing": {"expected_skill": "compare-options", "neighbor": "make-decision", "not_for": ["make-decision"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["consistent-criteria", "evidence-matrix", "sensitivity"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "compare-options-ambiguous-001",
+      "skill": "compare-options",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "Procurement asks which vendor is best, but the decision owner has not set weights or authorized a recommendation. Build a like-for-like evidence matrix and expose sensitivity; do not choose a winner.",
+        "zh-CN": "采购问哪家供应商最好，但决策人尚未设定权重，也未授权给出建议。请建立同口径证据矩阵并展示敏感性，不要选出胜者。",
+        "ja": "調達部は最も良いベンダーを尋ねていますが、意思決定者は重みを設定せず、推奨も承認していません。同じ条件の根拠マトリクスと感度を示し、勝者を選ばないで。"
+      },
+      "routing": {"expected_skill": "compare-options", "neighbor": "make-decision", "not_for": ["make-decision"], "hard_negative": true, "negative_triggers": {"en": ["choose a winner"], "zh-CN": ["选出胜者"], "ja": ["勝者を選ば"]}},
+      "assertions": {"must": ["like-for-like-matrix", "evidence-gaps", "weight-sensitivity"], "must_not": ["unauthorized-recommendation"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "compare-options-conflicting-001",
+      "skill": "compare-options",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The request says both 'recommend a vendor' and 'remain neutral until security evidence arrives.' Honor the explicit neutrality constraint: compare all vendors on the same gates and defer the final recommendation.",
+        "zh-CN": "需求同时写着“推荐一家供应商”和“在安全证据到位前保持中立”。请遵守明确的中立约束：用相同门槛比较所有供应商，暂缓最终建议。",
+        "ja": "依頼には「ベンダーを推奨する」と「セキュリティ根拠が届くまで中立を保つ」の両方が書かれています。明示された中立制約を優先し、同一ゲートで全ベンダーを比較し、最終推奨は保留して。"
+      },
+      "routing": {"expected_skill": "compare-options", "neighbor": "make-decision", "not_for": ["make-decision"], "hard_negative": true, "negative_triggers": {"en": ["final recommendation"], "zh-CN": ["最终建议"], "ja": ["最終推奨"]}},
+      "assertions": {"must": ["mandatory-gates", "neutral-comparison", "missing-evidence"], "must_not": ["premature-final-recommendation"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "make-decision-basic-001",
       "skill": "make-decision",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Recommend a decision with trade-offs and decision conditions.",
-        "zh-CN": "给出建议、取舍和决策条件。",
-        "ja": "トレードオフと判断条件を含む意思決定案を出して。"
-      },
-      "assertions": [
-        "recommendation",
-        "tradeoffs",
-        "triggers"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Recommend a decision with trade-offs and decision conditions.", "zh-CN": "给出建议、取舍和决策条件。", "ja": "トレードオフと判断条件を含む意思決定案を出して。"},
+      "routing": {"expected_skill": "make-decision", "neighbor": "compare-options", "not_for": ["compare-options"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["recommendation", "tradeoffs", "triggers"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "make-decision-ambiguous-001",
+      "skill": "make-decision",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "The weighted comparison is complete and the executive asks what to approve today. Give a recommendation, trade-offs, and reversal conditions; do not rebuild the comparison matrix.",
+        "zh-CN": "加权比较已完成，高管现在要知道今天该批准什么。请给出建议、取舍和改变决定的条件，不要重做比较矩阵。",
+        "ja": "加重比較は完了し、役員は今日何を承認すべきかを求めています。推奨、トレードオフ、判断を見直す条件を示し、比較マトリクスを作り直さないで。"
+      },
+      "routing": {"expected_skill": "make-decision", "neighbor": "compare-options", "not_for": ["compare-options"], "hard_negative": true, "negative_triggers": {"en": ["rebuild the comparison matrix"], "zh-CN": ["重做比较矩阵"], "ja": ["比較マトリクスを作り直さ"]}},
+      "assertions": {"must": ["clear-recommendation", "tradeoffs", "reversal-conditions"], "must_not": ["analysis-only-no-decision"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "make-decision-conflicting-001",
+      "skill": "make-decision",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "One stakeholder wants more vendor comparison, but the decision deadline is today and the agreed evidence matrix is complete. Make the decision with explicit uncertainty and identify what new evidence would reverse it.",
+        "zh-CN": "一位相关方还想做更多供应商比较，但决策截止时间就在今天，且已约定的证据矩阵已完成。请在明确不确定性的前提下做出决策，并指出哪些新证据会改变它。",
+        "ja": "ある関係者はさらなるベンダー比較を求めていますが、意思決定期限は今日で、合意済みの根拠マトリクスは完成しています。不確実性を明示して決定し、どの新しい根拠で判断が覆るかを示して。"
+      },
+      "routing": {"expected_skill": "make-decision", "neighbor": "compare-options", "not_for": ["compare-options"], "hard_negative": true, "negative_triggers": {"en": ["more vendor comparison"], "zh-CN": ["更多供应商比较"], "ja": ["さらなるベンダー比較"]}},
+      "assertions": {"must": ["deadline-aware-decision", "uncertainty", "reversal-evidence"], "must_not": ["defer-complete-decision"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "prioritize-work-basic-001",
       "skill": "prioritize-work",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Prioritize these requests by value, effort, risk, and dependencies.",
-        "zh-CN": "按价值、成本、风险和依赖给这些需求排序。",
-        "ja": "価値、工数、リスク、依存関係で要望を優先順位付けして。"
-      },
-      "assertions": [
-        "transparent-method",
-        "dependencies",
-        "not-now"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Prioritize these requests by value, effort, risk, and dependencies.", "zh-CN": "按价值、成本、风险和依赖给这些需求排序。", "ja": "価値、工数、リスク、依存関係で要望を優先順位付けして。"},
+      "routing": {"expected_skill": "prioritize-work", "neighbor": "plan-work", "not_for": ["plan-work"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["transparent-method", "dependencies", "not-now"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "prioritize-work-ambiguous-001",
+      "skill": "prioritize-work",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "Twenty approved requests exceed this quarter's capacity. Rank what should be now, next, and not now using explicit criteria; do not turn every request into a project plan.",
+        "zh-CN": "二十个已批准需求超出了本季度产能。请用明确标准排出“现在、下一步、暂不做”，不要把每个需求都变成项目计划。",
+        "ja": "20件の承認済み要望が今四半期のキャパシティを超えています。明示的な基準で「今、次、今はやらない」に順位付けし、各要望のプロジェクト計画は作らないで。"
+      },
+      "routing": {"expected_skill": "prioritize-work", "neighbor": "plan-work", "not_for": ["plan-work"], "hard_negative": true, "negative_triggers": {"en": ["project plan"], "zh-CN": ["项目计划"], "ja": ["プロジェクト計画"]}},
+      "assertions": {"must": ["explicit-criteria", "capacity-aware-ranking", "not-now"], "must_not": ["plan-every-item"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "prioritize-work-conflicting-001",
+      "skill": "prioritize-work",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The VP asks for a detailed roadmap and also says only three initiatives can receive funding. First rank the portfolio and explain exclusions; defer the detailed roadmap until the funded set is known.",
+        "zh-CN": "VP 既要求详细路线图，又说只有三个项目能获得资金。请先对项目组合排序并解释排除项；等入选集合确定后再制定详细路线图。",
+        "ja": "VPは詳細なロードマップを求める一方、資金を付けられる取り組みは3つだけと言っています。まずポートフォリオを順位付けし、除外理由を説明し、資金対象が決まるまで詳細なロードマップは保留して。"
+      },
+      "routing": {"expected_skill": "prioritize-work", "neighbor": "plan-work", "not_for": ["plan-work"], "hard_negative": true, "negative_triggers": {"en": ["detailed roadmap"], "zh-CN": ["详细路线图"], "ja": ["詳細なロードマップ"]}},
+      "assertions": {"must": ["portfolio-ranking", "funding-constraint", "exclusion-rationale"], "must_not": ["roadmap-unfunded-items"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "write-brief-basic-001",
       "skill": "write-brief",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Turn the goal and evidence into a one-page brief.",
-        "zh-CN": "把目标和证据写成一页简报。",
-        "ja": "目的と根拠を1ページのブリーフにまとめて。"
-      },
-      "assertions": [
-        "audience",
-        "evidence",
-        "next-action"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Turn the goal and evidence into a one-page brief.", "zh-CN": "把目标和证据写成一页简报。", "ja": "目的と根拠を1ページのブリーフにまとめて。"},
+      "routing": {"expected_skill": "write-brief", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["audience", "evidence", "next-action"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "write-brief-ambiguous-001",
+      "skill": "write-brief",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "The steering committee has five minutes to decide whether to fund discovery. Distill the goal, evidence, unknowns, and requested decision into one page; do not write the full proposal.",
+        "zh-CN": "指导委员会只有五分钟决定是否为探索阶段投资。请用一页概括目标、证据、未知和待决事项，不要撰写完整方案。",
+        "ja": "運営委員会は調査フェーズに資金を出すか5分で判断します。目的、根拠、不明点、求める判断を1ページに凝縮し、提案書全文は書かないで。"
+      },
+      "routing": {"expected_skill": "write-brief", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": true, "negative_triggers": {"en": ["full proposal"], "zh-CN": ["完整方案"], "ja": ["提案書全文"]}},
+      "assertions": {"must": ["decision-audience", "evidence-and-unknowns", "requested-decision"], "must_not": ["expand-into-full-proposal"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "write-brief-conflicting-001",
+      "skill": "write-brief",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The request mentions both a complete proposal and a board pre-read, but the board has approved only a one-page gate review. Produce the one-page decision brief now and defer the complete proposal until the gate passes.",
+        "zh-CN": "需求同时提到完整方案和董事会预读，但董事会目前只批准一页门槛审查。请现在交付一页决策简报，完整方案留到通过门槛之后。",
+        "ja": "依頼には完成版提案書と取締役会事前資料の両方がありますが、取締役会が承認したのは1ページのゲート審査だけです。今は1ページの意思決定ブリーフを作り、完成版提案書はゲート通過後まで保留して。"
+      },
+      "routing": {"expected_skill": "write-brief", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": true, "negative_triggers": {"en": ["complete proposal"], "zh-CN": ["完整方案"], "ja": ["完成版提案書"]}},
+      "assertions": {"must": ["gate-decision", "one-page-scope", "deferred-next-step"], "must_not": ["draft-before-gate"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "draft-document-basic-001",
       "skill": "draft-document",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Draft the full proposal from this approved brief.",
-        "zh-CN": "根据这份已确认简报起草完整方案。",
-        "ja": "この承認済みブリーフから提案書全文を作成して。"
-      },
-      "assertions": [
-        "brief-coverage",
-        "coherence",
-        "traceability"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Draft the full proposal from this approved brief.", "zh-CN": "根据这份已确认简报起草完整方案。", "ja": "この承認済みブリーフから提案書全文を作成して。"},
+      "routing": {"expected_skill": "draft-document", "neighbor": "write-brief", "not_for": ["write-brief"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["brief-coverage", "coherence", "traceability"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "draft-document-ambiguous-001",
+      "skill": "draft-document",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "The one-page brief and approved outline are attached. Expand them into a complete implementation proposal with sections, transitions, evidence, and appendices; do not return another one-page brief.",
+        "zh-CN": "附件有一页简报和已批准提纲。请扩展成包含章节、衔接、证据和附录的完整实施方案，不要再返回一页简报。",
+        "ja": "1ページのブリーフと承認済みの構成案が添付されています。章、つなぎ、根拠、付録を備えた完全な実施提案書に展開し、別の1ページブリーフを返さないで。"
+      },
+      "routing": {"expected_skill": "draft-document", "neighbor": "write-brief", "not_for": ["write-brief"], "hard_negative": true, "negative_triggers": {"en": ["one-page brief"], "zh-CN": ["一页简报"], "ja": ["1ページブリーフ"]}},
+      "assertions": {"must": ["outline-coverage", "document-coherence", "evidence-traceability"], "must_not": ["collapse-to-brief"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "draft-document-conflicting-001",
+      "skill": "draft-document",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The sponsor asks for an executive summary and a contract-ready policy. The brief, outline, and required clauses are already approved, so draft the complete policy with an executive summary rather than producing another brief.",
+        "zh-CN": "发起人同时要高管摘要和可用于签约的政策正文。简报、提纲和必备条款已批准，因此请起草包含高管摘要的完整政策，而不是再做一份简报。",
+        "ja": "スポンサーはエグゼクティブサマリーと契約に使えるポリシーの両方を求めています。ブリーフ、構成、必須条項は承認済みなので、別のブリーフではなく、エグゼクティブサマリー付きの完成版ポリシーを起草して。"
+      },
+      "routing": {"expected_skill": "draft-document", "neighbor": "write-brief", "not_for": ["write-brief"], "hard_negative": true, "negative_triggers": {"en": ["another brief"], "zh-CN": ["再做一份简报"], "ja": ["別のブリーフ"]}},
+      "assertions": {"must": ["complete-policy", "executive-summary", "required-clauses"], "must_not": ["brief-only-output"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "build-spreadsheet-basic-001",
       "skill": "build-spreadsheet",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Build a recalculable budget with clear inputs, formulas, and outputs.",
-        "zh-CN": "建立一个输入、公式和输出清晰的可复算预算表。",
-        "ja": "入力、数式、出力が明確な再計算可能な予算表を作って。"
-      },
-      "assertions": [
-        "input-calc-output",
-        "formula-integrity",
-        "recalculation"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Build a recalculable budget with clear inputs, formulas, and outputs.", "zh-CN": "建立一个输入、公式和输出清晰的可复算预算表。", "ja": "入力、数式、出力が明確な再計算可能な予算表を作って。"},
+      "routing": {"expected_skill": "build-spreadsheet", "neighbor": "analyze-data", "not_for": ["analyze-data"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["input-calc-output", "formula-integrity", "recalculation"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "build-spreadsheet-ambiguous-001",
+      "skill": "build-spreadsheet",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "The raw rates and headcount assumptions are attached. Finance needs an editable workbook that recalculates monthly burn and runway when inputs change, not a narrative analysis of the numbers.",
+        "zh-CN": "附件有原始费率和人数假设。财务需要一份可编辑工作簿，在输入变化时能重新计算月度烧钱速度和现金跑道，而不是对数字做叙事分析。",
+        "ja": "元の単価と人員数の前提が添付されています。財務に必要なのは、入力変更で月次燃焼率とランウェイが再計算される編集可能なワークブックであり、数値の叙述的な分析ではありません。"
+      },
+      "routing": {"expected_skill": "build-spreadsheet", "neighbor": "analyze-data", "not_for": ["analyze-data"], "hard_negative": true, "negative_triggers": {"en": ["narrative analysis"], "zh-CN": ["叙事分析"], "ja": ["叙述的な分析"]}},
+      "assertions": {"must": ["editable-inputs", "linked-formulas", "runway-output"], "must_not": ["static-narrative-only"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "build-spreadsheet-conflicting-001",
+      "skill": "build-spreadsheet",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The director asks for insights and a budget model, while finance must test hiring changes this afternoon. Build the recalculable workbook first with validation checks; do not write the conclusions as if the assumptions were fixed.",
+        "zh-CN": "总监既要洞察也要预算模型，而财务下午就要测试招聘变化。请先建立带校验的可复算工作簿；不要像假设已固定那样写出结论。",
+        "ja": "ディレクターは洞察と予算モデルの両方を求め、財務は今日の午後に採用変更を試算します。まず検証チェック付きの再計算可能なワークブックを作り、前提が固定しているかのように結論を書かないで。"
+      },
+      "routing": {"expected_skill": "build-spreadsheet", "neighbor": "analyze-data", "not_for": ["analyze-data"], "hard_negative": true, "negative_triggers": {"en": ["write the conclusions"], "zh-CN": ["写出结论"], "ja": ["結論を書か"]}},
+      "assertions": {"must": ["scenario-ready-inputs", "formula-checks", "recalculation-test"], "must_not": ["freeze-changeable-assumptions"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "design-presentation-basic-001",
       "skill": "design-presentation",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Turn this report into a ten-slide executive presentation.",
-        "zh-CN": "把这份报告变成十页高管汇报。",
-        "ja": "このレポートを経営層向け10枚のプレゼンにして。"
-      },
-      "assertions": [
-        "narrative-arc",
-        "one-message-per-slide",
-        "render-check"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Turn this report into a ten-slide executive presentation.", "zh-CN": "把这份报告变成十页高管汇报。", "ja": "このレポートを経営層向け10枚のプレゼンにして。"},
+      "routing": {"expected_skill": "design-presentation", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["narrative-arc", "one-message-per-slide", "render-check"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "design-presentation-ambiguous-001",
+      "skill": "design-presentation",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "The complete report is approved, and the CEO needs an eight-minute board presentation. Build the slide narrative, visuals, and speaker-ready flow; do not rewrite the report.",
+        "zh-CN": "完整报告已批准，CEO 需要一份八分钟董事会演示。请构建幻灯叙事、视觉表达和可直接演讲的节奏，不要重写报告。",
+        "ja": "完成版レポートは承認済みで、CEOは8分の取締役会向けプレゼンを必要としています。スライドのストーリー、ビジュアル、発表しやすい流れを作り、レポートを書き直さないで。"
+      },
+      "routing": {"expected_skill": "design-presentation", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": true, "negative_triggers": {"en": ["rewrite the report"], "zh-CN": ["重写报告"], "ja": ["レポートを書き直さ"]}},
+      "assertions": {"must": ["board-narrative", "visual-evidence", "timed-flow"], "must_not": ["document-shaped-slides"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "design-presentation-conflicting-001",
+      "skill": "design-presentation",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The executive asks for both a full memo and tomorrow's town-hall deck. The memo source is already signed off, so create the presentation needed for tomorrow and do not draft another full memo.",
+        "zh-CN": "高管同时要求完整备忘录和明天全员会的幻灯片。备忘录源稿已签批，因此请制作明天所需的演示文稿，不要再起草一份完整备忘录。",
+        "ja": "役員は完成版メモと明日の全社集会用デッキの両方を求めています。メモの元原稿は承認済みなので、明日に必要なプレゼンを作り、別の完成版メモを起草しないで。"
+      },
+      "routing": {"expected_skill": "design-presentation", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": true, "negative_triggers": {"en": ["full memo"], "zh-CN": ["完整备忘录"], "ja": ["完成版メモ"]}},
+      "assertions": {"must": ["town-hall-arc", "slide-level-messages", "render-readiness"], "must_not": ["duplicate-approved-memo"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "write-message-basic-001",
       "skill": "write-message",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Write a client email explaining the delay and proposing a new plan.",
-        "zh-CN": "给客户写一封说明延期并提出新方案的邮件。",
-        "ja": "遅延を説明し、新しい案を提示する顧客向けメールを書いて。"
-      },
-      "assertions": [
-        "facts",
-        "clear-action",
-        "appropriate-register"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Write a client email explaining the delay and proposing a new plan.", "zh-CN": "给客户写一封说明延期并提出新方案的邮件。", "ja": "遅延を説明し、新しい案を提示する顧客向けメールを書いて。"},
+      "routing": {"expected_skill": "write-message", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["facts", "clear-action", "appropriate-register"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "write-message-ambiguous-001",
+      "skill": "write-message",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "A customer needs a concise response today confirming the corrected invoice and next payment date. Write the email in an accountable tone; do not turn it into a policy document.",
+        "zh-CN": "客户今天需要一封简洁回复，确认更正后的发票和下次付款日期。请用负责的语气写邮件，不要把它写成政策文件。",
+        "ja": "顧客には、修正済み請求書と次回支払日を確認する簡潔な返信が今日必要です。責任ある調子でメールを書き、ポリシー文書にしないで。"
+      },
+      "routing": {"expected_skill": "write-message", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": true, "negative_triggers": {"en": ["policy document"], "zh-CN": ["政策文件"], "ja": ["ポリシー文書"]}},
+      "assertions": {"must": ["confirmed-facts", "accountable-tone", "next-payment-date"], "must_not": ["expand-to-policy"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "write-message-conflicting-001",
+      "skill": "write-message",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The issue ticket asks for a public FAQ and an immediate reply to the affected customer. The customer is waiting now, so draft the approved factual reply and next action; leave the full FAQ for a separate artifact.",
+        "zh-CN": "问题工单同时要求公开 FAQ 和立即回复受影响客户。客户正在等待，请先起草经批准的事实回复和下一步；完整 FAQ 留给单独交付物。",
+        "ja": "問題チケットは公開FAQと影響を受けた顧客への即時返信の両方を求めています。顧客が待っているので、承認済みの事実と次の行動を含む返信を先に作り、完全版FAQは別の成果物に残して。"
+      },
+      "routing": {"expected_skill": "write-message", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": true, "negative_triggers": {"en": ["full FAQ"], "zh-CN": ["完整 FAQ"], "ja": ["完全版FAQ"]}},
+      "assertions": {"must": ["approved-facts", "customer-ready-reply", "next-action"], "must_not": ["substitute-faq-for-reply"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "localize-content-basic-001",
       "skill": "localize-content",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Localize this launch copy for Chinese; do not translate literally.",
-        "zh-CN": "把这份发布稿本地化成中文，不要直译。",
-        "ja": "この告知文を中国語向けにローカライズし、直訳は避けて。"
-      },
-      "assertions": [
-        "meaning-preserved",
-        "terminology",
-        "native-register"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Localize this launch copy for Chinese; do not translate literally.", "zh-CN": "把这份发布稿本地化成中文，不要直译。", "ja": "この告知文を中国語向けにローカライズし、直訳は避けて。"},
+      "routing": {"expected_skill": "localize-content", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["meaning-preserved", "terminology", "native-register"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "localize-content-ambiguous-001",
+      "skill": "localize-content",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "Adapt the approved US onboarding emails for Japanese enterprise customers, preserving commitments and product terms while changing register and examples. Avoid a word-for-word translation.",
+        "zh-CN": "请将已批准的美国版入门邮件改写为面向日本企业客户的版本，保留承诺和产品术语，调整语域和示例。避免逐字直译。",
+        "ja": "承認済みの米国向けオンボーディングメールを、約束事項と製品用語を保ちながら、文体と例を日本の法人顧客向けに調整して。逐語訳は避けて。"
+      },
+      "routing": {"expected_skill": "localize-content", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": true, "negative_triggers": {"en": ["word-for-word translation"], "zh-CN": ["逐字直译"], "ja": ["逐語訳"]}},
+      "assertions": {"must": ["commitments-preserved", "term-consistency", "target-register"], "must_not": ["literal-translation"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "localize-content-conflicting-001",
+      "skill": "localize-content",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "Marketing asks for a new campaign concept and a Korean localization of the approved message, but legal permits no change to the core claims. Localize the approved message and do not invent a new campaign concept.",
+        "zh-CN": "市场团队同时要新活动创意和已批准信息的韩文本地化，但法务不允许改动核心声明。请本地化已批准信息，不要创作新活动概念。",
+        "ja": "マーケティングは新しいキャンペーン案と承認済みメッセージの韓国語ローカライズの両方を求めていますが、法務は中核主張の変更を認めていません。承認済みメッセージをローカライズし、新しいキャンペーン案は作らないで。"
+      },
+      "routing": {"expected_skill": "localize-content", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": true, "negative_triggers": {"en": ["new campaign concept"], "zh-CN": ["新活动概念"], "ja": ["新しいキャンペーン案"]}},
+      "assertions": {"must": ["approved-claims-preserved", "localized-register", "terminology-consistency"], "must_not": ["invent-new-campaign"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "prepare-meeting-basic-001",
       "skill": "prepare-meeting",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Prepare the agenda, pre-read, and decisions for the pricing meeting.",
-        "zh-CN": "为定价会议准备议程、预读和待决问题。",
-        "ja": "価格会議の議題、事前資料、決定事項を準備して。"
-      },
-      "assertions": [
-        "meeting-outcome",
-        "timeboxed-agenda",
-        "decisions"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Prepare the agenda, pre-read, and decisions for the pricing meeting.", "zh-CN": "为定价会议准备议程、预读和待决问题。", "ja": "価格会議の議題、事前資料、決定事項を準備して。"},
+      "routing": {"expected_skill": "prepare-meeting", "neighbor": "capture-decisions-actions", "not_for": ["capture-decisions-actions"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["meeting-outcome", "timeboxed-agenda", "decisions"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "prepare-meeting-ambiguous-001",
+      "skill": "prepare-meeting",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "Last month's notes are attached only as context. Prepare tomorrow's renewal meeting with a decision-focused agenda, pre-read, roles, and timeboxes; do not extract decisions from the old meeting.",
+        "zh-CN": "附上个月会议记录只是作为背景。请为明天的续约会议准备以决策为中心的议程、预读、角色和时间盒；不要从旧会议中提取决策。",
+        "ja": "先月の議事録は背景資料としてのみ添付されています。明日の更新会議に向け、意思決定中心の議題、事前資料、役割、時間配分を準備し、過去の会議から決定事項を抽出しないで。"
+      },
+      "routing": {"expected_skill": "prepare-meeting", "neighbor": "capture-decisions-actions", "not_for": ["capture-decisions-actions"], "hard_negative": true, "negative_triggers": {"en": ["extract decisions"], "zh-CN": ["提取决策"], "ja": ["決定事項を抽出"]}},
+      "assertions": {"must": ["future-meeting-outcome", "decision-agenda", "roles-and-timeboxes"], "must_not": ["treat-old-notes-as-minutes-task"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "prepare-meeting-conflicting-001",
+      "skill": "prepare-meeting",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The organizer asks for meeting minutes and a plan for tomorrow's pricing committee, but no committee meeting has happened yet. Build tomorrow's agenda, pre-read, decision questions, and attendee roles; meeting minutes must wait.",
+        "zh-CN": "组织者同时要会议纪要和明天定价委员会的计划，但委员会还没有召开。请准备明天的议程、预读、决策问题和与会角色；会议纪要必须等会后再做。",
+        "ja": "主催者は議事録と明日の価格委員会の計画を求めていますが、委員会はまだ開かれていません。明日の議題、事前資料、判断すべき問い、参加者の役割を準備し、議事録は会議後まで待って。"
+      },
+      "routing": {"expected_skill": "prepare-meeting", "neighbor": "capture-decisions-actions", "not_for": ["capture-decisions-actions"], "hard_negative": true, "negative_triggers": {"en": ["meeting minutes"], "zh-CN": ["会议纪要"], "ja": ["議事録"]}},
+      "assertions": {"must": ["pre-meeting-artifacts", "decision-questions", "attendee-roles"], "must_not": ["invent-future-minutes"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "capture-decisions-actions-basic-001",
       "skill": "capture-decisions-actions",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Extract decisions, owners, due dates, and open questions from these notes.",
-        "zh-CN": "从会议记录提取决策、负责人、截止日期和未决项。",
-        "ja": "会議記録から決定事項、担当者、期限、未解決事項を抽出して。"
-      },
-      "assertions": [
-        "decisions-separated",
-        "no-inferred-owner",
-        "provenance"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Extract decisions, owners, due dates, and open questions from these notes.", "zh-CN": "从会议记录提取决策、负责人、截止日期和未决项。", "ja": "会議記録から決定事項、担当者、期限、未解決事項を抽出して。"},
+      "routing": {"expected_skill": "capture-decisions-actions", "neighbor": "prepare-meeting", "not_for": ["prepare-meeting"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["decisions-separated", "no-inferred-owner", "provenance"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "capture-decisions-actions-ambiguous-001",
+      "skill": "capture-decisions-actions",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "The workshop has ended and the notes mix decisions, rejected ideas, and possible follow-ups. Record only supported decisions and actions with owners and dates; do not create a new agenda.",
+        "zh-CN": "工作坊已结束，记录里混有决策、被否决的想法和可能的后续。请只记录有依据的决策和行动，并附负责人和日期；不要创建新议程。",
+        "ja": "ワークショップは終了し、メモには決定、却下案、候補のフォローアップが混在しています。根拠のある決定とアクションだけを担当者・期限付きで記録し、新しい議題は作らないで。"
+      },
+      "routing": {"expected_skill": "capture-decisions-actions", "neighbor": "prepare-meeting", "not_for": ["prepare-meeting"], "hard_negative": true, "negative_triggers": {"en": ["new agenda"], "zh-CN": ["新议程"], "ja": ["新しい議題"]}},
+      "assertions": {"must": ["decision-versus-rejection", "supported-actions", "owner-date-provenance"], "must_not": ["invent-follow-up-agenda"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "capture-decisions-actions-conflicting-001",
+      "skill": "capture-decisions-actions",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The notes include a suggested agenda for next week, but the immediate record must capture what today's meeting actually decided and assigned. Extract those items with provenance and do not plan the next meeting.",
+        "zh-CN": "记录里包含下周议程建议，但当前需要记录的是今天会议实际做出的决定和分派。请带出处提取这些内容，不要规划下次会议。",
+        "ja": "メモには来週の議題案もありますが、今すぐ記録すべきなのは、今日の会議で実際に決定・割当されたことです。出典付きで抽出し、次回会議を計画しないで。"
+      },
+      "routing": {"expected_skill": "capture-decisions-actions", "neighbor": "prepare-meeting", "not_for": ["prepare-meeting"], "hard_negative": true, "negative_triggers": {"en": ["plan the next meeting"], "zh-CN": ["规划下次会议"], "ja": ["次回会議を計画"]}},
+      "assertions": {"must": ["actual-decisions", "actual-assignments", "source-provenance"], "must_not": ["convert-suggestion-into-decision"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "create-sop-basic-001",
       "skill": "create-sop",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Turn this process into an SOP a new teammate can follow.",
-        "zh-CN": "把这个流程写成新人也能执行的 SOP。",
-        "ja": "この業務を新人でも実行できるSOPにして。"
-      },
-      "assertions": [
-        "prerequisites",
-        "branches",
-        "quality-controls"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Turn this process into an SOP a new teammate can follow.", "zh-CN": "把这个流程写成新人也能执行的 SOP。", "ja": "この業務を新人でも実行できるSOPにして。"},
+      "routing": {"expected_skill": "create-sop", "neighbor": "automate-routine", "not_for": ["automate-routine"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["prerequisites", "branches", "quality-controls"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "create-sop-ambiguous-001",
+      "skill": "create-sop",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "The weekly access review is still manual and varies by operator. Document prerequisites, steps, exceptions, approvals, and evidence so a new teammate can run it; do not write an automation yet.",
+        "zh-CN": "每周权限审查仍是手工流程，且不同操作人做法不一。请记录前置条件、步骤、异常、审批和证据，让新人也能执行；暂时不要编写自动化。",
+        "ja": "週次のアクセスレビューはまだ手作業で、担当者ごとにやり方が異なります。新人でも実行できるよう、前提条件、手順、例外、承認、証跡を文書化し、自動化はまだ書かないで。"
+      },
+      "routing": {"expected_skill": "create-sop", "neighbor": "automate-routine", "not_for": ["automate-routine"], "hard_negative": true, "negative_triggers": {"en": ["automation"], "zh-CN": ["自动化"], "ja": ["自動化"]}},
+      "assertions": {"must": ["manual-prerequisites", "exception-branches", "approval-evidence"], "must_not": ["premature-automation"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "create-sop-conflicting-001",
+      "skill": "create-sop",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The requester wants an automation bot and an operating procedure, but security has rejected system access for the bot. Create the safe manual SOP with control points and escalation; do not implement the automation bot.",
+        "zh-CN": "需求方同时想要自动化机器人和操作程序，但安全团队已拒绝机器人的系统访问。请创建包含控制点和升级路径的安全手工 SOP，不要实现自动化机器人。",
+        "ja": "依頼者は自動化ボットと運用手順の両方を求めていますが、セキュリティ部門はボットのシステムアクセスを却下しています。管理ポイントとエスカレーションを含む安全な手作業SOPを作り、自動化ボットは実装しないで。"
+      },
+      "routing": {"expected_skill": "create-sop", "neighbor": "automate-routine", "not_for": ["automate-routine"], "hard_negative": true, "negative_triggers": {"en": ["automation bot"], "zh-CN": ["自动化机器人"], "ja": ["自動化ボット"]}},
+      "assertions": {"must": ["safe-manual-flow", "control-points", "escalation-path"], "must_not": ["bypass-access-rejection"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "automate-routine-basic-001",
       "skill": "automate-routine",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Automate this weekly reporting routine with dry-run and rollback.",
-        "zh-CN": "把每周报告流程自动化，并提供预演和回滚。",
-        "ja": "毎週のレポート業務をドライランとロールバック付きで自動化して。"
-      },
-      "assertions": [
-        "idempotency",
-        "permissions",
-        "recovery"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Automate this weekly reporting routine with dry-run and rollback.", "zh-CN": "把每周报告流程自动化，并提供预演和回滚。", "ja": "毎週のレポート業務をドライランとロールバック付きで自動化して。"},
+      "routing": {"expected_skill": "automate-routine", "neighbor": "create-sop", "not_for": ["create-sop"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["idempotency", "permissions", "recovery"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "automate-routine-ambiguous-001",
+      "skill": "automate-routine",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "A signed SOP already defines the stable invoice export. Implement repeatable execution with least privilege, dry-run, idempotency, logging, and rollback; do not rewrite the SOP.",
+        "zh-CN": "已签署的 SOP 定义了稳定的发票导出流程。请用最小权限、预演、幂等、日志和回滚实现可重复执行，不要重写 SOP。",
+        "ja": "署名済みSOPで安定した請求書エクスポート手順が定義されています。最小権限、ドライラン、べき等性、ログ、ロールバックを備えた反復実行を実装し、SOPを書き直さないで。"
+      },
+      "routing": {"expected_skill": "automate-routine", "neighbor": "create-sop", "not_for": ["create-sop"], "hard_negative": true, "negative_triggers": {"en": ["rewrite the SOP"], "zh-CN": ["重写 SOP"], "ja": ["SOPを書き直さ"]}},
+      "assertions": {"must": ["least-privilege", "dry-run-idempotency", "logging-and-rollback"], "must_not": ["change-signed-process"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "automate-routine-conflicting-001",
+      "skill": "automate-routine",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The ticket asks for a new procedure document and an automated reconciliation, but the procedure is already approved and versioned. Build the bounded automation against that version; do not create a new procedure document.",
+        "zh-CN": "工单同时要新程序文件和自动对账，但流程已批准并完成版本化。请面向该版本构建有边界的自动化，不要创建新程序文件。",
+        "ja": "チケットは新しい手順書と自動照合の両方を求めていますが、手順は承認・バージョン化済みです。そのバージョンに対して範囲を限定した自動化を構築し、新しい手順書は作らないで。"
+      },
+      "routing": {"expected_skill": "automate-routine", "neighbor": "create-sop", "not_for": ["create-sop"], "hard_negative": true, "negative_triggers": {"en": ["new procedure document"], "zh-CN": ["新程序文件"], "ja": ["新しい手順書"]}},
+      "assertions": {"must": ["version-bound-input", "safe-reconciliation", "rollback-path"], "must_not": ["fork-approved-procedure"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "review-deliverable-basic-001",
       "skill": "review-deliverable",
       "difficulty": "basic",
-      "prompts": {
-        "en": "Review this proposal for goal fit, evidence, logic, and clarity.",
-        "zh-CN": "按目标、证据、逻辑和表达审查这份方案。",
-        "ja": "提案書を目的適合性、根拠、論理、明瞭さでレビューして。"
-      },
-      "assertions": [
-        "criteria-coverage",
-        "evidence-backed-findings",
-        "severity"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "prompts": {"en": "Review this proposal for goal fit, evidence, logic, and clarity.", "zh-CN": "按目标、证据、逻辑和表达审查这份方案。", "ja": "提案書を目的適合性、根拠、論理、明瞭さでレビューして。"},
+      "routing": {"expected_skill": "review-deliverable", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["criteria-coverage", "evidence-backed-findings", "severity"], "must_not": []},
+      "rubric": "standard-v1"
     },
+    {
+      "id": "review-deliverable-ambiguous-001",
+      "skill": "review-deliverable",
+      "difficulty": "ambiguous",
+      "prompts": {
+        "en": "Before the author revises this proposal, identify evidence-backed defects by severity and point to exact sections. Return review findings only; do not rewrite the proposal.",
+        "zh-CN": "在作者修订这份方案前，请按严重程度找出有证据支持的缺陷，并指向具体段落。只返回审查发现，不要重写方案。",
+        "ja": "著者が提案書を修正する前に、根拠のある欠陥を重大度別に特定し、正確な箇所を示して。レビュー所見だけを返し、提案書を書き直さないで。"
+      },
+      "routing": {"expected_skill": "review-deliverable", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": true, "negative_triggers": {"en": ["rewrite the proposal"], "zh-CN": ["重写方案"], "ja": ["提案書を書き直さ"]}},
+      "assertions": {"must": ["section-specific-findings", "severity", "evidence-for-defect"], "must_not": ["silent-rewrite"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "review-deliverable-conflicting-001",
+      "skill": "review-deliverable",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "The owner asks you to review and then produce a revised draft, but authorship remains with their team and they requested a checkpoint first. Deliver the prioritized review with fix guidance; do not produce a revised draft.",
+        "zh-CN": "负责人请你先审查再产出修订稿，但著作权仍属于他们团队，且他们先要一个检查点。请交付排好优先级的审查及修复指导，不要产出修订稿。",
+        "ja": "所有者はレビュー後に改訂稿を作るよう求めていますが、執筆責任は彼らのチームに残り、まずチェックポイントを求めています。優先順位付きのレビューと修正指針を渡し、改訂稿を作らないで。"
+      },
+      "routing": {"expected_skill": "review-deliverable", "neighbor": "draft-document", "not_for": ["draft-document"], "hard_negative": true, "negative_triggers": {"en": ["revised draft"], "zh-CN": ["修订稿"], "ja": ["改訂稿"]}},
+      "assertions": {"must": ["prioritized-findings", "fix-guidance", "authorship-boundary"], "must_not": ["take-over-drafting"]},
+      "rubric": "standard-v1"
+    },
+
     {
       "id": "run-retrospective-basic-001",
       "skill": "run-retrospective",
       "difficulty": "basic",
+      "prompts": {"en": "Retrospect on the project: facts, causes, lessons, and actions.", "zh-CN": "复盘这个项目，区分事实、原因、经验和行动。", "ja": "プロジェクトを事実、原因、学び、行動に分けて振り返って。"},
+      "routing": {"expected_skill": "run-retrospective", "neighbor": "diagnose-root-cause", "not_for": ["diagnose-root-cause"], "hard_negative": false, "negative_triggers": {"en": [], "zh-CN": [], "ja": []}},
+      "assertions": {"must": ["facts-separated", "system-causes", "owned-actions"], "must_not": []},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "run-retrospective-ambiguous-001",
+      "skill": "run-retrospective",
+      "difficulty": "ambiguous",
       "prompts": {
-        "en": "Retrospect on the project: facts, causes, lessons, and actions.",
-        "zh-CN": "复盘这个项目，区分事实、原因、经验和行动。",
-        "ja": "プロジェクトを事実、原因、学び、行動に分けて振り返って。"
+        "en": "The launch is complete and the incident was resolved two weeks ago. Facilitate learning across planning, handoffs, and controls, turning lessons into owned experiments; this is not an active incident diagnosis.",
+        "zh-CN": "发布已完成，事故也在两周前解决。请围绕计划、交接和控制促进团队学习，将经验变成有负责人的实验；这不是活跃事故诊断。",
+        "ja": "ローンチは完了し、インシデントも2週間前に解決済みです。計画、引き継ぎ、統制を跨いだ学びを促し、教訓を担当者付きの実験に変えて。これは進行中のインシデント診断ではありません。"
       },
-      "assertions": [
-        "facts-separated",
-        "system-causes",
-        "owned-actions"
-      ],
-      "rubric": [
-        "task-correctness",
-        "traceability",
-        "direct-usability",
-        "native-register",
-        "safety"
-      ]
+      "routing": {"expected_skill": "run-retrospective", "neighbor": "diagnose-root-cause", "not_for": ["diagnose-root-cause"], "hard_negative": true, "negative_triggers": {"en": ["active incident diagnosis"], "zh-CN": ["活跃事故诊断"], "ja": ["進行中のインシデント診断"]}},
+      "assertions": {"must": ["project-level-learning", "system-patterns", "owned-experiments"], "must_not": ["reopen-resolved-incident"]},
+      "rubric": "standard-v1"
+    },
+    {
+      "id": "run-retrospective-conflicting-001",
+      "skill": "run-retrospective",
+      "difficulty": "conflicting",
+      "prompts": {
+        "en": "A defect prompted both a debugging request and an end-of-project review. The defect is contained and its root cause is approved; use those facts to examine system lessons and commitments, and do not keep debugging the live system.",
+        "zh-CN": "一个缺陷同时引发了调试请求和项目收尾审查。该缺陷已止损，根因也已批准；请用这些事实检视系统性经验和改进承诺，不要继续调试在线系统。",
+        "ja": "不具合によりデバッグ依頼とプロジェクト終了レビューの両方が発生しました。不具合は封じ込め済みで、根本原因も承認されています。その事実を使ってシステム上の学びとコミットメントを検討し、本番システムのデバッグを続けないで。"
+      },
+      "routing": {"expected_skill": "run-retrospective", "neighbor": "diagnose-root-cause", "not_for": ["diagnose-root-cause"], "hard_negative": true, "negative_triggers": {"en": ["debugging the live system"], "zh-CN": ["调试在线系统"], "ja": ["本番システムのデバッグ"]}},
+      "assertions": {"must": ["accepted-facts", "system-lessons", "owned-commitments"], "must_not": ["resume-closed-debugging"]},
+      "rubric": "standard-v1"
     }
   ]
 }

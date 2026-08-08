@@ -1,6 +1,6 @@
 ---
 name: synthesize-sources
-description: "Combine multiple sources into traceable consensus, disagreements, insights, and unknowns. Use for literature reviews, research briefs, or evidence synthesis. 中文：综合多份材料，提炼共识、分歧、洞察和未知。日本語：複数資料を統合し、合意点・相違点・洞察・不明点を整理する。"
+description: "Combine already-collected sources into traceable consensus, disagreements, insights, and unknowns. Use for literature reviews, research briefs, or evidence synthesis; do not use primarily to discover sources or issue claim-by-claim fact-check verdicts. 中文：把已收集材料综合为可追溯的共识、分歧、洞察和未知；适用于文献综述、研究简报或证据综合，不用于主要查找来源或逐条给出事实核验结论。日本語：収集済みの複数資料を、追跡可能な共通見解、相違点、洞察、不明点に統合する。文献レビュー、調査ブリーフ、証拠統合に使い、主に情報源を探索したり主張ごとの真偽判定を出したりする場合には使わない。"
 ---
 
 # Synthesize Sources

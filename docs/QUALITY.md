@@ -4,6 +4,10 @@
 
 An official Skill is a releaseable work capability, not an interesting prompt.
 
+## Current alpha evidence
+
+The 24 catalog skills currently pass structural, provenance, packaging, and local installer checks. Their English, Simplified Chinese, and Japanese content is machine-drafted. No skill may become `stable` until all three entries in `language_reviews` are signed as `human-reviewed` for the exact skill revision. The current smoke scorecard is diagnostic only; it does not prove native-language quality or cross-agent parity.
+
 ## Required gates
 
 1. Keep one atomic task and one canonical `SKILL.md`.
@@ -27,6 +31,8 @@ An official Skill is a releaseable work capability, not an interesting prompt.
 - Install lifecycle: macOS, Linux, and Windows × Codex and Claude Code × three locales.
 
 Experimental Skills may enter the catalog before meeting the stable score thresholds, but they must pass structural, provenance, and critical safety gates and must be labeled `experimental`.
+
+Machine-generated translation scores never substitute for native-speaker sign-off. Every release claim must match `evidence/claims.json`; a missing raw artifact is a failed evidence gate, not an implied pass.
 
 ## Scoring rubric
 

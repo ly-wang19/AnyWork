@@ -1,6 +1,6 @@
 ---
 name: run-retrospective
-description: "Turn project outcomes into facts, causes, lessons, and owned improvement experiments. Use after milestones, incidents, launches, or repeated work. 中文：复盘事实、原因、经验和有负责人的改进行动。日本語：事実、原因、学び、担当付き改善行動に分けて振り返る。"
+description: "Turn completed work into an evidence-based retrospective with facts, lessons, and owned improvement experiments. Use after milestones, launches, incidents, or repeated work; do not use solely to diagnose one unresolved failure's root cause. 中文：把已完成工作复盘为有证据的事实、经验和有负责人的改进实验；适用于里程碑、发布、事故或重复工作之后，不用于只诊断单个未解决故障的根因。日本語：完了した仕事を、根拠のある事実、学び、担当者を定めた改善実験として振り返る。マイルストーン、リリース、インシデント、反復業務の後に使い、未解決の単一障害の根本原因だけを診断する場合には使わない。"
 ---
 
 # Run Retrospective

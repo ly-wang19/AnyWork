@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   test:
-    name: ${{ matrix.os }} / Python 3.11
+    name: ${{ matrix.os }} / Go + Python
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -19,16 +19,63 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Set up Go
+        uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5.0.2
+        with:
+          go-version: "1.22.x"
+          cache: false
       - name: Set up Python
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.11"
-      - name: Run unit and lifecycle tests
+      - name: Run native unit and lifecycle tests
+        run: go test ./...
+      - name: Run native race detector and vet
+        if: runner.os == 'Linux'
+        run: |
+          go test -race ./...
+          go vet ./...
+      - name: Build native CLI
+        run: go build -trimpath .
+      - name: Validate all three native CLI languages
+        run: |
+          go run . doctor --lang en
+          go run . doctor --lang zh-CN
+          go run . doctor --lang ja
+      - name: Run Python reference tests
         run: python -m unittest discover -s tests -v
         env:
           PYTHONPATH: ${{ github.workspace }}/src
-      - name: Validate all three CLI languages
+      - name: Verify reproducible multilingual evaluation manifest
+        run: python scripts/validate_evals.py
+      - name: Validate all three Python reference languages
         run: |
           python anywork-cli.py doctor --lang en
           python anywork-cli.py doctor --lang zh-CN
           python anywork-cli.py doctor --lang ja
+
+  distribution:
+    name: Six native release targets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Set up Go
+        uses: actions/setup-go@0a12ed9d6a96ab950c8f026ed9f722fe0da7ef32 # v5.0.2
+        with:
+          go-version: "1.22.x"
+          cache: false
+      - name: Build archives and checksums
+        run: VERSION=ci bash scripts/build-release.sh dist
+      - name: Verify archive payloads and native smoke test
+        run: |
+          (cd dist && shasum -a 256 -c SHA256SUMS)
+          mkdir smoke
+          tar -xzf dist/anywork_ci_linux_amd64.tar.gz -C smoke
+          test -f smoke/LICENSE
+          test -f smoke/NOTICE
+          test -f smoke/THIRD_PARTY.yml
+          smoke/anywork --version
+          smoke/anywork doctor --lang en
+          smoke/anywork doctor --lang zh-CN
+          smoke/anywork doctor --lang ja

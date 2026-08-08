@@ -125,6 +125,23 @@ def validate_catalog(catalog: Catalog) -> list[str]:
             problems.append(f"skill {skill_id}: id must use lowercase kebab-case")
         if set(entry.get("languages", [])) != REQUIRED_LANGUAGES:
             problems.append(f"skill {skill_id}: must support en, zh-CN, and ja")
+        if not entry.get("capabilities"):
+            problems.append(f"skill {skill_id}: at least one declared capability is required")
+        reviews = entry.get("language_reviews", {})
+        if set(reviews) != REQUIRED_LANGUAGES:
+            problems.append(f"skill {skill_id}: language_reviews must cover en, zh-CN, and ja")
+        for language in sorted(REQUIRED_LANGUAGES):
+            review = reviews.get(language, {})
+            if review.get("status") not in {"machine-drafted", "human-reviewed"}:
+                problems.append(f"skill {skill_id}: invalid {language} language review status")
+            if review.get("revision") != entry.get("version"):
+                problems.append(f"skill {skill_id}: {language} review revision must match skill version")
+            if entry.get("maturity") == "stable" and (
+                review.get("status") != "human-reviewed"
+                or not review.get("reviewed_at")
+                or not review.get("reviewer_role")
+            ):
+                problems.append(f"stable skill {skill_id}: {language} requires a signed human review")
         if not entry.get("license") or not entry.get("source"):
             problems.append(f"skill {skill_id}: license and source are required")
         if entry.get("risk") not in {"low", "medium", "high"}:

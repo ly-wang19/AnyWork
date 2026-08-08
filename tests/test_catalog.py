@@ -20,11 +20,20 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(len(resolved), len(set(resolved)))
         self.assertEqual(set(resolved), set(self.catalog.skills))
 
+    def test_experimental_language_quality_is_explicit(self) -> None:
+        for skill in self.catalog.skills.values():
+            self.assertEqual(skill["maturity"], "experimental")
+            self.assertTrue(skill["capabilities"])
+            self.assertEqual(set(skill["language_reviews"]), {"en", "zh-CN", "ja"})
+            for review in skill["language_reviews"].values():
+                self.assertEqual(review["status"], "machine-drafted")
+                self.assertEqual(review["revision"], skill["version"])
+
     def test_all_eval_cases_are_trilingual_and_reference_a_skill(self) -> None:
         path = self.catalog.root / "evals" / "cases.json"
         payload = json.loads(path.read_text(encoding="utf-8"))
         cases = payload["cases"]
-        self.assertEqual(len(cases), len(self.catalog.skills))
+        self.assertEqual(len(cases), len(self.catalog.skills) * 3)
         for case in cases:
             self.assertIn(case["skill"], self.catalog.skills)
             self.assertEqual(set(case["prompts"]), {"en", "zh-CN", "ja"})

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "suite_id": "anywork-routing-v2",
+  "digest_algorithm": "sha256",
+  "suite_digest": "390ceea12a321eadf7ae937f5420fc4a63cb9b53c0a1298e802917406640fc0a",
+  "artifacts": {
+    "cases": {
+      "path": "evals/cases.json",
+      "sha256": "742c365dbe55862a0dfd0ebab8ff43ba3d4c4b4f1a9e7d0b7aced713224ab404"
+    },
+    "schema": {
+      "path": "schemas/eval.schema.json",
+      "sha256": "22cd68560791d2edd9a760ef217f401e98508c4b5cd16652b0a4c74f4abd6f5a"
+    }
+  },
+  "counts": {
+    "skills": 24,
+    "cases": 72,
+    "prompt_variants": 216
+  },
+  "languages": [
+    "en",
+    "zh-CN",
+    "ja"
+  ],
+  "difficulties": [
+    "basic",
+    "ambiguous",
+    "conflicting"
+  ],
+  "rubric_ids": [
+    "standard-v1"
+  ],
+  "claims": {
+    "model_runs_included": false,
+    "native_human_review_included": false
+  }
+}

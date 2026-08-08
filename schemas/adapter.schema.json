@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anywork.dev/schemas/adapter.schema.json",
+  "title": "AnyWork host adapter",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "status",
+    "target_family",
+    "official_documentation",
+    "targets",
+    "skill_file",
+    "portable_frontmatter_allowlist",
+    "strip_paths",
+    "copy_mode",
+    "install_executes_skill_code"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "version": {"type": "integer", "minimum": 1},
+    "status": {"enum": ["stable", "experimental"]},
+    "default_install": {"type": "boolean"},
+    "target_family": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "official_documentation": {"type": "string", "format": "uri"},
+    "targets": {"$ref": "#/$defs/targets"},
+    "native_alternatives": {"$ref": "#/$defs/targets"},
+    "path_evidence": {"type": "string"},
+    "skill_file": {"const": "SKILL.md"},
+    "ui_metadata": {"type": "string"},
+    "portable_frontmatter_allowlist": {
+      "type": "array",
+      "items": {"enum": ["name", "description", "license", "compatibility", "metadata"]},
+      "contains": {"const": "name"},
+      "minItems": 2,
+      "uniqueItems": true
+    },
+    "strip_paths": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "host_extension_fields": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "copy_mode": {"const": "directory"},
+    "install_executes_skill_code": {"const": false}
+  },
+  "$defs": {
+    "targets": {
+      "type": "object",
+      "required": ["user", "project"],
+      "properties": {
+        "user": {"type": "string", "minLength": 1},
+        "project": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

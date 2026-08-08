@@ -1,4 +1,4 @@
 interface:
   display_name: "Capture Decisions and Actions"
   short_description: "Extract decisions, owners, dates, and open questions"
-  default_prompt: "Use $capture-decisions-actions to turn these meeting notes into an action record."
+  default_prompt: "Use $capture-decisions-actions to turn these meeting notes into an action record, following my requested language or otherwise the language of my request."

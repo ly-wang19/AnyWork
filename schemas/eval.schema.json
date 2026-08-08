@@ -1,30 +1,50 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://anywork.dev/schemas/eval.schema.json",
-  "title": "AnyWork multilingual evaluation suite",
+  "title": "AnyWork multilingual routing and task-contract evaluation suite",
   "type": "object",
-  "required": ["schema_version", "languages", "cases"],
+  "required": [
+    "schema_version",
+    "suite_id",
+    "languages",
+    "difficulties",
+    "rubrics",
+    "cases"
+  ],
   "properties": {
-    "schema_version": {"const": 1},
+    "schema_version": {"const": 2},
+    "suite_id": {"const": "anywork-routing-v2"},
     "languages": {"const": ["en", "zh-CN", "ja"]},
+    "difficulties": {"const": ["basic", "ambiguous", "conflicting"]},
+    "rubrics": {
+      "type": "object",
+      "required": ["standard-v1"],
+      "properties": {
+        "standard-v1": {
+          "const": [
+            "task-correctness",
+            "traceability",
+            "direct-usability",
+            "native-register",
+            "safety"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
     "cases": {
       "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["id", "skill", "difficulty", "prompts", "assertions", "rubric"],
-        "properties": {
-          "id": {"type": "string"},
-          "skill": {"type": "string"},
-          "difficulty": {"enum": ["basic", "ambiguous", "conflicting"]},
-          "prompts": {"$ref": "#/$defs/localizedText"},
-          "assertions": {"type": "array", "items": {"type": "string"}, "minItems": 1},
-          "rubric": {"type": "array", "items": {"type": "string"}, "minItems": 1}
-        },
-        "additionalProperties": false
-      }
+      "minItems": 72,
+      "maxItems": 72,
+      "items": {"$ref": "#/$defs/case"}
     }
   },
   "$defs": {
+    "skillId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 64
+    },
     "localizedText": {
       "type": "object",
       "required": ["en", "zh-CN", "ja"],
@@ -32,6 +52,74 @@
         "en": {"type": "string", "minLength": 1},
         "zh-CN": {"type": "string", "minLength": 1},
         "ja": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "localizedTriggers": {
+      "type": "object",
+      "required": ["en", "zh-CN", "ja"],
+      "properties": {
+        "en": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "zh-CN": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "ja": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "routing": {
+      "type": "object",
+      "required": [
+        "expected_skill",
+        "neighbor",
+        "not_for",
+        "hard_negative",
+        "negative_triggers"
+      ],
+      "properties": {
+        "expected_skill": {"$ref": "#/$defs/skillId"},
+        "neighbor": {"$ref": "#/$defs/skillId"},
+        "not_for": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/skillId"},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "hard_negative": {"type": "boolean"},
+        "negative_triggers": {"$ref": "#/$defs/localizedTriggers"}
+      },
+      "additionalProperties": false
+    },
+    "assertions": {
+      "type": "object",
+      "required": ["must", "must_not"],
+      "properties": {
+        "must": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+          "minItems": 3,
+          "uniqueItems": true
+        },
+        "must_not": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "case": {
+      "type": "object",
+      "required": ["id", "skill", "difficulty", "prompts", "routing", "assertions", "rubric"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*-(?:basic|ambiguous|conflicting)-001$"
+        },
+        "skill": {"$ref": "#/$defs/skillId"},
+        "difficulty": {"enum": ["basic", "ambiguous", "conflicting"]},
+        "prompts": {"$ref": "#/$defs/localizedText"},
+        "routing": {"$ref": "#/$defs/routing"},
+        "assertions": {"$ref": "#/$defs/assertions"},
+        "rubric": {"const": "standard-v1"}
       },
       "additionalProperties": false
     }

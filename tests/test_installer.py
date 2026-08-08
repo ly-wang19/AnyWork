@@ -52,6 +52,28 @@ class InstallerTests(unittest.TestCase):
         self.install()
         self.assertEqual([event[0] for event in self.events], ["unchanged", "unchanged"])
 
+    def test_shared_target_tracks_consumers_without_duplicate_files(self) -> None:
+        shared_agents = ["codex", "gemini-cli", "github-copilot", "opencode"]
+        self.install(agents=shared_agents)
+        state = json.loads((self.project / ".anywork/state.json").read_text(encoding="utf-8"))
+        self.assertEqual(len(state["installations"]), 1)
+        record = next(iter(state["installations"].values()))
+        self.assertEqual(set(record["consumers"]), set(shared_agents))
+        uninstall_skills(
+            skill_ids=["clarify-outcome"],
+            agents=["gemini-cli"],
+            scope="project",
+            project_dir=self.project,
+            dry_run=False,
+            force=False,
+            emit=self.emit,
+        )
+        self.assertTrue((self.project / ".agents/skills/clarify-outcome/SKILL.md").is_file())
+        state = json.loads((self.project / ".anywork/state.json").read_text(encoding="utf-8"))
+        record = next(iter(state["installations"].values()))
+        self.assertNotIn("gemini-cli", record["consumers"])
+        self.assertIn("codex", record["consumers"])
+
     def test_refuses_to_overwrite_local_changes(self) -> None:
         self.install(agents=["codex"])
         skill = self.project / ".agents/skills/clarify-outcome/SKILL.md"

@@ -1,6 +1,6 @@
 ---
 name: model-scenarios
-description: "Build transparent base, upside, and downside scenarios with sensitivity analysis. Use for forecasts, budgets, capacity, or strategic planning. 中文：建立基准、乐观、悲观情景及敏感性分析。日本語：基準・上振れ・下振れシナリオと感度分析を作成する。"
+description: "Model transparent base, upside, and downside futures with sensitivity and break-even analysis. Use for forecasts, budgets, capacity, or strategy under uncertain assumptions; do not use only to analyze observed data or create a spreadsheet file. 中文：在不确定假设下建立透明的基准、乐观、悲观情景，并做敏感性和盈亏平衡分析；适用于预测、预算、产能或战略，不用于仅分析观测数据或只制作电子表格文件。日本語：不確実な仮定の下で、基準、上振れ、下振れの将来シナリオと感度・損益分岐分析を作る。予測、予算、キャパシティ、戦略に使い、観測データの分析だけ、またはスプレッドシート作成だけには使わない。"
 ---
 
 # Model Scenarios

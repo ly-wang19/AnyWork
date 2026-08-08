@@ -1,4 +1,4 @@
 interface:
   display_name: "Draft Document"
   short_description: "Create a complete document from an approved brief"
-  default_prompt: "Use $draft-document to draft the full document from this approved brief."
+  default_prompt: "Use $draft-document to draft the full document from this approved brief, following my requested language or otherwise the language of my request."
